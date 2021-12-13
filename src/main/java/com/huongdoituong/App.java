@@ -1,25 +1,17 @@
 package com.huongdoituong;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Scanner;
 
-import com.huongdoituong.Models.SanhCuoi;
+import com.huongdoituong.BLL.QuanLySanhCuoi;
+import com.huongdoituong.DAL.SanhCuoi;
 
-/**
- * Hello world!
- *
- */
 public class App {
-    public static void main(String[] args) throws IOException {
-        SanhCuoi sc = new SanhCuoi("ten", 1);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
-        File f = new File("src/main/resources/output.txt");
-        FileWriter fw = new FileWriter(f, true);
+    public static void main(String[] args) {
+        QuanLySanhCuoi qlSC = new QuanLySanhCuoi(SCANNER);
 
-        try (PrintWriter w = new PrintWriter(fw)) {
-            w.println(sc.getMaSC());
-        }
+        SanhCuoi sanhCuoi = new SanhCuoi("a", 1, 1);
+        qlSC.themSC(sanhCuoi);
     }
 }
