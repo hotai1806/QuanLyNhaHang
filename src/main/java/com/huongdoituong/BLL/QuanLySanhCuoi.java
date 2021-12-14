@@ -19,9 +19,31 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     public boolean themSC(SanhCuoi sc) {
-        listSanhCuoi.add(sc);
+        this.listSanhCuoi.add(sc);
 
-        return Ghi(Path.SANH_CUOI.getPath(), listSanhCuoi);
+        return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+    }
+
+    public boolean xoaSC(String maSC) {
+        SanhCuoi sc = timKiemSC(maSC);
+
+        if (sc != null) {
+            this.listSanhCuoi.remove(sc);
+
+            return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+        }
+
+        return false;
+    }
+
+    public SanhCuoi timKiemSC(String tuKhoa) {
+        for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
+            if (sanhCuoi.getMaSC().contains(tuKhoa)) {
+                return sanhCuoi;
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -40,9 +62,9 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                     sanhCuoi.setViTri(scanner.nextInt());
                     sanhCuoi.setSoLanThue(scanner.nextInt());
                     sanhCuoi.setSucChua(scanner.nextInt());
-                    sanhCuoi.setGia(scanner.nextInt());
+                    sanhCuoi.setGia(scanner.nextBigDecimal());
 
-                    listSanhCuoi.add(sanhCuoi);
+                    this.listSanhCuoi.add(sanhCuoi);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -50,7 +72,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                 }
 
                 scanner.close();
-            } catch (FileNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -59,8 +81,9 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     @Override
     public boolean Ghi(String path, List<SanhCuoi> items) {
         if (!items.isEmpty()) {
-            File f = new File(Path.SANH_CUOI.getPath());
-            try (PrintWriter printWriter = new PrintWriter(f)) {
+            File file = new File(Path.SANH_CUOI.getPath());
+
+            try (PrintWriter printWriter = new PrintWriter(file)) {
                 for (SanhCuoi sanhCuoi : items) {
                     printWriter.println(sanhCuoi.getMaSC());
                     printWriter.println(sanhCuoi.getTenSC());
@@ -68,14 +91,21 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                     printWriter.println(sanhCuoi.getSoLanThue());
                     printWriter.println(sanhCuoi.getSucChua());
                     printWriter.println(sanhCuoi.getGia());
-
-                    return true;
                 }
+
+                return true;
             } catch (FileNotFoundException ex) {
                 return false;
             }
         }
 
         return false;
+    }
+
+    @Override
+    public void HienThi() {
+        for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
+            System.out.println(sanhCuoi.getMaSC() + " - " + sanhCuoi.getTenSC());
+        }
     }
 }

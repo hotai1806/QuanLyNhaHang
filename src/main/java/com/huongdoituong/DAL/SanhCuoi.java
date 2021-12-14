@@ -1,5 +1,8 @@
 package com.huongdoituong.DAL;
 
+import java.math.BigDecimal;
+import java.util.Scanner;
+
 public class SanhCuoi {
     private static final String ID_FORMAT = "S%03d";
 
@@ -10,26 +13,39 @@ public class SanhCuoi {
     private int viTri;
     private int soLanThue;
     private int sucChua;
-    private int gia;
+    private BigDecimal gia;
 
     {
         setMaSC(String.format(ID_FORMAT, ++dem));
     }
 
-    public SanhCuoi() { };
+    public boolean Nhap(Scanner scanner) {
+        try {
+            System.out.print("Ten: ");
+            this.setTenSC(scanner.nextLine());
+            System.out.print("Vi tri: ");
+            this.setViTri(Integer.parseInt(scanner.nextLine()));
+            System.out.print("Suc chua: ");
+            this.setSucChua(Integer.parseInt(scanner.nextLine()));
 
-    public SanhCuoi(String ten, int viTri, int sucChua) {
-        this.setTenSC(ten);
-        this.setViTri(viTri);
-        this.setSucChua(sucChua);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            return false;
+        }
     }
 
-    public int getGia() {
+    public BigDecimal getGia() {
         return gia;
     }
 
-    public void setGia(int gia) {
+    public void setGia(BigDecimal gia) {
         this.gia = gia;
+    }
+
+    public void setGia(GiaThue giaThue) {
+        this.gia = giaThue.getGiaThue();
     }
 
     public int getSucChua() {
@@ -52,9 +68,11 @@ public class SanhCuoi {
         return viTri;
     }
 
-    public void setViTri(int viTri) {
+    public void setViTri(int viTri) throws Exception {
         if (viTri == 1 || viTri == 2) {
             this.viTri = viTri;
+        } else {
+            throw new Exception("Chi cho phep 1 hoac 2");
         }
     }
 
