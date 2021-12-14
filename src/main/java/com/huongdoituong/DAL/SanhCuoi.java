@@ -3,7 +3,7 @@ package com.huongdoituong.DAL;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class SanhCuoi {
+public class SanhCuoi implements Comparable<SanhCuoi> {
     private static final String ID_FORMAT = "S%03d";
 
     public static int dem = 0;
@@ -31,9 +31,19 @@ public class SanhCuoi {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            
+
             return false;
         }
+    }
+
+    @Override
+    public int compareTo(SanhCuoi sc) {
+        if (this.getSoLanThue() == sc.getSoLanThue())
+            return 0;
+        else if (this.getSoLanThue() < sc.getSoLanThue())
+            return 1;
+        else
+            return -1;
     }
 
     public BigDecimal getGia() {

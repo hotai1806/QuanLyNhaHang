@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,8 +26,20 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
     }
 
+    public boolean capNhatSC(String maSC, Scanner scanner) {
+        SanhCuoi sc = traCuuBangMaSC(maSC);
+
+        if (sc != null) {
+            sc.Nhap(scanner);
+
+            return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+        }
+
+        return false;
+    }
+
     public boolean xoaSC(String maSC) {
-        SanhCuoi sc = timKiemSC(maSC);
+        SanhCuoi sc = traCuuBangMaSC(maSC);
 
         if (sc != null) {
             this.listSanhCuoi.remove(sc);
@@ -36,7 +50,26 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return false;
     }
 
-    public SanhCuoi timKiemSC(String tuKhoa) {
+    public void sapXep(List<SanhCuoi> dsSanhCuoi) {
+        Collections.sort(dsSanhCuoi);
+    }
+
+    public List<SanhCuoi> traCuuBangTuKhoa(String tuKhoa) {
+        List<SanhCuoi> ketQua = new ArrayList<>();
+
+        for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
+            if (sanhCuoi.getTenSC().contains(tuKhoa) ||
+                    Integer.toString(sanhCuoi.getViTri()).contains(tuKhoa) ||
+                    Integer.toString(sanhCuoi.getSucChua()).contains(tuKhoa)) {
+
+                ketQua.add(sanhCuoi);
+            }
+        }
+
+        return ketQua;
+    }
+
+    private SanhCuoi traCuuBangMaSC(String tuKhoa) {
         for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
             if (sanhCuoi.getMaSC().contains(tuKhoa)) {
                 return sanhCuoi;
@@ -50,7 +83,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     public void Doc(String path, Scanner scanner) {
         File file = new File(Path.SANH_CUOI.getPath());
 
-        if (file.exists()) {
+        if (file.exists() && file.length() > 0) {
             try {
                 scanner = new Scanner(file);
 
@@ -70,6 +103,10 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                         scanner.nextLine();
                     }
                 }
+
+                // Lay 3 so cuoi tu ma sanh cuoi S*** cuoi cung lam bien dem
+                SanhCuoi.dem = Integer.parseInt(
+                        this.listSanhCuoi.get(this.listSanhCuoi.size() - 1).getMaSC().substring(1));
 
                 scanner.close();
             } catch (Exception e) {
@@ -105,7 +142,20 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     @Override
     public void HienThi() {
         for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
-            System.out.println(sanhCuoi.getMaSC() + " - " + sanhCuoi.getTenSC());
+            System.out.println("Ma: " + sanhCuoi.getMaSC());
+            System.out.println("Ten: " + sanhCuoi.getTenSC());
+            System.out.println("Vi tri: " + sanhCuoi.getViTri());
+            System.out.println("Suc chua: " + sanhCuoi.getSucChua());
+            System.out.println("------------------------------------");
+        }
+    }
+
+    @Override
+    public void HienThi(List<SanhCuoi> items) {
+        for (SanhCuoi sanhCuoi : items) {
+            System.out.println("Ten: " + sanhCuoi.getTenSC());
+            System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());
+            System.out.println("------------------------------------");
         }
     }
 }

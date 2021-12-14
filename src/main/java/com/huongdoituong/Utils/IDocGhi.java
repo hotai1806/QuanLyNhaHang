@@ -9,4 +9,6 @@ public interface IDocGhi<T> {
     public boolean Ghi(String path, List<T> items);
 
     public void HienThi();
+
+    public void HienThi(List<T> items);
 }
