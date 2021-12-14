@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,13 +16,13 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     private List<SanhCuoi> listSanhCuoi = new ArrayList<>();
 
     public QuanLySanhCuoi(Scanner scanner) {
-        Doc(Path.SANH_CUOI.getPath(), scanner);
+        doc(Path.SANH_CUOI.getPath(), scanner);
     }
 
     public boolean themSC(SanhCuoi sc) {
         this.listSanhCuoi.add(sc);
 
-        return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+        return ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
     }
 
     public boolean capNhatSC(String maSC, Scanner scanner) {
@@ -32,7 +31,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         if (sc != null) {
             sc.Nhap(scanner);
 
-            return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+            return ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
         }
 
         return false;
@@ -44,7 +43,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         if (sc != null) {
             this.listSanhCuoi.remove(sc);
 
-            return Ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+            return ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
         }
 
         return false;
@@ -69,9 +68,9 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return ketQua;
     }
 
-    private SanhCuoi traCuuBangMaSC(String tuKhoa) {
+    private SanhCuoi traCuuBangMaSC(String maSC) {
         for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
-            if (sanhCuoi.getMaSC().contains(tuKhoa)) {
+            if (sanhCuoi.getMaSC().contains(maSC)) {
                 return sanhCuoi;
             }
         }
@@ -80,7 +79,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     @Override
-    public void Doc(String path, Scanner scanner) {
+    public void doc(String path, Scanner scanner) {
         File file = new File(Path.SANH_CUOI.getPath());
 
         if (file.exists() && file.length() > 0) {
@@ -116,7 +115,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     @Override
-    public boolean Ghi(String path, List<SanhCuoi> items) {
+    public boolean ghi(String path, List<SanhCuoi> items) {
         if (!items.isEmpty()) {
             File file = new File(Path.SANH_CUOI.getPath());
 
@@ -140,7 +139,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     @Override
-    public void HienThi() {
+    public void hienThi() {
         for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
             System.out.println("Ma: " + sanhCuoi.getMaSC());
             System.out.println("Ten: " + sanhCuoi.getTenSC());
@@ -151,7 +150,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     @Override
-    public void HienThi(List<SanhCuoi> items) {
+    public void hienThi(List<SanhCuoi> items) {
         for (SanhCuoi sanhCuoi : items) {
             System.out.println("Ten: " + sanhCuoi.getTenSC());
             System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());

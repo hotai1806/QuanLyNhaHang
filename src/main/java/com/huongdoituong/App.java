@@ -20,7 +20,7 @@ public class App {
         // qlSC.HienThi();
         List<SanhCuoi> listSC = qlSC.traCuuBangTuKhoa("1");
         qlSC.sapXep(listSC);
-        qlSC.HienThi(listSC);
+        qlSC.hienThi(listSC);
         // qlSC.suaSC(SCANNER.nextLine(), SCANNER);
         // qlSC.xoaSC(SCANNER.next());
 
