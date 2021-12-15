@@ -1,11 +1,16 @@
 package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class SanhCuoi implements Comparable<SanhCuoi> {
-    private static final String ID_FORMAT = "S%03d";
-
+    private final String ID_FORMAT = "S%03d";
+    private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+    
     public static int dem = 0;
 
     private String maSC;
@@ -16,24 +21,8 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
     private BigDecimal gia;
 
     {
-        setMaSC(String.format(ID_FORMAT, ++dem));
-    }
-
-    public boolean Nhap(Scanner scanner) {
-        try {
-            System.out.print("Ten: ");
-            this.setTenSC(scanner.nextLine());
-            System.out.print("Vi tri: ");
-            this.setViTri(Integer.parseInt(scanner.nextLine()));
-            System.out.print("Suc chua: ");
-            this.setSucChua(Integer.parseInt(scanner.nextLine()));
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return false;
-        }
+        this.setMaSC(String.format(ID_FORMAT, ++dem));
+        this.setGia(new BigDecimal(0));
     }
 
     @Override
@@ -54,8 +43,19 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
         this.gia = gia;
     }
 
-    public void setGia(GiaThue giaThue) {
-        this.gia = giaThue.getGiaThue();
+    public void setGia(String ngayThue) throws ParseException {
+        Date date = DATE_FORMATER.parse(ngayThue);
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if (day == Calendar.SATURDAY || day == Calendar.SUNDAY) {
+            this.gia = GiaThue.CUOI_TUAN.getGiaThue();
+        } else {
+            this.gia = GiaThue.NGAY_THUONG.getGiaThue();
+        }
     }
 
     public int getSucChua() {

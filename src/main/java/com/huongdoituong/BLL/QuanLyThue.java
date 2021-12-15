@@ -14,7 +14,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     private List<ThongTinThue> listThongTinThue = new ArrayList<>();
 
     public QuanLyThue() {
-        doc(Path.THONG_TIN_THUE.getPath());
+        // doc(Path.THONG_TIN_THUE.getPath());
     }
 
     public boolean themThongTinThue(ThongTinThue thongTinThue) {

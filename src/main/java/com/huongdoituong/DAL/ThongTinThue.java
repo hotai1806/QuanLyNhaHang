@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 
 public class ThongTinThue {
-    public static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+    private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+    
     public static int dem = 0;
 
     private int maThue;
@@ -19,35 +19,22 @@ public class ThongTinThue {
     private String[] menu;
     private BigDecimal donGiaMenu;
     private String[] dichVu;
+    private BigDecimal donGiaDichVu;
 
     {
         this.setMaThue(++dem);
+
+        this.donGiaThueSanh = new BigDecimal(0);
+        this.donGiaMenu = new BigDecimal(0);
+        this.donGiaDichVu = new BigDecimal(0);
     }
 
-    public boolean Nhap(Scanner scanner) {
-        try {
-            System.out.print("Ten tiec: ");
-            this.setTenTiec(scanner.nextLine());
+    public BigDecimal getDonGiaDichVu() {
+        return donGiaDichVu;
+    }
 
-            System.out.print("Ngay thue ");
-            this.setNgayThue(scanner.nextLine());
-            System.out.println(this.getNgayThue());
-
-            System.out.println("Thoi diem thue: ");
-            System.out.println("1. Sang");
-            System.out.println("2. Chieu");
-            System.out.println("3. Toi");    
-            this.setThoiDiemThue(scanner.nextLine());
-
-            System.out.print("Ten tiec: ");
-            this.setTenTiec(scanner.nextLine());
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return false;
-        }
+    public void setDonGiaDichVu(BigDecimal donGiaDichVu) {
+        this.donGiaDichVu = donGiaDichVu;
     }
 
     public String[] getMenu() {

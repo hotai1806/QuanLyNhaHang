@@ -29,9 +29,21 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         SanhCuoi sc = traCuuBangMaSC(maSC);
 
         if (sc != null) {
-            sc.Nhap(scanner);
+            try {
+                System.out.print("Ten: ");
+                sc.setTenSC(scanner.nextLine());
+                System.out.print("Vi tri: ");
+                sc.setViTri(Integer.parseInt(scanner.nextLine()));
+                System.out.print("Suc chua: ");
+                sc.setSucChua(Integer.parseInt(scanner.nextLine()));
 
-            return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
+                return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                return false;
+            }
+
         }
 
         return false;
@@ -49,7 +61,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return false;
     }
 
-    public void sapXep(List<SanhCuoi> dsSanhCuoi) {
+    private void sapXep(List<SanhCuoi> dsSanhCuoi) {
         Collections.sort(dsSanhCuoi);
     }
 
@@ -66,6 +78,16 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         }
 
         return ketQua;
+    }
+
+    public SanhCuoi traCuuBangTen(String tenSC) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
+            if (sanhCuoi.getTenSC().equalsIgnoreCase(tenSC)) {
+                return sanhCuoi;
+            }
+        }
+
+        return null;
     }
 
     public static SanhCuoi traCuuBangMaSC(String maSC) {
@@ -152,6 +174,8 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
 
     @Override
     public void hienThi(List<SanhCuoi> items) {
+        sapXep(items);
+
         for (SanhCuoi sanhCuoi : items) {
             System.out.println("Ten: " + sanhCuoi.getTenSC());
             System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());
