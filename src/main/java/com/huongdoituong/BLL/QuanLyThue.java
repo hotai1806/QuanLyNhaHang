@@ -1,9 +1,7 @@
 package com.huongdoituong.BLL;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -63,20 +61,22 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     @Override
     public boolean ghi(String path, List<ThongTinThue> items) {
         if (!items.isEmpty()) {
-            File file = new File(Path.THONG_TIN_THUE.getPath());
+            try {
+                File file = new File(Path.THONG_TIN_THUE.getPath());
 
-            try (PrintWriter printWriter = new PrintWriter(file)) {
-                for (ThongTinThue thongTinThue : items) {
-                    printWriter.println(thongTinThue.getMaThue());
-                    printWriter.println(thongTinThue.getTenTiec());
-                    printWriter.println(thongTinThue.getNgayThue());
-                    printWriter.println(thongTinThue.getThoiDiemThue().toInt());
-                    printWriter.println(thongTinThue.getSanhCuoi().getMaSC());
-                    printWriter.println(thongTinThue.getDonGiaThueSanh());
+                try (PrintWriter printWriter = new PrintWriter(file)) {
+                    for (ThongTinThue thongTinThue : items) {
+                        printWriter.println(thongTinThue.getMaThue());
+                        printWriter.println(thongTinThue.getTenTiec());
+                        printWriter.println(thongTinThue.getNgayThue());
+                        printWriter.println(thongTinThue.getThoiDiemThue().toInt());
+                        printWriter.println(thongTinThue.getSanhCuoi().getMaSC());
+                        printWriter.println(thongTinThue.getDonGiaThueSanh());
+                    }
+
+                    return true;
                 }
-
-                return true;
-            } catch (FileNotFoundException ex) {
+            } catch (Exception ex) {
                 return false;
             }
         }

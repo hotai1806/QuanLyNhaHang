@@ -39,6 +39,9 @@ public class ThongTinThue {
             System.out.println("3. Toi");    
             this.setThoiDiemThue(scanner.nextLine());
 
+            System.out.print("Ten tiec: ");
+            this.setTenTiec(scanner.nextLine());
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,9 +67,7 @@ public class ThongTinThue {
     }
 
     public void setThoiDiemThue(String thoiDiem) throws Exception {
-        int choose = Integer.parseInt(thoiDiem);
-
-        switch (choose) {
+        switch (Integer.parseInt(thoiDiem)) {
             case 1:
                 this.setThoiDiemThue(ThoiDiemThue.SANG);
                 break;
@@ -117,8 +118,8 @@ public class ThongTinThue {
         this.donGiaThueSanh = donGiaThueSanh;
     }
 
-    public Date getNgayThue() {
-        return ngayThue;
+    public String getNgayThue() {
+        return DATE_FORMATER.format(ngayThue);
     }
 
     public void setNgayThue(String ngayThue) throws ParseException {
