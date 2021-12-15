@@ -1,46 +1,61 @@
 package com.huongdoituong;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLySanhCuoi;
-import com.huongdoituong.DAL.GiaThue;
 import com.huongdoituong.DAL.SanhCuoi;
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public static void main(String[] args) throws ParseException {
-        QuanLySanhCuoi qlSC = new QuanLySanhCuoi(SCANNER);
-        // qlSC.HienThi();
-        List<SanhCuoi> listSC = qlSC.traCuuBangTuKhoa("1");
-        qlSC.sapXep(listSC);
-        qlSC.hienThi(listSC);
-        // qlSC.suaSC(SCANNER.nextLine(), SCANNER);
-        // qlSC.xoaSC(SCANNER.next());
+    public static void main(String[] args) {
+        QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+        SanhCuoi sanhCuoi = new SanhCuoi();
 
-        // SanhCuoi sc = new SanhCuoi();
-        // if (sc.Nhap(SCANNER)) {
+        // // Them
+        // try {
+        //     System.out.print("Ten: ");
+        //     sanhCuoi.setTenSC(SCANNER.nextLine());
+        //     System.out.print("Vi tri: ");
+        //     sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
+        //     System.out.print("Suc chua: ");
+        //     sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
 
-        // String sDate1="17/12/2021";
-        // Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-        // Calendar calendar = new GregorianCalendar();
-        // calendar.setTime(date1);
+        //     if (quanLySanhCuoi.themSC(sanhCuoi)) {
+        //         System.out.print("Them thanh cong!");
+        //     }
 
-        // int day = calendar.get(Calendar.DAY_OF_WEEK);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
-        // if (day == Calendar.SATURDAY || day == Calendar.SUNDAY) {
-        // sc.setGia(GiaThue.CUOI_TUAN);
+        //--------------------------------------------------------------------------
+
+        // // Cap nhat
+        // quanLySanhCuoi.hienThi();
+        // System.out.print("Nhap ma sanh cuoi: ");
+        // if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
+        //     System.out.print("Cap nhat thanh cong!");
         // } else {
-        // sc.setGia(GiaThue.NGAY_THUONG);
+        //     System.out.print("Cap nhat khong thanh cong!");
+        // }
+        
+        //--------------------------------------------------------------------------
+
+        // // Xoa
+        // quanLySanhCuoi.hienThi();
+        // System.out.print("Nhap ma sanh cuoi: ");
+        // if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
+        //     System.out.print("Xoa thanh cong!");
+        // } else {
+        //     System.out.print("Xoa khong thanh cong!");
         // }
 
-        // qlSC.themSC(sc);
-        // }
+        //--------------------------------------------------------------------------
+
+        // // Tim kiem
+        // System.out.print("Nhap tu khoa can tim: ");
+        // List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
+        // quanLySanhCuoi.hienThi(listSanhCuoi);
     }
 }

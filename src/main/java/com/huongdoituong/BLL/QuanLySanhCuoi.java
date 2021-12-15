@@ -13,25 +13,37 @@ import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
 public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
-    private List<SanhCuoi> listSanhCuoi = new ArrayList<>();
+    private static List<SanhCuoi> listSanhCuoi = new ArrayList<>();
 
-    public QuanLySanhCuoi(Scanner scanner) {
-        doc(Path.SANH_CUOI.getPath(), scanner);
+    public QuanLySanhCuoi() {
+        doc(Path.SANH_CUOI.getPath());
     }
 
     public boolean themSC(SanhCuoi sc) {
-        this.listSanhCuoi.add(sc);
+        QuanLySanhCuoi.listSanhCuoi.add(sc);
 
-        return ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+        return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
     }
 
     public boolean capNhatSC(String maSC, Scanner scanner) {
         SanhCuoi sc = traCuuBangMaSC(maSC);
 
         if (sc != null) {
-            sc.Nhap(scanner);
+            try {
+                System.out.print("Ten: ");
+                sc.setTenSC(scanner.nextLine());
+                System.out.print("Vi tri: ");
+                sc.setViTri(Integer.parseInt(scanner.nextLine()));
+                System.out.print("Suc chua: ");
+                sc.setSucChua(Integer.parseInt(scanner.nextLine()));
 
-            return ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+                return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                return false;
+            }
+
         }
 
         return false;
@@ -41,22 +53,22 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         SanhCuoi sc = traCuuBangMaSC(maSC);
 
         if (sc != null) {
-            this.listSanhCuoi.remove(sc);
+            QuanLySanhCuoi.listSanhCuoi.remove(sc);
 
-            return ghi(Path.SANH_CUOI.getPath(), this.listSanhCuoi);
+            return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
         }
 
         return false;
     }
 
-    public void sapXep(List<SanhCuoi> dsSanhCuoi) {
+    private void sapXep(List<SanhCuoi> dsSanhCuoi) {
         Collections.sort(dsSanhCuoi);
     }
 
     public List<SanhCuoi> traCuuBangTuKhoa(String tuKhoa) {
         List<SanhCuoi> ketQua = new ArrayList<>();
 
-        for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
             if (sanhCuoi.getTenSC().contains(tuKhoa) ||
                     Integer.toString(sanhCuoi.getViTri()).contains(tuKhoa) ||
                     Integer.toString(sanhCuoi.getSucChua()).contains(tuKhoa)) {
@@ -68,8 +80,8 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return ketQua;
     }
 
-    private SanhCuoi traCuuBangMaSC(String maSC) {
-        for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
+    public static SanhCuoi traCuuBangMaSC(String maSC) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
             if (sanhCuoi.getMaSC().contains(maSC)) {
                 return sanhCuoi;
             }
@@ -79,12 +91,12 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     @Override
-    public void doc(String path, Scanner scanner) {
+    public void doc(String path) {
         File file = new File(Path.SANH_CUOI.getPath());
 
         if (file.exists() && file.length() > 0) {
             try {
-                scanner = new Scanner(file);
+                Scanner scanner = new Scanner(file);
 
                 while (scanner.hasNext()) {
                     SanhCuoi sanhCuoi = new SanhCuoi();
@@ -96,7 +108,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                     sanhCuoi.setSucChua(scanner.nextInt());
                     sanhCuoi.setGia(scanner.nextBigDecimal());
 
-                    this.listSanhCuoi.add(sanhCuoi);
+                    QuanLySanhCuoi.listSanhCuoi.add(sanhCuoi);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -105,7 +117,8 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
 
                 // Lay 3 so cuoi tu ma sanh cuoi S*** cuoi cung lam bien dem
                 SanhCuoi.dem = Integer.parseInt(
-                        this.listSanhCuoi.get(this.listSanhCuoi.size() - 1).getMaSC().substring(1));
+                        QuanLySanhCuoi.listSanhCuoi.get(
+                                QuanLySanhCuoi.listSanhCuoi.size() - 1).getMaSC().substring(1));
 
                 scanner.close();
             } catch (Exception e) {
@@ -140,7 +153,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
 
     @Override
     public void hienThi() {
-        for (SanhCuoi sanhCuoi : this.listSanhCuoi) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
             System.out.println("Ma: " + sanhCuoi.getMaSC());
             System.out.println("Ten: " + sanhCuoi.getTenSC());
             System.out.println("Vi tri: " + sanhCuoi.getViTri());
@@ -151,6 +164,8 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
 
     @Override
     public void hienThi(List<SanhCuoi> items) {
+        sapXep(items);
+
         for (SanhCuoi sanhCuoi : items) {
             System.out.println("Ten: " + sanhCuoi.getTenSC());
             System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());
