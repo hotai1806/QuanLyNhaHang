@@ -13,16 +13,16 @@ import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
 public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
-    private static List<SanhCuoi> listSanhCuoi = new ArrayList<>();
+    private static List<SanhCuoi> dsSanhCuoi = new ArrayList<>();
 
     public QuanLySanhCuoi() {
         doc(Path.SANH_CUOI.getPath());
     }
 
     public boolean themSC(SanhCuoi sc) {
-        QuanLySanhCuoi.listSanhCuoi.add(sc);
+        QuanLySanhCuoi.dsSanhCuoi.add(sc);
 
-        return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
+        return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
     }
 
     public boolean capNhatSC(String maSC, Scanner scanner) {
@@ -37,7 +37,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                 System.out.print("Suc chua: ");
                 sc.setSucChua(Integer.parseInt(scanner.nextLine()));
 
-                return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
+                return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
             } catch (Exception e) {
                 e.printStackTrace();
 
@@ -53,9 +53,9 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         SanhCuoi sc = traCuuBangMaSC(maSC);
 
         if (sc != null) {
-            QuanLySanhCuoi.listSanhCuoi.remove(sc);
+            QuanLySanhCuoi.dsSanhCuoi.remove(sc);
 
-            return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.listSanhCuoi);
+            return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
         }
 
         return false;
@@ -68,7 +68,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     public List<SanhCuoi> traCuuBangTuKhoa(String tuKhoa) {
         List<SanhCuoi> ketQua = new ArrayList<>();
 
-        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
             if (sanhCuoi.getTenSC().contains(tuKhoa) ||
                     Integer.toString(sanhCuoi.getViTri()).contains(tuKhoa) ||
                     Integer.toString(sanhCuoi.getSucChua()).contains(tuKhoa)) {
@@ -81,7 +81,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     public SanhCuoi traCuuBangTen(String tenSC) {
-        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
             if (sanhCuoi.getTenSC().equalsIgnoreCase(tenSC)) {
                 return sanhCuoi;
             }
@@ -91,7 +91,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
     }
 
     public static SanhCuoi traCuuBangMaSC(String maSC) {
-        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
             if (sanhCuoi.getMaSC().contains(maSC)) {
                 return sanhCuoi;
             }
@@ -118,7 +118,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                     sanhCuoi.setSucChua(scanner.nextInt());
                     sanhCuoi.setGia(scanner.nextBigDecimal());
 
-                    QuanLySanhCuoi.listSanhCuoi.add(sanhCuoi);
+                    QuanLySanhCuoi.dsSanhCuoi.add(sanhCuoi);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -127,8 +127,8 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
 
                 // Lay 3 so cuoi tu ma sanh cuoi S*** cuoi cung lam bien dem
                 SanhCuoi.dem = Integer.parseInt(
-                        QuanLySanhCuoi.listSanhCuoi.get(
-                                QuanLySanhCuoi.listSanhCuoi.size() - 1).getMaSC().substring(1));
+                        QuanLySanhCuoi.dsSanhCuoi.get(
+                                QuanLySanhCuoi.dsSanhCuoi.size() - 1).getMaSC().substring(1));
 
                 scanner.close();
             } catch (Exception e) {
@@ -163,7 +163,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
 
     @Override
     public void hienThi() {
-        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.listSanhCuoi) {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
             System.out.println("Ma: " + sanhCuoi.getMaSC());
             System.out.println("Ten: " + sanhCuoi.getTenSC());
             System.out.println("Vi tri: " + sanhCuoi.getViTri());

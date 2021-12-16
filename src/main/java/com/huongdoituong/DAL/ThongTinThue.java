@@ -3,7 +3,11 @@ package com.huongdoituong.DAL;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.huongdoituong.App.Menu;
 
 public class ThongTinThue {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
@@ -16,9 +20,9 @@ public class ThongTinThue {
     private ThoiDiemThue thoiDiemThue;
     private SanhCuoi sanhCuoi;
     private BigDecimal donGiaThueSanh;
-    private String[] menu;
+    private List<Menu> menu;
     private BigDecimal donGiaMenu;
-    private String[] dichVu;
+    private List<String> dichVu;
     private BigDecimal donGiaDichVu;
 
     {
@@ -27,6 +31,9 @@ public class ThongTinThue {
         this.donGiaThueSanh = new BigDecimal(0);
         this.donGiaMenu = new BigDecimal(0);
         this.donGiaDichVu = new BigDecimal(0);
+
+        menu = new ArrayList<>();
+        dichVu = new ArrayList<>();
     }
 
     public BigDecimal getDonGiaDichVu() {
@@ -37,11 +44,11 @@ public class ThongTinThue {
         this.donGiaDichVu = donGiaDichVu;
     }
 
-    public String[] getMenu() {
+    public List<Menu> getMenu() {
         return menu;
     }
 
-    public void setMenu(String[] menu) {
+    public void setMenu(List<Menu> menu) {
         this.menu = menu;
     }
 
@@ -73,11 +80,11 @@ public class ThongTinThue {
         return maThue;
     }
 
-    public String[] getDichVu() {
+    public List<String> getDichVu() {
         return dichVu;
     }
 
-    public void setDichVu(String[] dichVu) {
+    public void setDichVu(List<String> dichVu) {
         this.dichVu = dichVu;
     }
 
@@ -89,12 +96,16 @@ public class ThongTinThue {
         this.sanhCuoi = sanhCuoi;
     }
 
-    public BigDecimal getTongGiaMenu() {
+    public BigDecimal getDonGiaMenu() {
+        for (Menu m : menu) {
+            donGiaMenu.add(m.getTongGia());
+        }
+
         return donGiaMenu;
     }
 
-    public void setTongGiaMenu(BigDecimal tongGiaMenu) {
-        this.donGiaMenu = tongGiaMenu;
+    public void setDonGiaMenu(BigDecimal donGiaMenu) {
+        this.donGiaMenu = donGiaMenu;
     }
 
     public BigDecimal getDonGiaThueSanh() {
