@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.huongdoituong.App.DichVu;
 import com.huongdoituong.App.Menu;
 
 public class ThongTinThue {
@@ -22,7 +23,7 @@ public class ThongTinThue {
     private BigDecimal donGiaThueSanh;
     private List<Menu> menu;
     private BigDecimal donGiaMenu;
-    private List<String> dichVu;
+    private List<DichVu> dichVu;
     private BigDecimal donGiaDichVu;
 
     {
@@ -36,7 +37,27 @@ public class ThongTinThue {
         dichVu = new ArrayList<>();
     }
 
+    public BigDecimal getTongGia() {
+        BigDecimal tongGia = getDonGiaThueSanh().add(getDonGiaMenu()).add(getDonGiaDichVu());
+
+        return tongGia;
+    }
+
+    public boolean kiemTraDichVuTrungLap(DichVu dvCheck) {
+        for (DichVu dv : dichVu) {
+            if (dvCheck.ten.equals(dv.ten)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public BigDecimal getDonGiaDichVu() {
+        for (DichVu dv : dichVu) {
+            donGiaDichVu = donGiaDichVu.add(dv.gia);
+        }
+
         return donGiaDichVu;
     }
 
@@ -80,11 +101,11 @@ public class ThongTinThue {
         return maThue;
     }
 
-    public List<String> getDichVu() {
+    public List<DichVu> getDichVu() {
         return dichVu;
     }
 
-    public void setDichVu(List<String> dichVu) {
+    public void setDichVu(List<DichVu> dichVu) {
         this.dichVu = dichVu;
     }
 
@@ -98,7 +119,7 @@ public class ThongTinThue {
 
     public BigDecimal getDonGiaMenu() {
         for (Menu m : menu) {
-            donGiaMenu.add(m.getTongGia());
+            donGiaMenu = donGiaMenu.add(m.getTongGia());
         }
 
         return donGiaMenu;

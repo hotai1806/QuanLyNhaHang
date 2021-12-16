@@ -2,10 +2,18 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.huongdoituong.App.DichVu;
+import com.huongdoituong.App.Menu;
+import com.huongdoituong.App.QLDichVu;
+import com.huongdoituong.App.QLThucAn;
+import com.huongdoituong.App.QLThucUong;
+import com.huongdoituong.App.ThucAn;
+import com.huongdoituong.App.ThucUong;
 import com.huongdoituong.DAL.ThongTinThue;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
@@ -14,7 +22,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     private List<ThongTinThue> listThongTinThue = new ArrayList<>();
 
     public QuanLyThue() {
-        // doc(Path.THONG_TIN_THUE.getPath());
+        doc(Path.THONG_TIN_THUE.getPath());
     }
 
     public boolean themThongTinThue(ThongTinThue thongTinThue) {
@@ -35,13 +43,43 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     ThongTinThue thongTinThue = new ThongTinThue();
 
                     thongTinThue.setMaThue(scanner.nextInt());
+                    scanner.nextLine();
+
                     thongTinThue.setTenTiec(scanner.nextLine());
                     thongTinThue.setNgayThue(scanner.nextLine());
                     thongTinThue.setThoiDiemThue(scanner.nextLine());
                     thongTinThue.setSanhCuoi(QuanLySanhCuoi.traCuuBangMaSC(scanner.nextLine()));
-                    thongTinThue.setDonGiaThueSanh(scanner.nextBigDecimal());
 
-                    this.listThongTinThue.add(thongTinThue);
+                    thongTinThue.setDonGiaThueSanh(scanner.nextBigDecimal());
+                    scanner.nextLine();
+
+                    String checkMenuString = scanner.nextLine();
+                    while (checkMenuString.equals("Menu {")) {
+                        Menu menu = new Menu();
+
+                        while (!scanner.nextLine().equals("}")) {
+                            menu.dsThucAn.add(QLThucAn.getThucAnBangTen(scanner.nextLine()));
+                        }
+
+                        if (scanner.nextLine().equals("Thuc uong {")) {
+                            scanner.nextLine();
+                        }
+
+                        while (!scanner.nextLine().equals("}")) {
+                            menu.dsThucUong.add(QLThucUong.getThucUongBangTen(scanner.nextLine()));
+                        }
+
+                        thongTinThue.getMenu().add(menu);
+                        checkMenuString = scanner.nextLine();
+                    }
+
+                    thongTinThue.setDonGiaMenu(new BigDecimal(checkMenuString));
+
+                    while (!scanner.nextLine().equals("}")) {
+                        thongTinThue.getDichVu().add(QLDichVu.getDichVuBangTen(scanner.nextLine()));
+                    }
+
+                    listThongTinThue.add(thongTinThue);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -72,6 +110,33 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         printWriter.println(thongTinThue.getThoiDiemThue().toInt());
                         printWriter.println(thongTinThue.getSanhCuoi().getMaSC());
                         printWriter.println(thongTinThue.getDonGiaThueSanh());
+
+                        for (Menu menu : thongTinThue.getMenu()) {
+                            printWriter.println("Menu {");
+
+                            printWriter.println("Thuc an {");
+                            for (ThucAn thucAn : menu.dsThucAn) {
+                                printWriter.println(thucAn.ten);
+                            }
+                            printWriter.println("}");
+
+                            printWriter.println("Thuc uong {");
+                            for (ThucUong thucUong : menu.dsThucUong) {
+                                printWriter.println(thucUong.ten);
+                            }
+                            printWriter.println("}");
+                            printWriter.println("}");
+                        }
+
+                        printWriter.println(thongTinThue.getDonGiaMenu());
+
+                        printWriter.println("Dich vu {");
+                        for (DichVu dichVu : thongTinThue.getDichVu()) {
+                            printWriter.println(dichVu.ten);
+                            printWriter.println("}");
+                        }
+
+                        printWriter.println(thongTinThue.getDonGiaDichVu());
                     }
 
                     return true;
