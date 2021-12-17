@@ -8,6 +8,11 @@ public class ThucAn extends Mon{
         this.monChay = monChay;
     }
     
+    public void hienThi(){
+        System.out.println("Ma" + this.ma);
+        System.out.println("Ten"+ this.ten);
+        System.out.println("Gia" + this.gia);
+    }
 
     public boolean isMonChay() {
         return this.monChay;

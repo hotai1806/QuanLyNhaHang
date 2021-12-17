@@ -15,14 +15,15 @@ public class Menu  {
         this.listThucAn.add(mon);
     }
     public void xoaThuAn(int idMon){
-        this.listThucAn.stream().map(value->value.getMa()==idMon);
+        this.listThucAn.removeIf(mon-> mon.ma==idMon);
 
     }
     public void themThucUong(ThucUong mon){
         this.listThucUong.add(mon);
     }
     public void xoaThucUong(int idMon){
-        this.listThucUong.stream().map(value->value.getMa()==idMon);
+        this.listThucUong.removeIf(mon-> mon.ma==idMon);
+
    
     }
    
