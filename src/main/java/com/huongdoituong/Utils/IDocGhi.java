@@ -6,8 +6,4 @@ public interface IDocGhi<T> {
     public void doc(String path);
 
     public boolean ghi(String path, List<T> items);
-
-    public void hienThi();
-
-    public void hienThi(List<T> items);
 }

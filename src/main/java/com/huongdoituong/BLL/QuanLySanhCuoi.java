@@ -100,6 +100,26 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return null;
     }
 
+    public void hienThi() {
+        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
+            System.out.println("Ma: " + sanhCuoi.getMaSC());
+            System.out.println("Ten: " + sanhCuoi.getTenSC());
+            System.out.println("Vi tri: " + sanhCuoi.getViTri());
+            System.out.println("Suc chua: " + sanhCuoi.getSucChua());
+            System.out.println("------------------------------------");
+        }
+    }
+
+    public void hienThi(List<SanhCuoi> items) {
+        sapXep(items);
+
+        for (SanhCuoi sanhCuoi : items) {
+            System.out.println("Ten: " + sanhCuoi.getTenSC());
+            System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());
+            System.out.println("------------------------------------");
+        }
+    }
+
     @Override
     public void doc(String path) {
         File file = new File(Path.SANH_CUOI.getPath());
@@ -159,27 +179,5 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         }
 
         return false;
-    }
-
-    @Override
-    public void hienThi() {
-        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
-            System.out.println("Ma: " + sanhCuoi.getMaSC());
-            System.out.println("Ten: " + sanhCuoi.getTenSC());
-            System.out.println("Vi tri: " + sanhCuoi.getViTri());
-            System.out.println("Suc chua: " + sanhCuoi.getSucChua());
-            System.out.println("------------------------------------");
-        }
-    }
-
-    @Override
-    public void hienThi(List<SanhCuoi> items) {
-        sapXep(items);
-
-        for (SanhCuoi sanhCuoi : items) {
-            System.out.println("Ten: " + sanhCuoi.getTenSC());
-            System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());
-            System.out.println("------------------------------------");
-        }
     }
 }

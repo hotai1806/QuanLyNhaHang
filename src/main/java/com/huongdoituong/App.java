@@ -1,6 +1,7 @@
 package com.huongdoituong;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,14 +14,16 @@ import com.huongdoituong.DAL.ThongTinThue;
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    private static final String YEAR_REGEX = "^\\d{4}$";
+
+    public static void main(String[] args) throws ParseException {
         // QuanLyThue quanLyThue = new QuanLyThue();
         QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
         QLThucAn qlThucAn = new QLThucAn();
         QLThucUong qlThucUong = new QLThucUong();
         QLDichVu qlDichVu = new QLDichVu();
 
-        // Them
+        // // Them
         // ThongTinThue thongTinThue = new ThongTinThue();
         // boolean chooseCheck = false;
 
@@ -35,9 +38,9 @@ public class App {
         //     System.out.println("------------------------------------");
 
         //     System.out.println("Thoi diem thue: ");
-        //     System.out.println("1. Sang");
-        //     System.out.println("2. Chieu");
-        //     System.out.println("3. Toi");
+        //     System.out.println("Sang");
+        //     System.out.println("Chieu");
+        //     System.out.println("Toi");
         //     System.out.print("Nhap thoi diem muon thue: ");
         //     thongTinThue.setThoiDiemThue(SCANNER.nextLine());
         //     System.out.println("------------------------------------");
@@ -119,7 +122,7 @@ public class App {
 
         //         switch (choice) {
         //             case "1": {
-        //                 System.out.print("Nhap ten thuc uong: ");
+        //                 System.out.print("Nhap ten dich vu: ");
         //                 DichVu dichVu = QLDichVu.getDichVuBangTen(SCANNER.nextLine());
 
         //                 if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
@@ -143,6 +146,7 @@ public class App {
         //     }
 
         //     quanLyThue.themThongTinThue(thongTinThue);
+        //     quanLyThue.xuatHoaDon(thongTinThue);
         // } catch (Exception e) {
         //     e.printStackTrace();
         // }
@@ -150,6 +154,28 @@ public class App {
         // --------------------------------------------------------------------------
 
         QuanLyThue quanLyThue = new QuanLyThue();
+
+        // Xem doanh thu thang
+        // String nam = "";
+        
+        // while (!nam.matches(YEAR_REGEX)) {
+        //     System.out.print("Nhap nam can xem doanh thu thang: ");
+        //     nam = SCANNER.nextLine();
+        // }
+        
+        // quanLyThue.xemDoanhThuThang(nam);
+
+        // --------------------------------------------------------------------------
+        
+        // Xem doanh thu quy
+        // String nam = "";
+
+        //  while (!nam.matches(YEAR_REGEX)) {
+        //     System.out.print("Nhap nam can xem doanh thu quy: ");
+        //     nam = SCANNER.nextLine();
+        // }
+
+        // quanLyThue.xemDoanhThuQuy(nam);
     }
 
     public static class Menu {
