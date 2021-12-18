@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.huongdoituong.App.DichVu;
-import com.huongdoituong.App.Menu;
-import com.huongdoituong.App.QLDichVu;
-import com.huongdoituong.App.QLThucAn;
-import com.huongdoituong.App.QLThucUong;
-import com.huongdoituong.App.ThucAn;
-import com.huongdoituong.App.ThucUong;
+import com.huongdoituong.DAL.DichVu;
+import com.huongdoituong.DAL.Menu;
+import com.huongdoituong.DAL.ThucAn;
+import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.DAL.ThongTinThue;
+
+
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
@@ -57,8 +56,9 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     while (checkMenuString.equals("Menu {")) {
                         Menu menu = new Menu();
 
+
                         while (!scanner.nextLine().equals("}")) {
-                            menu.dsThucAn.add(QLThucAn.getThucAnBangTen(scanner.nextLine()));
+                            menu.themThucAn(QuanLyThucAn.timTheoTen(scanner.nextLine()));
                         }
 
                         if (scanner.nextLine().equals("Thuc uong {")) {
@@ -66,7 +66,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         }
 
                         while (!scanner.nextLine().equals("}")) {
-                            menu.dsThucUong.add(QLThucUong.getThucUongBangTen(scanner.nextLine()));
+                            menu.themThucUong(QuanLyThucUong.timTheoTen(scanner.nextLine()));
                         }
 
                         thongTinThue.getMenu().add(menu);
@@ -76,7 +76,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     thongTinThue.setDonGiaMenu(new BigDecimal(checkMenuString));
 
                     while (!scanner.nextLine().equals("}")) {
-                        thongTinThue.getDichVu().add(QLDichVu.getDichVuBangTen(scanner.nextLine()));
+                        thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(scanner.nextLine()));
                     }
 
                     listThongTinThue.add(thongTinThue);
@@ -115,14 +115,14 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                             printWriter.println("Menu {");
 
                             printWriter.println("Thuc an {");
-                            for (ThucAn thucAn : menu.dsThucAn) {
-                                printWriter.println(thucAn.ten);
+                            for (ThucAn thucAn : menu.getListThucAn()) {
+                                printWriter.println(thucAn.getTen());
                             }
                             printWriter.println("}");
 
                             printWriter.println("Thuc uong {");
-                            for (ThucUong thucUong : menu.dsThucUong) {
-                                printWriter.println(thucUong.ten);
+                            for (ThucUong thucUong : menu.getListThucUong()) {
+                                printWriter.println(thucUong.getTen());
                             }
                             printWriter.println("}");
                             printWriter.println("}");
@@ -132,7 +132,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
                         printWriter.println("Dich vu {");
                         for (DichVu dichVu : thongTinThue.getDichVu()) {
-                            printWriter.println(dichVu.ten);
+                            printWriter.println(dichVu.getTen());
                             printWriter.println("}");
                         }
 

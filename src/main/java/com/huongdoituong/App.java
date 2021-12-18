@@ -5,10 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// import BLL package
 import com.huongdoituong.BLL.QuanLySanhCuoi;
 import com.huongdoituong.BLL.QuanLyThue;
+import com.huongdoituong.BLL.QuanLyDichVu;
+import com.huongdoituong.BLL.QuanLyThucAn;
+import com.huongdoituong.BLL.QuanLyThucUong;
+import com.huongdoituong.BLL.QuanLyMenu;
+
+// import DAL package
 import com.huongdoituong.DAL.SanhCuoi;
 import com.huongdoituong.DAL.ThongTinThue;
+import com.huongdoituong.DAL.DichVu;
+import com.huongdoituong.DAL.Menu;
+import com.huongdoituong.DAL.ThucAn;
+import com.huongdoituong.DAL.ThucUong;
+
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -16,9 +28,10 @@ public class App {
     public static void main(String[] args) {
         // QuanLyThue quanLyThue = new QuanLyThue();
         QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-        QLThucAn qlThucAn = new QLThucAn();
-        QLThucUong qlThucUong = new QLThucUong();
-        QLDichVu qlDichVu = new QLDichVu();
+        QuanLyThucAn qlThucAn = new QuanLyThucAn();
+        QuanLyThucUong qlThucUong = new QuanLyThucUong();
+        QuanLyDichVu qlDichVu = new QuanLyDichVu();
+        QuanLyMenu qlMenu = new QuanLyMenu();
 
         // Them
         // ThongTinThue thongTinThue = new ThongTinThue();
@@ -152,132 +165,5 @@ public class App {
         QuanLyThue quanLyThue = new QuanLyThue();
     }
 
-    public static class Menu {
-        public List<ThucAn> dsThucAn;
-        public List<ThucUong> dsThucUong;
-        public BigDecimal tongGia;
-
-        {
-            tongGia = new BigDecimal(0);
-            dsThucAn = new ArrayList<>();
-            dsThucUong = new ArrayList<>();
-        }
-
-        public BigDecimal getTongGia() {
-            for (ThucAn thucAn : dsThucAn) {
-                tongGia = tongGia.add(thucAn.gia);
-            }
-
-            for (ThucUong thucUong : dsThucUong) {
-                tongGia = tongGia.add(thucUong.gia);
-            }
-
-            return tongGia;
-        }
-    }
-
-    public static class QLThucAn {
-        private static List<ThucAn> dsThucAn = new ArrayList<>();
-
-        public void them(ThucAn thucAn) {
-            dsThucAn.add(thucAn);
-        }
-
-        public static ThucAn getThucAnBangTen(String tenTA) {
-            for (ThucAn thucAn : dsThucAn) {
-                if (thucAn.ten.equals(tenTA)) {
-                    return thucAn;
-                }
-            }
-
-            return null;
-        }
-    }
-
-    public static class ThucAn {
-        public String ten;
-        public BigDecimal gia;
-
-        {
-            gia = new BigDecimal(0);
-        }
-
-        public ThucAn() {
-        };
-
-        public ThucAn(String ten, BigDecimal gia) {
-            this.ten = ten;
-            this.gia = gia;
-        }
-    }
-
-    public static class QLThucUong {
-        private static List<ThucUong> dsThucUong = new ArrayList<>();
-
-        public void them(ThucUong thucUong) {
-            dsThucUong.add(thucUong);
-        }
-
-        public static ThucUong getThucUongBangTen(String tenTU) {
-            for (ThucUong thucUong : dsThucUong) {
-                if (thucUong.ten.equals(tenTU)) {
-                    return thucUong;
-                }
-            }
-
-            return null;
-        }
-    }
-
-    public static class ThucUong {
-        public String ten;
-        public BigDecimal gia;
-
-        public ThucUong() {
-        };
-
-        public ThucUong(String ten, BigDecimal gia) {
-            this.ten = ten;
-            this.gia = gia;
-        }
-
-        {
-            gia = new BigDecimal(0);
-        }
-    }
-
-    public static class QLDichVu {
-        private static List<DichVu> dsDichVu = new ArrayList<>();
-
-        public void them(DichVu dichVu) {
-            dsDichVu.add(dichVu);
-        }
-
-        public static DichVu getDichVuBangTen(String tenDU) {
-            for (DichVu dichVu : dsDichVu) {
-                if (dichVu.ten.equals(tenDU)) {
-                    return dichVu;
-                }
-            }
-
-            return null;
-        }
-    }
-
-    public static class DichVu {
-        public String ten;
-        public BigDecimal gia;
-
-        public DichVu() {
-        };
-
-        public DichVu(String ten, BigDecimal gia) {
-            this.ten = ten;
-            this.gia = gia;
-        }
-
-        {
-            gia = new BigDecimal(0);
-        }
-    }
+    
 }

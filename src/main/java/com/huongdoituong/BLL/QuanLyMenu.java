@@ -1,5 +1,6 @@
 package com.huongdoituong.BLL;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +11,14 @@ public class QuanLyMenu {
     public QuanLyMenu(){
 
     }
-    public boolean themMenu(Menu menu){
+    public boolean them(Menu menu){
         return this.listMenu.add(menu);
     }
-    public boolean xoaMenu(String id){
+    public boolean xoa(String id){
         return this.listMenu.removeIf(element-> element.getMaMenu()==id);
     }
-    public double getTongGia(){
-        return this.listMenu.stream().map(p-> p.getTongGia()).reduce(0.0,(x,y)-> x + y);
+    public BigDecimal getTongGia(){
+        return this.listMenu.stream().map(p-> p.getTongGia()).reduce(new BigDecimal(0),(x,y)-> x.add(y));
     }
 
 }
