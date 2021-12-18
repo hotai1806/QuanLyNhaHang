@@ -8,6 +8,10 @@ public class Mon {
     protected BigDecimal gia;
     protected static int autoIncrement = 0;
 
+    public Mon(){
+        
+    }
+
     public Mon(String ten,BigDecimal gia){
         this.ten = ten;
         this.gia = gia;
