@@ -15,6 +15,9 @@ public class ThucAn extends Mon{
     public ThucAn() {
     }
 
+    public ThucAn() {
+    }
+
     public void hienThi(){
         System.out.println("Ma" + this.ma);
         System.out.println("Ten"+ this.ten);
