@@ -24,9 +24,12 @@ public class Menu  {
     public void xoaThucUong(int idMon){
         this.listThucUong.removeIf(mon-> mon.ma==idMon);
 
-   
     }
-   
+    public double getTongGia(){
+        double tongGiaThucAn = listThucAn.stream().map(p->p.getGia()).reduce(0.0,(x,y)->x+y);
+        double tongGiaThucUong = listThucUong.stream().map(p->p.getGia()).reduce(0.0,(x,y)->x+y);
+        return tongGiaThucAn + tongGiaThucUong;
+    }
     public String getMaMenu() {
         return maMenu;
     }

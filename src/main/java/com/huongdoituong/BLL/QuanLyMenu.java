@@ -16,5 +16,8 @@ public class QuanLyMenu {
     public boolean xoaMenu(String id){
         return this.listMenu.removeIf(element-> element.getMaMenu()==id);
     }
+    public double getTongGia(){
+        return this.listMenu.stream().map(p-> p.getTongGia()).reduce(0.0,(x,y)-> x + y);
+    }
 
 }
