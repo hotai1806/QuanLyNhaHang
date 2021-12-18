@@ -7,6 +7,7 @@ public class ThucUong extends Mon {
 
     public ThucUong(String ten, BigDecimal gia, String hangSX) {
         super(ten, gia);
+
         this.hangSanXuat = hangSX;
     }
     public ThucUong(String ten, BigDecimal gia) {
@@ -14,6 +15,8 @@ public class ThucUong extends Mon {
     }
 
 
+    public ThucUong() {
+    }
     public String getHangSanXuat() {
         return this.hangSanXuat;
     }
