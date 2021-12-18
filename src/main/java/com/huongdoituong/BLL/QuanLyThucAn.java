@@ -9,14 +9,14 @@ public class QuanLyThucAn {
     
     public QuanLyThucAn(){
     }
-    public ThucAn timThucUOng(int ma){
+    public ThucAn timThucAn(int ma){
         return this.listThucAn.stream().filter(p->p.getMa()==ma).findFirst().get();
 
     }
-    public boolean themThucUong(ThucAn thucUong){
-        return this.listThucAn.add(thucUong);
+    public boolean themThucAn(ThucAn mon){
+        return this.listThucAn.add(mon);
     }
-    public boolean xoaThucUong(int ma){
+    public boolean xoaThucAn(int ma){
         
       return  this.listThucAn.removeIf(mon-> mon.getMa()==ma);
 
