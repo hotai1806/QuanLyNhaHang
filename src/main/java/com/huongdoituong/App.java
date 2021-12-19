@@ -17,8 +17,55 @@ public class App {
     private static final String YEAR_REGEX = "^\\d{4}$";
 
     public static void main(String[] args) throws ParseException {
+	    
+	// Sanh Cuoi ==============================================================
+	    
+    	QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+        SanhCuoi sanhCuoi = new SanhCuoi();
+	
+    	// //  Them
+    	//     System.out.print("Ten: ");
+        //     sanhCuoi.setTenSC(SCANNER.nextLine());
+        //     System.out.print("Vi tri: ");
+        //     sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
+        //     System.out.print("Suc chua: ");
+        //     sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
+
+        //     if (quanLySanhCuoi.themSC(sanhCuoi)) {
+        //         System.out.print("Them thanh cong!");
+	    
+	//--------------------------------------------------------------------------
+	    
+	 // // Cap nhat
+        // quanLySanhCuoi.hienThi();
+        // System.out.print("Nhap ma sanh cuoi: ");
+        // if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
+        //     System.out.print("Cap nhat thanh cong!");
+        // } else {
+        //     System.out.print("Cap nhat khong thanh cong!");
+        // }
+        
+        //--------------------------------------------------------------------------
+
+        // // Xoa
+        // quanLySanhCuoi.hienThi();
+        // System.out.print("Nhap ma sanh cuoi: ");
+        // if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
+        //     System.out.print("Xoa thanh cong!");
+        // } else {
+        //     System.out.print("Xoa khong thanh cong!");
+        // }
+
+        //--------------------------------------------------------------------------
+	    
+	// // Tim kiem
+        // System.out.print("Nhap tu khoa can tim: ");
+        // List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
+        // quanLySanhCuoi.hienThi(listSanhCuoi);
+	    
+	// Thue ====================================================================
+	
         // QuanLyThue quanLyThue = new QuanLyThue();
-        QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
         QLThucAn qlThucAn = new QLThucAn();
         QLThucUong qlThucUong = new QLThucUong();
         QLDichVu qlDichVu = new QLDichVu();
@@ -26,7 +73,7 @@ public class App {
         // // Them
         // ThongTinThue thongTinThue = new ThongTinThue();
         // boolean chooseCheck = false;
-
+	    
         // try {
         //     System.out.print("Ten tiec: ");
         //     thongTinThue.setTenTiec(SCANNER.nextLine());
@@ -300,10 +347,6 @@ public class App {
         public DichVu(String ten, BigDecimal gia) {
             this.ten = ten;
             this.gia = gia;
-        }
-
-        {
-            gia = new BigDecimal(0);
         }
     }
 }
