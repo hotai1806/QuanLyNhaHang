@@ -17,4 +17,3 @@ public enum GiaThue {
     };
 
     public abstract BigDecimal getGiaThue();
-}
