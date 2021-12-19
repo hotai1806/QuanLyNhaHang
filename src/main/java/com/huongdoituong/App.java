@@ -1,9 +1,14 @@
 package com.huongdoituong;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLySanhCuoi;
+import com.huongdoituong.BLL.QuanLyThue;
 import com.huongdoituong.DAL.SanhCuoi;
+import com.huongdoituong.DAL.ThongTinThue;
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -24,10 +29,6 @@ public class App {
         //     if (quanLySanhCuoi.themSC(sanhCuoi)) {
         //         System.out.print("Them thanh cong!");
         //     }
-
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
 
         //--------------------------------------------------------------------------
 
