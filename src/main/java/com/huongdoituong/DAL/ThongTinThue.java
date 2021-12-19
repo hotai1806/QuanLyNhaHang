@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.huongdoituong.App.DichVu;
@@ -12,6 +14,7 @@ import com.huongdoituong.App.Menu;
 
 public class ThongTinThue {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+    private final Calendar CALENDAR = new GregorianCalendar();
     
     public static int dem = 0;
 
@@ -22,7 +25,7 @@ public class ThongTinThue {
     private SanhCuoi sanhCuoi;
     private BigDecimal donGiaThueSanh;
     private List<Menu> menu;
-    private BigDecimal donGiaMenu;
+    private BigDecimal tongDonGiaMenu;
     private List<DichVu> dichVu;
     private BigDecimal donGiaDichVu;
 
@@ -30,7 +33,7 @@ public class ThongTinThue {
         this.setMaThue(++dem);
 
         this.donGiaThueSanh = new BigDecimal(0);
-        this.donGiaMenu = new BigDecimal(0);
+        this.tongDonGiaMenu = new BigDecimal(0);
         this.donGiaDichVu = new BigDecimal(0);
 
         menu = new ArrayList<>();
@@ -38,7 +41,7 @@ public class ThongTinThue {
     }
 
     public BigDecimal getTongGia() {
-        BigDecimal tongGia = getDonGiaThueSanh().add(getDonGiaMenu()).add(getDonGiaDichVu());
+        BigDecimal tongGia = getDonGiaThueSanh().add(getTongDonGiaMenu()).add(getDonGiaDichVu());
 
         return tongGia;
     }
@@ -51,6 +54,18 @@ public class ThongTinThue {
         }
 
         return false;
+    }
+
+    public int getThang() {
+        CALENDAR.setTime(this.ngayThue);
+
+        return CALENDAR.get(Calendar.MONTH) + 1;
+    }
+
+    public int getNam() {
+        CALENDAR.setTime(this.ngayThue);
+
+        return CALENDAR.get(Calendar.YEAR);
     }
 
     public BigDecimal getDonGiaDichVu() {
@@ -82,14 +97,14 @@ public class ThongTinThue {
     }
 
     public void setThoiDiemThue(String thoiDiem) throws Exception {
-        switch (Integer.parseInt(thoiDiem)) {
-            case 1:
+        switch (thoiDiem.toLowerCase().trim()) {
+            case "sang":
                 this.setThoiDiemThue(ThoiDiemThue.SANG);
                 break;
-            case 2:
+            case "chieu":
                 this.setThoiDiemThue(ThoiDiemThue.CHIEU);
                 break;
-            case 3:
+            case "toi":
                 this.setThoiDiemThue(ThoiDiemThue.TOI);
                 break;
             default:
@@ -117,16 +132,16 @@ public class ThongTinThue {
         this.sanhCuoi = sanhCuoi;
     }
 
-    public BigDecimal getDonGiaMenu() {
+    public BigDecimal getTongDonGiaMenu() {
         for (Menu m : menu) {
-            donGiaMenu = donGiaMenu.add(m.getTongGia());
+            tongDonGiaMenu = tongDonGiaMenu.add(m.getTongGia());
         }
 
-        return donGiaMenu;
+        return tongDonGiaMenu;
     }
 
-    public void setDonGiaMenu(BigDecimal donGiaMenu) {
-        this.donGiaMenu = donGiaMenu;
+    public void setTongDonGiaMenu(BigDecimal tongDonGiaMenu) {
+        this.tongDonGiaMenu = tongDonGiaMenu;
     }
 
     public BigDecimal getDonGiaThueSanh() {

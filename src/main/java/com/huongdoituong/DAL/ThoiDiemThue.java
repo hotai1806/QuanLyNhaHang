@@ -3,22 +3,20 @@ package com.huongdoituong.DAL;
 public enum ThoiDiemThue {
     SANG {
         @Override
-        public int toInt() {
-            return 1;
+        public String toString() {
+            return "sang";
         }
     },
     CHIEU {
         @Override
-        public int toInt() {
-            return 2;
+        public String toString() {
+            return "chieu";
         }
     },
     TOI {
         @Override
-        public int toInt() {
-            return 3;
+        public String toString() {
+            return "toi";
         }
     };
-
-    public abstract int toInt();
 }
