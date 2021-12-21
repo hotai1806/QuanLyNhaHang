@@ -15,7 +15,7 @@ import com.huongdoituong.App.Menu;
 public class ThongTinThue {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
     private final Calendar CALENDAR = new GregorianCalendar();
-    
+
     public static int dem = 0;
 
     private int maThue;
@@ -56,36 +56,40 @@ public class ThongTinThue {
         return false;
     }
 
-    public int getThang() {
+    public int getThangThue() {
         CALENDAR.setTime(this.ngayThue);
 
         return CALENDAR.get(Calendar.MONTH) + 1;
     }
 
-    public int getNam() {
+    public int getNamThue() {
         CALENDAR.setTime(this.ngayThue);
 
         return CALENDAR.get(Calendar.YEAR);
     }
 
-    public BigDecimal getDonGiaDichVu() {
-        for (DichVu dv : dichVu) {
-            donGiaDichVu = donGiaDichVu.add(dv.gia);
-        }
-
-        return donGiaDichVu;
+    public int getMaThue() {
+        return maThue;
     }
 
-    public void setDonGiaDichVu(BigDecimal donGiaDichVu) {
-        this.donGiaDichVu = donGiaDichVu;
+    public void setMaThue(int maThue) {
+        this.maThue = maThue;
     }
 
-    public List<Menu> getMenu() {
-        return menu;
+    public String getTenTiec() {
+        return tenTiec;
     }
 
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
+    public void setTenTiec(String tenTiec) {
+        this.tenTiec = tenTiec;
+    }
+
+    public String getNgayThue() {
+        return DATE_FORMATER.format(ngayThue);
+    }
+
+    public void setNgayThue(String ngayThue) throws ParseException {
+        this.ngayThue = DATE_FORMATER.parse(ngayThue);
     }
 
     public ThoiDiemThue getThoiDiemThue() {
@@ -112,24 +116,28 @@ public class ThongTinThue {
         }
     }
 
-    public int getMaThue() {
-        return maThue;
-    }
-
-    public List<DichVu> getDichVu() {
-        return dichVu;
-    }
-
-    public void setDichVu(List<DichVu> dichVu) {
-        this.dichVu = dichVu;
-    }
-
     public SanhCuoi getSanhCuoi() {
         return sanhCuoi;
     }
 
     public void setSanhCuoi(SanhCuoi sanhCuoi) {
         this.sanhCuoi = sanhCuoi;
+    }
+
+    public BigDecimal getDonGiaThueSanh() {
+        return donGiaThueSanh;
+    }
+
+    public void setDonGiaThueSanh(BigDecimal donGiaThueSanh) {
+        this.donGiaThueSanh = donGiaThueSanh;
+    }
+
+    public List<Menu> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(List<Menu> menu) {
+        this.menu = menu;
     }
 
     public BigDecimal getTongDonGiaMenu() {
@@ -144,31 +152,23 @@ public class ThongTinThue {
         this.tongDonGiaMenu = tongDonGiaMenu;
     }
 
-    public BigDecimal getDonGiaThueSanh() {
-        return donGiaThueSanh;
+    public List<DichVu> getDichVu() {
+        return dichVu;
     }
 
-    public void setDonGiaThueSanh(BigDecimal donGiaThueSanh) {
-        this.donGiaThueSanh = donGiaThueSanh;
+    public void setDichVu(List<DichVu> dichVu) {
+        this.dichVu = dichVu;
     }
 
-    public String getNgayThue() {
-        return DATE_FORMATER.format(ngayThue);
+    public BigDecimal getDonGiaDichVu() {
+        for (DichVu dv : dichVu) {
+            donGiaDichVu = donGiaDichVu.add(dv.gia);
+        }
+
+        return donGiaDichVu;
     }
 
-    public void setNgayThue(String ngayThue) throws ParseException {
-        this.ngayThue = DATE_FORMATER.parse(ngayThue);
-    }
-
-    public String getTenTiec() {
-        return tenTiec;
-    }
-
-    public void setTenTiec(String tenTiec) {
-        this.tenTiec = tenTiec;
-    }
-
-    public void setMaThue(int maThue) {
-        this.maThue = maThue;
+    public void setDonGiaDichVu(BigDecimal donGiaDichVu) {
+        this.donGiaDichVu = donGiaDichVu;
     }
 }
