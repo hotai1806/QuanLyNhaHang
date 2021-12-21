@@ -13,9 +13,7 @@ public class ThucUong extends Mon {
     public ThucUong(String ten, BigDecimal gia) {
         super(ten, gia);
     }
-    public ThucUong(){
-        
-    }
+
 
 
     public ThucUong() {

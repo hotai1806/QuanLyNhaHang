@@ -75,33 +75,5 @@ public class QuanLyMenu implements IDocGhi<Menu> {
         return false;
     }
 
-    @Override
-    public void hienThi() {
-        for (Menu menu : listMenu) {
-            System.out.printf("-------------- Menu ----------------");
-
-            System.out.printf("Ma Menu:", menu.getMaMenu());
-            for (ThucAn thucAn : menu.getListThucAn()) {
-                System.out.printf("Ma mon an:", thucAn.getMa());
-                System.out.printf("Ten mon an:", thucAn.getTen());
-                System.out.printf("Mon chay:", thucAn.getMonChay() == true ? "Co" : "Khong");
-                System.out.printf("Gia", thucAn.getGia());
-            }
-            System.out.println();
-            for (ThucUong thucUong : menu.getListThucUong()) {
-                System.out.printf("Ma thuc uong:", thucUong.getMa());
-                System.out.printf("Ten thuc uong:", thucUong.getTen());
-                System.out.printf("Hang san xuat:", thucUong.getHangSanXuat());
-                System.out.printf("Gia", thucUong.getGia());
-            }
-            System.out.printf("Tong gia Menu", menu.getTongGia());
-
-        }
-
-    }
-
-    @Override
-    public void hienThi(List<Menu> items) {
-
-    }
+   
 }

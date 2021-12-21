@@ -398,6 +398,14 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
+                    
+                    DichVu dichVu = new DichVu();
+                    System.out.print("Ten:");
+                    dichVu.setTen(SCANNER.nextLine());
+                    System.out.print("Gia: ");                    
+                    dichVu.setGia(SCANNER.nextBigDecimal());
+                
+
                     break;
                 }
                 case "2": {

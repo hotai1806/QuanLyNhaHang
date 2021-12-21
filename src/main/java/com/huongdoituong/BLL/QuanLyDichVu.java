@@ -2,21 +2,23 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.lang.annotation.Retention;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.DAL.DichVu;
+import com.huongdoituong.DAL.Karaoke;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyDichVu implements IDocGhi<DichVu> {
+public class QuanLyDichVu implements IDocGhi<DichVu>,BaseInterfaceQuanLy {
     private static List<DichVu> listDichVu = new ArrayList<>();
 
     public QuanLyDichVu() {
     }
 
-    public static DichVu tim(int ma) {
+    public static DichVu timById(int ma) {
         return QuanLyDichVu.listDichVu.stream().filter(p -> p.getMa() == ma).findFirst().get();
     }
 
@@ -28,11 +30,11 @@ public class QuanLyDichVu implements IDocGhi<DichVu> {
         return QuanLyDichVu.listDichVu.add(dichVu);
     }
 
-    public boolean xoa(int ma) {
+    // public boolean xoa(int ma) {
 
-        return QuanLyDichVu.listDichVu.removeIf(mon -> mon.getMa() == ma);
+    //     return QuanLyDichVu.listDichVu.removeIf(mon -> mon.getMa() == ma);
 
-    }
+    // }
 
     @Override
     public void doc(String path) {
@@ -108,10 +110,39 @@ public class QuanLyDichVu implements IDocGhi<DichVu> {
         }
 
     }
+    @Override    
+    public boolean capNhat(int maDichVu, Scanner scanner){
+        DichVu dichVu = timById(maDichVu);
+        if (dichVu != null){
+            try {
+                System.out.print("Ten: ");
+                dichVu.setTen(scanner.nextLine());
+                System.out.print("Gia: ");
+                dichVu.setGia(scanner.nextBigDecimal());
+                if (dichVu.getClass() ==Karaoke.class){
+                    System.out.print("Thoi gian thue: ");
+                    
 
-    @Override
-    public void hienThi(List<DichVu> items) {
+                } 
+                System.out.print("Suc chua: ");
 
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                return false;
+            }
+        }
+
+        return false;
     }
-
+    
+    @Override
+    public boolean xoa(int ma){
+        DichVu dichVu = timById(ma);
+        if (dichVu != null){
+            QuanLyDichVu.listDichVu.remove(dichVu);
+            return ghi(Path.DICH_VU.getPath(),QuanLyDichVu.listDichVu);
+        }
+        return false;
+    }
 }
