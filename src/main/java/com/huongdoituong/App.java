@@ -17,221 +17,474 @@ public class App {
     private static final String YEAR_REGEX = "^\\d{4}$";
 
     public static void main(String[] args) throws NumberFormatException, Exception {
-
-        // // Sanh Cuoi ==============================================================
-
-        // QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-        // SanhCuoi sanhCuoi = new SanhCuoi();
-
-        // // Them
-        // System.out.print("Ten: ");
-        // sanhCuoi.setTenSC(SCANNER.nextLine());
-        // System.out.print("Vi tri: ");
-        // sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
-        // System.out.print("Suc chua: ");
-        // sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
-
-        // if (quanLySanhCuoi.themSC(sanhCuoi)) {
-        //     System.out.print("Them thanh cong!");
-        // }
-
-        // // --------------------------------------------------------------------------
-
-        // // Cap nhat
-        // quanLySanhCuoi.hienThi();
-        // System.out.print("Nhap ten sanh cuoi: ");
-        // if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
-        //     System.out.print("Cap nhat thanh cong!");
-        // } else {
-        //     System.out.print("Cap nhat khong thanh cong!");
-        // }
-
-        // // --------------------------------------------------------------------------
-
-        // // Xoa
-        // quanLySanhCuoi.hienThi();
-        // System.out.print("Nhap ten sanh cuoi: ");
-        // if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
-        //     System.out.print("Xoa thanh cong!");
-        // } else {
-        //     System.out.print("Xoa khong thanh cong!");
-        // }
-
-        // // --------------------------------------------------------------------------
-
-        // // Tim kiem
-        // System.out.print("Nhap tu khoa can tim: ");
-        // List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
-        // quanLySanhCuoi.hienThi(listSanhCuoi);
-
-        // // Thue ====================================================================
-
-        // QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-        // QLThucAn qlThucAn = new QLThucAn();
-        // QLThucUong qlThucUong = new QLThucUong();
-        // QLDichVu qlDichVu = new QLDichVu();
+        QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+        QLThucAn qlThucAn = new QLThucAn();
+        QLThucUong qlThucUong = new QLThucUong();
+        QLDichVu qlDichVu = new QLDichVu();
         
-        // qlThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
-        // qlThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
-        // qlThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
+        qlThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
+        qlThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
+        qlThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
         
-        // qlThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
-        // qlThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
-        // qlThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
+        qlThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
+        qlThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
+        qlThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
         
-        // qlDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
-        // qlDichVu.them(new DichVu("Hat", new BigDecimal(20)));
-        // qlDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
+        qlDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
+        qlDichVu.them(new DichVu("Hat", new BigDecimal(20)));
+        qlDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
 
-        // QuanLyThue quanLyThue = new QuanLyThue();
-        
-        // // Them
-        // ThongTinThue thongTinThue = new ThongTinThue();
-        // boolean chooseCheck = false;
+        QuanLyThue quanLyThue = new QuanLyThue();
+      
+        while (true) {
+            System.out.println("Quan ly nha hang");
+            System.out.println("1. Thue sanh");
+            System.out.println("2. Quan ly");
+            System.out.println("3. Thoat");
+            System.out.print("Lua chon: ");
 
-        // try {
-        //     System.out.print("Ten tiec: ");
-        //     thongTinThue.setTenTiec(SCANNER.nextLine());
-        //     System.out.println("====================================");
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    System.out.println("====================================");
+                    Thue();
+                    
+                    break;
+                }
+                case "2": {
+                    System.out.println("====================================");
+                    menuQuanLy();
 
-        //     System.out.print("Ngay thue: ");
-        //     String ngayThue = SCANNER.nextLine();
-        //     thongTinThue.setNgayThue(ngayThue);
-        //     System.out.println("====================================");
+                    break;
+                }
+                case "3": {
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
 
-        //     System.out.println("Thoi diem thue: ");
-        //     System.out.println("Sang");
-        //     System.out.println("Chieu");
-        //     System.out.println("Toi");
-        //     System.out.println("------------------------------------");
-        //     System.out.print("Nhap thoi diem muon thue: ");
-        //     thongTinThue.setThoiDiemThue(SCANNER.nextLine());
-        //     System.out.println("====================================");
-
-        //     // Them sanh -------------------------------------------------------------
-        //     System.out.print("Nhap tu khoa can tim: ");
-        //     List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
-        //     quanLySanhCuoi.hienThi(listSanhCuoi);
-
-        //     System.out.print("Nhap ten sanh cuoi muon chon: ");
-        //     SanhCuoi sanhCuoi = quanLySanhCuoi.traCuuBangTen(SCANNER.nextLine());
-        //     thongTinThue.setSanhCuoi(sanhCuoi);
-        //     System.out.println("====================================");
-
-        //     // Them don gia thue sanh -------------------------------------------------
-        //     sanhCuoi.setGia(ngayThue);
-        //     thongTinThue.setDonGiaThueSanh(sanhCuoi.getGia());
-
-        //     // Them menu -------------------------------------------------
-        //     for (int i = 0; i < sanhCuoi.getSucChua(); i++) {
-        //         Menu menu = new Menu();
-
-        //         chooseCheck = false;
-
-        //         while (!chooseCheck) {
-        //             System.out.println("Them menu cho ban so " + i);
-        //             System.out.println("1. Them thuc an");
-        //             System.out.println("2. Them thuc uong");
-        //             System.out.println("3. Tiep tuc");
-        //             System.out.println("------------------------------------");
-        //             String choice = SCANNER.nextLine();
-
-        //             switch (choice) {
-        //                 case "1": {
-        //                     System.out.print("Nhap ten thuc an: ");
-        //                     menu.dsThucAn.add(QLThucAn.getThucAnBangTen(SCANNER.nextLine()));
-
-        //                     System.out.println("------------------------------------");
-        //                     continue;
-        //                 }
-        //                 case "2": {
-        //                     System.out.print("Nhap ten thuc uong: ");
-        //                     menu.dsThucUong.add(QLThucUong.getThucUongBangTen(SCANNER.nextLine()));
-
-        //                     System.out.println("------------------------------------");
-        //                     continue;
-        //                 }
-        //                 case "3": {
-        //                     thongTinThue.getMenu().add(menu);
-        //                     chooseCheck = true;
-
-        //                     System.out.println("====================================");
-        //                     break;
-        //                 }
-        //                 default:
-        //                     System.out.println("*** Lua chong khong kha dung ***");
-        //                     continue;
-        //             }
-        //         }
-        //     }
-
-        //     // Them dich vu -------------------------------------------------
-        //     chooseCheck = false;
-
-        //     while (!chooseCheck) {
-        //         System.out.println("1. Them dich vu");
-        //         System.out.println("2. Tiep tuc");
-        //         String choice = SCANNER.nextLine();
-
-        //         switch (choice) {
-        //             case "1": {
-        //                 System.out.print("Nhap ten dich vu: ");
-        //                 DichVu dichVu = QLDichVu.getDichVuBangTen(SCANNER.nextLine());
-
-        //                 if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
-        //                     thongTinThue.getDichVu().add(dichVu);
-        //                 } else {
-        //                     System.out.println("Dich vu bi trung!");
-        //                 }
-
-        //                 System.out.println("------------------------------------");
-        //                 continue;
-        //             }
-        //             case "2": {
-        //                 chooseCheck = true;
-        //                 System.out.println("====================================");
-        //                 break;
-        //             }
-        //             default:
-        //                 System.out.println("*** Lua chong khong kha dung ***");
-        //                 continue;
-        //         }
-        //     }
-
-        //     quanLyThue.thue(thongTinThue);
-        //     quanLyThue.xuatHoaDon(thongTinThue);
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
-
-        // // --------------------------------------------------------------------------
-
-        // QuanLyThue quanLyThue = new QuanLyThue();
-
-        // // Xem doanh thu thang
-        // String nam = "";
-
-        // while (!nam.matches(YEAR_REGEX)) {
-        //     System.out.print("Nhap nam can xem doanh thu thang: ");
-        //     nam = SCANNER.nextLine();
-        // }
-
-        // quanLyThue.xemDoanhThuThang(nam);
-
-        // // --------------------------------------------------------------------------
-
-        // // Xem doanh thu quy
-        // String nam = "";
-
-        // while (!nam.matches(YEAR_REGEX)) {
-        // System.out.print("Nhap nam can xem doanh thu quy: ");
-        // nam = SCANNER.nextLine();
-        // }
-
-        // quanLyThue.xemDoanhThuQuy(nam);
+                    continue;
+            }
+        }
     }
 
-    public static class Menu {
+    private static void Thue() {
+        ThongTinThue thongTinThue = new ThongTinThue();
+        boolean chooseCheck = false;
+
+        try {
+            System.out.print("Ten tiec: ");
+            thongTinThue.setTenTiec(SCANNER.nextLine());
+            System.out.println("====================================");
+
+            System.out.print("Ngay thue: ");
+            String ngayThue = SCANNER.nextLine();
+            thongTinThue.setNgayThue(ngayThue);
+            System.out.println("====================================");
+
+            System.out.println("Thoi diem thue: ");
+            System.out.println("Sang");
+            System.out.println("Chieu");
+            System.out.println("Toi");
+            System.out.println("------------------------------------");
+            System.out.print("Nhap thoi diem muon thue: ");
+            thongTinThue.setThoiDiemThue(SCANNER.nextLine());
+            System.out.println("====================================");
+
+            // Them sanh -------------------------------------------------------------
+            System.out.print("Nhap tu khoa can tim: ");
+            List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
+            quanLySanhCuoi.hienThi(listSanhCuoi);
+
+            System.out.print("Nhap ten sanh cuoi muon chon: ");
+            SanhCuoi sanhCuoi = quanLySanhCuoi.traCuuBangTen(SCANNER.nextLine());
+            thongTinThue.setSanhCuoi(sanhCuoi);
+            System.out.println("====================================");
+
+            // Them don gia thue sanh -------------------------------------------------
+            sanhCuoi.setGia(ngayThue);
+            thongTinThue.setDonGiaThueSanh(sanhCuoi.getGia());
+
+            // Them menu -------------------------------------------------
+            for (int i = 0; i < sanhCuoi.getSucChua(); i++) {
+                Menu menu = new Menu();
+
+                chooseCheck = false;
+
+                while (!chooseCheck) {
+                    System.out.println("Them menu cho ban so " + i);
+                    System.out.println("1. Them thuc an");
+                    System.out.println("2. Them thuc uong");
+                    System.out.println("3. Tiep tuc");
+                    System.out.println("------------------------------------");
+                    String choice = SCANNER.nextLine();
+
+                    switch (choice) {
+                        case "1": {
+                            System.out.print("Nhap ten thuc an: ");
+                            menu.dsThucAn.add(QLThucAn.getThucAnBangTen(SCANNER.nextLine()));
+
+                            System.out.println("------------------------------------");
+                            continue;
+                        }
+                        case "2": {
+                            System.out.print("Nhap ten thuc uong: ");
+                            menu.dsThucUong.add(QLThucUong.getThucUongBangTen(SCANNER.nextLine()));
+
+                            System.out.println("------------------------------------");
+                            continue;
+                        }
+                        case "3": {
+                            thongTinThue.getMenu().add(menu);
+                            chooseCheck = true;
+
+                            System.out.println("====================================");
+                            break;
+                        }
+                        default:
+                            System.out.println("*** Lua chong khong kha dung ***");
+                            continue;
+                    }
+                }
+            }
+
+            // Them dich vu -------------------------------------------------
+            chooseCheck = false;
+
+            while (!chooseCheck) {
+                System.out.println("1. Them dich vu");
+                System.out.println("2. Tiep tuc");
+                String choice = SCANNER.nextLine();
+
+                switch (choice) {
+                    case "1": {
+                        System.out.print("Nhap ten dich vu: ");
+                        DichVu dichVu = QLDichVu.getDichVuBangTen(SCANNER.nextLine());
+
+                        if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
+                            thongTinThue.getDichVu().add(dichVu);
+                        } else {
+                            System.out.println("Dich vu bi trung!");
+                        }
+
+                        System.out.println("------------------------------------");
+                        continue;
+                    }
+                    case "2": {
+                        chooseCheck = true;
+                        System.out.println("====================================");
+                        break;
+                    }
+                    default:
+                        System.out.println("*** Lua chong khong kha dung ***");
+                        continue;
+                }
+            }
+
+            quanLyThue.thue(thongTinThue);
+            quanLyThue.xuatHoaDon(thongTinThue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void menuQuanLy() {
+        while (true) {
+            System.out.println("Quan ly");
+            System.out.println("1. Doanh thu");
+            System.out.println("2. Sanh");
+            System.out.println("3. Dich vu");
+            System.out.println("4. Thuc an");
+            System.out.println("5. Thuc uong");
+            System.out.println("6. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    System.out.println("====================================");
+                    menuQuanLyDoanhThu();
+
+                    break;
+                }
+                case "2": {
+                    System.out.println("====================================");
+                    menuQuanLySanh();
+
+                    break;
+                }
+                case "3": {
+                    System.out.println("====================================");
+                    menuQuanLyDichVu();
+
+                    break;
+                }
+                case "4": {
+                    System.out.println("====================================");
+                    menuQuanLyThucAn();
+
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+                    menuQuanLyThucUong();
+
+                    break;
+                }
+                case "6": {
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+
+    private static void menuQuanLyDoanhThu() {
+        while (true) {
+            System.out.println("Quan ly doanh thu");
+            System.out.println("1. Xem doanh thu thang");
+            System.out.println("2. Xem doanh thu quy");
+            System.out.println("3. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    String nam = "";
+                    while (!nam.matches(YEAR_REGEX)) {
+                        System.out.print("Nhap nam can xem doanh thu thang: ");
+                        nam = SCANNER.nextLine();
+                    }
+
+                    quanLyThue.xemDoanhThuThang(nam);
+                    System.out.println("====================================");
+                  
+                    break;
+                }
+                case "2": {
+                    String nam = "";
+
+                    while (!nam.matches(YEAR_REGEX)) {
+                        System.out.print("Nhap nam can xem doanh thu quy: ");
+                        nam = SCANNER.nextLine();
+                    }
+
+                    quanLyThue.xemDoanhThuQuy(nam);
+                    System.out.println("====================================");
+                  
+                    break;
+                }
+                case "3": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+
+    private static void menuQuanLySanh() {
+        while (true) {
+            System.out.println("Quan ly sanh");
+            System.out.println("1. Them sanh");
+            System.out.println("2. Cap nhat sanh");
+            System.out.println("3. Xoa sanh");
+            System.out.println("4. Tra cuu sanh");
+            System.out.println("5. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    SanhCuoi sanhCuoi = new SanhCuoi();
+
+                    System.out.print("Ten: ");
+                    sanhCuoi.setTenSC(SCANNER.nextLine());
+                    System.out.print("Vi tri: ");
+                    sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
+                    System.out.print("Suc chua: ");
+                    sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
+
+                    if (quanLySanhCuoi.themSC(sanhCuoi)) {
+                        System.out.print("Them thanh cong!");
+                    }
+                  
+                    System.out.println("====================================");
+                    break;
+                }
+                case "2": {
+                    quanLySanhCuoi.hienThi();
+                  
+                    System.out.print("Nhap ten sanh cuoi: ");
+                    if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
+                        System.out.print("Cap nhat thanh cong!");
+                    } else {
+                        System.out.print("Cap nhat khong thanh cong!");
+                    }
+                  
+                    System.out.println("====================================");
+                    break;
+                }
+                case "3": {
+                    quanLySanhCuoi.hienThi();
+                  
+                    System.out.print("Nhap ten sanh cuoi: ");
+                    if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
+                        System.out.print("Xoa thanh cong!");
+                    } else {
+                        System.out.print("Xoa khong thanh cong!");
+                    }
+                  
+                    System.out.println("====================================");
+                    break;
+                }
+                case "4": {
+                    System.out.print("Nhap tu khoa can tim: ");
+                    List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
+                    quanLySanhCuoi.hienThi(listSanhCuoi);
+                    
+                    System.out.println("====================================");
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+
+    private static void menuQuanLyDichVu() {
+        while (true) {
+            System.out.println("Quan ly dich vu");
+            System.out.println("1. Them dich vu");
+            System.out.println("2. Cap nhat dich vu");
+            System.out.println("3. Xoa dich vu");
+            System.out.println("4. Tra cuu dich vu");
+            System.out.println("5. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    break;
+                }
+                case "2": {
+                    break;
+                }
+                case "3": {
+                    break;
+                }
+                case "4": {
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+
+    private static void menuQuanLyThucAn() {
+        while (true) {
+            System.out.println("Quan ly thuc an");
+            System.out.println("1. Them thuc an");
+            System.out.println("2. Cap nhat thuc an");
+            System.out.println("3. Xoa thuc an");
+            System.out.println("4. Tra cuu thuc an");
+            System.out.println("5. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    break;
+                }
+                case "2": {
+                    break;
+                }
+                case "3": {
+                    break;
+                }
+                case "4": {
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+
+    private static void menuQuanLyThucUong() {
+        while (true) {
+            System.out.println("Quan ly thuc uong");
+            System.out.println("1. Them thuc uong");
+            System.out.println("2. Cap nhat thuc uong");
+            System.out.println("3. Xoa thuc uong");
+            System.out.println("4. Tra cuu thuc uong");
+            System.out.println("5. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    break;
+                }
+                case "2": {
+                    break;
+                }
+                case "3": {
+                    break;
+                }
+                case "4": {
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+  
+      public static class Menu {
         public List<ThucAn> dsThucAn;
         public List<ThucUong> dsThucUong;
         public BigDecimal tongGia;
