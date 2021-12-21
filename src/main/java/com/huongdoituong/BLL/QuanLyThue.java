@@ -51,9 +51,9 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                 if (thongTinThue.getThangThue() == i) {
                     doanhThu = doanhThu.add(thongTinThue.getTongGia());
                 }
-
-                System.out.println("Doanh thu thang: " + i + " " + doanhThu);
             }
+            
+            System.out.println("Doanh thu thang: " + i + " " + doanhThu);
         }
     }
 

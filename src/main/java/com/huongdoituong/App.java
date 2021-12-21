@@ -16,26 +16,27 @@ public class App {
 
     private static final String YEAR_REGEX = "^\\d{4}$";
 
+    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+    private static QLThucAn qlThucAn = new QLThucAn();
+    private static QLThucUong qlThucUong = new QLThucUong();
+    private static QLDichVu qlDichVu = new QLDichVu();
+    private static QuanLyThue quanLyThue;
+
     public static void main(String[] args) throws NumberFormatException, Exception {
-        QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-        QLThucAn qlThucAn = new QLThucAn();
-        QLThucUong qlThucUong = new QLThucUong();
-        QLDichVu qlDichVu = new QLDichVu();
-        
         qlThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
         qlThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
         qlThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
-        
+
         qlThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
         qlThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
         qlThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
-        
+
         qlDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
         qlDichVu.them(new DichVu("Hat", new BigDecimal(20)));
         qlDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
 
-        QuanLyThue quanLyThue = new QuanLyThue();
-      
+        quanLyThue = new QuanLyThue();
+
         while (true) {
             System.out.println("Quan ly nha hang");
             System.out.println("1. Thue sanh");
@@ -47,7 +48,7 @@ public class App {
                 case "1": {
                     System.out.println("====================================");
                     Thue();
-                    
+
                     break;
                 }
                 case "2": {
@@ -189,7 +190,7 @@ public class App {
         }
     }
 
-    private static void menuQuanLy() {
+    private static void menuQuanLy() throws NumberFormatException, Exception {
         while (true) {
             System.out.println("Quan ly");
             System.out.println("1. Doanh thu");
@@ -244,7 +245,7 @@ public class App {
         }
     }
 
-    private static void menuQuanLyDoanhThu() {
+    private static void menuQuanLyDoanhThu() throws ParseException {
         while (true) {
             System.out.println("Quan ly doanh thu");
             System.out.println("1. Xem doanh thu thang");
@@ -262,7 +263,7 @@ public class App {
 
                     quanLyThue.xemDoanhThuThang(nam);
                     System.out.println("====================================");
-                  
+
                     break;
                 }
                 case "2": {
@@ -275,7 +276,7 @@ public class App {
 
                     quanLyThue.xemDoanhThuQuy(nam);
                     System.out.println("====================================");
-                  
+
                     break;
                 }
                 case "3": {
@@ -293,7 +294,7 @@ public class App {
         }
     }
 
-    private static void menuQuanLySanh() {
+    private static void menuQuanLySanh() throws NumberFormatException, Exception {
         while (true) {
             System.out.println("Quan ly sanh");
             System.out.println("1. Them sanh");
@@ -317,42 +318,45 @@ public class App {
                     if (quanLySanhCuoi.themSC(sanhCuoi)) {
                         System.out.print("Them thanh cong!");
                     }
-                  
+
                     System.out.println("====================================");
                     break;
                 }
                 case "2": {
+                    System.out.println("====================================");
                     quanLySanhCuoi.hienThi();
-                  
+
                     System.out.print("Nhap ten sanh cuoi: ");
                     if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
-                        System.out.print("Cap nhat thanh cong!");
+                        System.out.println("Cap nhat thanh cong!");
                     } else {
-                        System.out.print("Cap nhat khong thanh cong!");
+                        System.out.println("Cap nhat khong thanh cong!");
                     }
-                  
+
                     System.out.println("====================================");
                     break;
                 }
                 case "3": {
+                    System.out.println("====================================");
                     quanLySanhCuoi.hienThi();
-                  
+
                     System.out.print("Nhap ten sanh cuoi: ");
                     if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
-                        System.out.print("Xoa thanh cong!");
+                        System.out.println("Xoa thanh cong!");
                     } else {
-                        System.out.print("Xoa khong thanh cong!");
+                        System.out.println("Xoa khong thanh cong!");
                     }
-                  
+
                     System.out.println("====================================");
                     break;
                 }
                 case "4": {
+                    System.out.println("====================================");
+                    
                     System.out.print("Nhap tu khoa can tim: ");
                     List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
                     quanLySanhCuoi.hienThi(listSanhCuoi);
-                    
-                    System.out.println("====================================");
+
                     break;
                 }
                 case "5": {
@@ -483,8 +487,8 @@ public class App {
             }
         }
     }
-  
-      public static class Menu {
+
+    public static class Menu {
         public List<ThucAn> dsThucAn;
         public List<ThucUong> dsThucUong;
         public BigDecimal tongGia;
