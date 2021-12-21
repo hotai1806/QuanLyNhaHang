@@ -1,13 +1,20 @@
 package com.huongdoituong.DAL;
 
+import java.math.BigDecimal;
+
 public class ThucAn extends Mon{
-    private boolean monChay;
-    public ThucAn(String ten, int gia,boolean monChay){
-        this.ten = ten;
-        this.gia = gia;
+    private boolean monChay;       
+    public ThucAn(String ten,BigDecimal gia) {
+        super(ten,gia);
+    }
+
+    public ThucAn(String ten,BigDecimal gia,boolean monChay) {
+        super(ten,gia);
         this.monChay = monChay;
     }
-    
+    public ThucAn() {
+    }
+
     public void hienThi(){
         System.out.println("Ma" + this.ma);
         System.out.println("Ten"+ this.ten);

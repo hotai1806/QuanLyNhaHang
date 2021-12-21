@@ -12,14 +12,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import com.huongdoituong.App.DichVu;
-import com.huongdoituong.App.Menu;
-import com.huongdoituong.App.QLDichVu;
-import com.huongdoituong.App.QLThucAn;
-import com.huongdoituong.App.QLThucUong;
-import com.huongdoituong.App.ThucAn;
-import com.huongdoituong.App.ThucUong;
+import com.huongdoituong.DAL.DichVu;
+import com.huongdoituong.DAL.Menu;
+import com.huongdoituong.DAL.ThucAn;
+import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.DAL.ThongTinThue;
+
+
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
@@ -120,13 +119,13 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
             System.out.println("Menu ban: " + i);
 
             System.out.print("Thuc an: ");
-            for (ThucAn thucAn : thongTinThue.getMenu().get(i).dsThucAn) {
-                System.out.print(thucAn.ten + " ");
+            for (ThucAn thucAn : thongTinThue.getMenu().get(i).getListThucAn()) {
+                System.out.print(thucAn.getTen() + " ");
             }
 
             System.out.print("\nThuc uong: ");
-            for (ThucUong thucUong : thongTinThue.getMenu().get(i).dsThucUong) {
-                System.out.print(thucUong.ten + " ");
+            for (ThucUong thucUong : thongTinThue.getMenu().get(i).getListThucUong()) {
+                System.out.print(thucUong.getTen() + " ");
             }
 
             System.out.println("\n------------------------------------");
@@ -138,7 +137,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
         System.out.print("Dich vu: ");
         for (DichVu dichVu : thongTinThue.getDichVu()) {
-            System.out.print(dichVu.ten + " ");
+            System.out.print(dichVu.getTen() + " ");
         }
 
         System.out.println("\n------------------------------------");
@@ -179,7 +178,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         String thucAnStringCheck = scanner.nextLine();
                         while (!thucAnStringCheck.equals(".")) {
                             if (!thucAnStringCheck.equals(".") && !thucAnStringCheck.equals("Thuc an")) {
-                                menu.dsThucAn.add(QLThucAn.getThucAnBangTen(thucAnStringCheck));
+                                menu.getListThucAn().add(QuanLyThucAn.timTheoTen(thucAnStringCheck));
                             }
 
                             thucAnStringCheck = scanner.nextLine();
@@ -188,7 +187,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         String thucUongStringCheck = scanner.nextLine();
                         while (!thucUongStringCheck.equals(".")) {
                             if (!thucUongStringCheck.equals(".") && !thucUongStringCheck.equals("Thuc uong")) {
-                                menu.dsThucUong.add(QLThucUong.getThucUongBangTen(thucUongStringCheck));
+                                menu.getListThucUong().add(QuanLyThucUong.timTheoTen(thucUongStringCheck));
                             }
 
                             thucUongStringCheck = scanner.nextLine();
@@ -205,7 +204,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     String dichVuStringCheck = scanner.nextLine();
                     while (!dichVuStringCheck.equals(".")) {
                         if (!dichVuStringCheck.equals(".") && !dichVuStringCheck.equals("Dich vu")) {
-                            thongTinThue.getDichVu().add(QLDichVu.getDichVuBangTen(dichVuStringCheck));
+                            thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck));
                         }
 
                         dichVuStringCheck = scanner.nextLine();
@@ -247,9 +246,9 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                             printWriter.println("Menu");
 
                             printWriter.println("Thuc an");
-                            if (!menu.dsThucAn.isEmpty()) {
-                                for (ThucAn thucAn : menu.dsThucAn) {
-                                    printWriter.println(thucAn.ten);
+                            if (!menu.getListThucAn().isEmpty()) {
+                                for (ThucAn thucAn : menu.getListThucAn()) {
+                                    printWriter.println(thucAn.getTen());
                                 }
                             } else {
                                 printWriter.println(".");
@@ -257,9 +256,9 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                             printWriter.println(".");
 
                             printWriter.println("Thuc uong");
-                            if (!menu.dsThucUong.isEmpty()) {
-                                for (ThucUong thucUong : menu.dsThucUong) {
-                                    printWriter.println(thucUong.ten);
+                            if (!menu.getListThucUong().isEmpty()) {
+                                for (ThucUong thucUong : menu.getListThucUong()) {
+                                    printWriter.println(thucUong.getTen());
                                 }
                             }
 
@@ -272,7 +271,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         printWriter.println("Dich vu");
                         if (!thongTinThue.getDichVu().isEmpty()) {
                             for (DichVu dichVu : thongTinThue.getDichVu()) {
-                                printWriter.println(dichVu.ten);
+                                printWriter.println(dichVu.getTen());
                             }
                         } else {
                             printWriter.println(".");

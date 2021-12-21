@@ -1,13 +1,20 @@
 package com.huongdoituong.DAL;
 
+import java.math.BigDecimal;
 import java.util.Hashtable;
 
 public class DichVu {
     protected int ma = 0;
     protected String ten;
-    protected double gia;
+    protected BigDecimal gia;
     protected static int autoIncrement = 0;
     private Hashtable<String, String> luaChonDieuKien = new Hashtable<>();
+
+    public DichVu(String ten, BigDecimal gia){
+        this.ten =  ten;
+        this.gia = gia;
+
+    }
 
     public int getMa() {
         return this.ma;
@@ -33,11 +40,11 @@ public class DichVu {
         this.ten = ten;
     }
 
-    public double getGia() {
+    public BigDecimal getGia() {
         return this.gia;
     }
 
-    public void setGia(double gia) {
+    public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
 

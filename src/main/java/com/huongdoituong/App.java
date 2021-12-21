@@ -6,10 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// import BLL package
 import com.huongdoituong.BLL.QuanLySanhCuoi;
 import com.huongdoituong.BLL.QuanLyThue;
+import com.huongdoituong.BLL.QuanLyDichVu;
+import com.huongdoituong.BLL.QuanLyThucAn;
+import com.huongdoituong.BLL.QuanLyThucUong;
+import com.huongdoituong.BLL.QuanLyMenu;
+
+// import DAL package
 import com.huongdoituong.DAL.SanhCuoi;
 import com.huongdoituong.DAL.ThongTinThue;
+import com.huongdoituong.DAL.DichVu;
+import com.huongdoituong.DAL.Menu;
+import com.huongdoituong.DAL.ThucAn;
+import com.huongdoituong.DAL.ThucUong;
+
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -17,9 +29,9 @@ public class App {
     private static final String YEAR_REGEX = "^\\d{4}$";
 
     private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-    private static QLThucAn qlThucAn = new QLThucAn();
-    private static QLThucUong qlThucUong = new QLThucUong();
-    private static QLDichVu qlDichVu = new QLDichVu();
+    private static QuanLyThucAn qlThucAn = new QuanLyThucAn();
+    private static QuanLyThucUong qlThucUong = new QuanLyThucUong();
+    private static QuanLyDichVu qlDichVu = new QuanLyDichVu();
     private static QuanLyThue quanLyThue;
 
     public static void main(String[] args) throws NumberFormatException, Exception {
@@ -124,14 +136,14 @@ public class App {
                     switch (choice) {
                         case "1": {
                             System.out.print("Nhap ten thuc an: ");
-                            menu.dsThucAn.add(QLThucAn.getThucAnBangTen(SCANNER.nextLine()));
+                            menu.getListThucAn().add(QuanLyThucAn.timTheoTen(SCANNER.nextLine()));
 
                             System.out.println("------------------------------------");
                             continue;
                         }
                         case "2": {
                             System.out.print("Nhap ten thuc uong: ");
-                            menu.dsThucUong.add(QLThucUong.getThucUongBangTen(SCANNER.nextLine()));
+                            menu.getListThucUong().add(QuanLyThucUong.timTheoTen(SCANNER.nextLine()));
 
                             System.out.println("------------------------------------");
                             continue;
@@ -161,7 +173,7 @@ public class App {
                 switch (choice) {
                     case "1": {
                         System.out.print("Nhap ten dich vu: ");
-                        DichVu dichVu = QLDichVu.getDichVuBangTen(SCANNER.nextLine());
+                        DichVu dichVu = QuanLyDichVu.timByTen(SCANNER.nextLine());
 
                         if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
                             thongTinThue.getDichVu().add(dichVu);
@@ -488,128 +500,5 @@ public class App {
         }
     }
 
-    public static class Menu {
-        public List<ThucAn> dsThucAn;
-        public List<ThucUong> dsThucUong;
-        public BigDecimal tongGia;
-
-        {
-            tongGia = new BigDecimal(0);
-            dsThucAn = new ArrayList<>();
-            dsThucUong = new ArrayList<>();
-        }
-
-        public BigDecimal getTongGia() {
-            for (ThucAn thucAn : dsThucAn) {
-                tongGia = tongGia.add(thucAn.gia);
-            }
-
-            for (ThucUong thucUong : dsThucUong) {
-                tongGia = tongGia.add(thucUong.gia);
-            }
-
-            return tongGia;
-        }
-    }
-
-    public static class QLThucAn {
-        private static List<ThucAn> dsThucAn = new ArrayList<>();
-
-        public void them(ThucAn thucAn) {
-            dsThucAn.add(thucAn);
-        }
-
-        public static ThucAn getThucAnBangTen(String tenTA) {
-            for (ThucAn thucAn : dsThucAn) {
-                if (thucAn.ten.equals(tenTA)) {
-                    return thucAn;
-                }
-            }
-
-            return null;
-        }
-    }
-
-    public static class ThucAn {
-        public String ten;
-        public BigDecimal gia;
-
-        {
-            gia = new BigDecimal(0);
-        }
-
-        public ThucAn() {
-        };
-
-        public ThucAn(String ten, BigDecimal gia) {
-            this.ten = ten;
-            this.gia = gia;
-        }
-    }
-
-    public static class QLThucUong {
-        private static List<ThucUong> dsThucUong = new ArrayList<>();
-
-        public void them(ThucUong thucUong) {
-            dsThucUong.add(thucUong);
-        }
-
-        public static ThucUong getThucUongBangTen(String tenTU) {
-            for (ThucUong thucUong : dsThucUong) {
-                if (thucUong.ten.equals(tenTU)) {
-                    return thucUong;
-                }
-            }
-
-            return null;
-        }
-    }
-
-    public static class ThucUong {
-        public String ten;
-        public BigDecimal gia;
-
-        public ThucUong() {
-        };
-
-        public ThucUong(String ten, BigDecimal gia) {
-            this.ten = ten;
-            this.gia = gia;
-        }
-
-        {
-            gia = new BigDecimal(0);
-        }
-    }
-
-    public static class QLDichVu {
-        private static List<DichVu> dsDichVu = new ArrayList<>();
-
-        public void them(DichVu dichVu) {
-            dsDichVu.add(dichVu);
-        }
-
-        public static DichVu getDichVuBangTen(String tenDU) {
-            for (DichVu dichVu : dsDichVu) {
-                if (dichVu.ten.equals(tenDU)) {
-                    return dichVu;
-                }
-            }
-
-            return null;
-        }
-    }
-
-    public static class DichVu {
-        public String ten;
-        public BigDecimal gia;
-
-        public DichVu() {
-        };
-
-        public DichVu(String ten, BigDecimal gia) {
-            this.ten = ten;
-            this.gia = gia;
-        }
-    }
+    
 }

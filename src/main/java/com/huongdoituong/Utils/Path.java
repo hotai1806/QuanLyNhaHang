@@ -13,7 +13,25 @@ public enum Path {
         public String getPath() {
             return "src/main/resources/DanhSachThongTinThue.txt";
         }
-    };
+    },
+    THUC_AN{
+        @Override
+        public String getPath() {
+            return "src/main/resources/DanhSachThucAn.txt";
+        }
+    },
+    THUC_UONG{
+        @Override
+        public String getPath() {
+            return "src/main/resources/DanhSachThucUong.txt";
+        }
+    },DICH_VU{
+        @Override
+        public String getPath() {
+            return "src/main/resources/DanhSachDichVu.txt";
+        }
+    }
+    ;
 
     public abstract String getPath();
 }
