@@ -16,81 +16,97 @@ public class App {
 
     private static final String YEAR_REGEX = "^\\d{4}$";
 
-    public static void main(String[] args) throws ParseException {
-	    
-	// Sanh Cuoi ==============================================================
-	    
-    	QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-        SanhCuoi sanhCuoi = new SanhCuoi();
-	
-    	// //  Them
-    	//     System.out.print("Ten: ");
-        //     sanhCuoi.setTenSC(SCANNER.nextLine());
-        //     System.out.print("Vi tri: ");
-        //     sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
-        //     System.out.print("Suc chua: ");
-        //     sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
+    public static void main(String[] args) throws NumberFormatException, Exception {
 
-        //     if (quanLySanhCuoi.themSC(sanhCuoi)) {
-        //         System.out.print("Them thanh cong!");
-	    
-	//--------------------------------------------------------------------------
-	    
-	 // // Cap nhat
+        // // Sanh Cuoi ==============================================================
+
+        // QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+        // SanhCuoi sanhCuoi = new SanhCuoi();
+
+        // // Them
+        // System.out.print("Ten: ");
+        // sanhCuoi.setTenSC(SCANNER.nextLine());
+        // System.out.print("Vi tri: ");
+        // sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
+        // System.out.print("Suc chua: ");
+        // sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
+
+        // if (quanLySanhCuoi.themSC(sanhCuoi)) {
+        //     System.out.print("Them thanh cong!");
+        // }
+
+        // // --------------------------------------------------------------------------
+
+        // // Cap nhat
         // quanLySanhCuoi.hienThi();
-        // System.out.print("Nhap ma sanh cuoi: ");
+        // System.out.print("Nhap ten sanh cuoi: ");
         // if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
         //     System.out.print("Cap nhat thanh cong!");
         // } else {
         //     System.out.print("Cap nhat khong thanh cong!");
         // }
-        
-        //--------------------------------------------------------------------------
+
+        // // --------------------------------------------------------------------------
 
         // // Xoa
         // quanLySanhCuoi.hienThi();
-        // System.out.print("Nhap ma sanh cuoi: ");
+        // System.out.print("Nhap ten sanh cuoi: ");
         // if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
         //     System.out.print("Xoa thanh cong!");
         // } else {
         //     System.out.print("Xoa khong thanh cong!");
         // }
 
-        //--------------------------------------------------------------------------
-	    
-	// // Tim kiem
+        // // --------------------------------------------------------------------------
+
+        // // Tim kiem
         // System.out.print("Nhap tu khoa can tim: ");
         // List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
         // quanLySanhCuoi.hienThi(listSanhCuoi);
-	    
-	// Thue ====================================================================
-	
-        // QuanLyThue quanLyThue = new QuanLyThue();
-        QLThucAn qlThucAn = new QLThucAn();
-        QLThucUong qlThucUong = new QLThucUong();
-        QLDichVu qlDichVu = new QLDichVu();
 
+        // // Thue ====================================================================
+
+        // QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+        // QLThucAn qlThucAn = new QLThucAn();
+        // QLThucUong qlThucUong = new QLThucUong();
+        // QLDichVu qlDichVu = new QLDichVu();
+        
+        // qlThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
+        // qlThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
+        // qlThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
+        
+        // qlThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
+        // qlThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
+        // qlThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
+        
+        // qlDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
+        // qlDichVu.them(new DichVu("Hat", new BigDecimal(20)));
+        // qlDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
+
+        // QuanLyThue quanLyThue = new QuanLyThue();
+        
         // // Them
         // ThongTinThue thongTinThue = new ThongTinThue();
         // boolean chooseCheck = false;
-	    
+
         // try {
         //     System.out.print("Ten tiec: ");
         //     thongTinThue.setTenTiec(SCANNER.nextLine());
-        //     System.out.println("------------------------------------");
+        //     System.out.println("====================================");
 
         //     System.out.print("Ngay thue: ");
         //     String ngayThue = SCANNER.nextLine();
         //     thongTinThue.setNgayThue(ngayThue);
-        //     System.out.println("------------------------------------");
+        //     System.out.println("====================================");
 
         //     System.out.println("Thoi diem thue: ");
         //     System.out.println("Sang");
         //     System.out.println("Chieu");
         //     System.out.println("Toi");
+        //     System.out.println("------------------------------------");
         //     System.out.print("Nhap thoi diem muon thue: ");
         //     thongTinThue.setThoiDiemThue(SCANNER.nextLine());
-        //     System.out.println("------------------------------------");
+        //     System.out.println("====================================");
 
         //     // Them sanh -------------------------------------------------------------
         //     System.out.print("Nhap tu khoa can tim: ");
@@ -100,21 +116,13 @@ public class App {
         //     System.out.print("Nhap ten sanh cuoi muon chon: ");
         //     SanhCuoi sanhCuoi = quanLySanhCuoi.traCuuBangTen(SCANNER.nextLine());
         //     thongTinThue.setSanhCuoi(sanhCuoi);
-        //     System.out.println("------------------------------------");
+        //     System.out.println("====================================");
 
         //     // Them don gia thue sanh -------------------------------------------------
         //     sanhCuoi.setGia(ngayThue);
         //     thongTinThue.setDonGiaThueSanh(sanhCuoi.getGia());
 
         //     // Them menu -------------------------------------------------
-            qlThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
-            qlThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
-            qlThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
-
-            qlThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
-            qlThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
-            qlThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
-
         //     for (int i = 0; i < sanhCuoi.getSucChua(); i++) {
         //         Menu menu = new Menu();
 
@@ -125,7 +133,9 @@ public class App {
         //             System.out.println("1. Them thuc an");
         //             System.out.println("2. Them thuc uong");
         //             System.out.println("3. Tiep tuc");
+        //             System.out.println("------------------------------------");
         //             String choice = SCANNER.nextLine();
+
         //             switch (choice) {
         //                 case "1": {
         //                     System.out.print("Nhap ten thuc an: ");
@@ -145,7 +155,7 @@ public class App {
         //                     thongTinThue.getMenu().add(menu);
         //                     chooseCheck = true;
 
-        //                     System.out.println("------------------------------------");
+        //                     System.out.println("====================================");
         //                     break;
         //                 }
         //                 default:
@@ -156,10 +166,6 @@ public class App {
         //     }
 
         //     // Them dich vu -------------------------------------------------
-            qlDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
-            qlDichVu.them(new DichVu("Hat", new BigDecimal(20)));
-            qlDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
-
         //     chooseCheck = false;
 
         //     while (!chooseCheck) {
@@ -183,7 +189,7 @@ public class App {
         //             }
         //             case "2": {
         //                 chooseCheck = true;
-        //                 System.out.println("------------------------------------");
+        //                 System.out.println("====================================");
         //                 break;
         //             }
         //             default:
@@ -192,34 +198,34 @@ public class App {
         //         }
         //     }
 
-        //     quanLyThue.themThongTinThue(thongTinThue);
+        //     quanLyThue.thue(thongTinThue);
         //     quanLyThue.xuatHoaDon(thongTinThue);
         // } catch (Exception e) {
         //     e.printStackTrace();
         // }
 
-        // --------------------------------------------------------------------------
+        // // --------------------------------------------------------------------------
 
-        QuanLyThue quanLyThue = new QuanLyThue();
+        // QuanLyThue quanLyThue = new QuanLyThue();
 
-        // Xem doanh thu thang
+        // // Xem doanh thu thang
         // String nam = "";
-        
+
         // while (!nam.matches(YEAR_REGEX)) {
         //     System.out.print("Nhap nam can xem doanh thu thang: ");
         //     nam = SCANNER.nextLine();
         // }
-        
+
         // quanLyThue.xemDoanhThuThang(nam);
 
-        // --------------------------------------------------------------------------
-        
-        // Xem doanh thu quy
+        // // --------------------------------------------------------------------------
+
+        // // Xem doanh thu quy
         // String nam = "";
 
-        //  while (!nam.matches(YEAR_REGEX)) {
-        //     System.out.print("Nhap nam can xem doanh thu quy: ");
-        //     nam = SCANNER.nextLine();
+        // while (!nam.matches(YEAR_REGEX)) {
+        // System.out.print("Nhap nam can xem doanh thu quy: ");
+        // nam = SCANNER.nextLine();
         // }
 
         // quanLyThue.xemDoanhThuQuy(nam);

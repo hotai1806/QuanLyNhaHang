@@ -7,10 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.huongdoituong.App.DichVu;
 import com.huongdoituong.App.Menu;
@@ -27,21 +27,20 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("yyyy");
     private final Calendar CALENDAR = new GregorianCalendar();
 
-    private List<ThongTinThue> listThongTinThue = new ArrayList<>();
+    private List<ThongTinThue> dsThongTinThue = new ArrayList<>();
 
     public QuanLyThue() {
         doc(Path.THONG_TIN_THUE.getPath());
     }
 
     public boolean thue(ThongTinThue thongTinThue) {
-        this.listThongTinThue.add(thongTinThue);
+        this.dsThongTinThue.add(thongTinThue);
 
-        return ghi(Path.THONG_TIN_THUE.getPath(), this.listThongTinThue);
+        return ghi(Path.THONG_TIN_THUE.getPath(), this.dsThongTinThue);
     }
 
     public void xemDoanhThuThang(String nam) throws ParseException {
-        Date date = DATE_FORMATER.parse(nam);
-        CALENDAR.setTime(date);
+        CALENDAR.setTime(DATE_FORMATER.parse(nam));
 
         List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
 
@@ -49,7 +48,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
             BigDecimal doanhThu = new BigDecimal(0);
 
             for (ThongTinThue thongTinThue : dsThongTinThue) {
-                if (thongTinThue.getThang() == i) {
+                if (thongTinThue.getThangThue() == i) {
                     doanhThu = doanhThu.add(thongTinThue.getTongGia());
                 }
 
@@ -59,8 +58,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     }
 
     public void xemDoanhThuQuy(String nam) throws ParseException {
-        Date date = DATE_FORMATER.parse(nam);
-        CALENDAR.setTime(date);
+        CALENDAR.setTime(DATE_FORMATER.parse(nam));
 
         List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
 
@@ -70,7 +68,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
         BigDecimal doanhThuQ4 = new BigDecimal(0);
 
         for (ThongTinThue thongTinThue : dsThongTinThue) {
-            switch (thongTinThue.getThang()) {
+            switch (thongTinThue.getThangThue()) {
                 case 1:
                 case 2:
                 case 3:
@@ -103,15 +101,9 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     }
 
     private List<ThongTinThue> getThongTinThueTheoNam(int nam) {
-        List<ThongTinThue> dsThongTinThue = new ArrayList<>();
-
-        for (ThongTinThue thongTinThue : listThongTinThue) {
-            if (thongTinThue.getNam() == nam) {
-                dsThongTinThue.add(thongTinThue);
-            }
-        }
-
-        return dsThongTinThue;
+        return this.dsThongTinThue.stream()
+                .filter(p -> p.getNamThue() == nam)
+                .collect(Collectors.toList());
     }
 
     public void xuatHoaDon(ThongTinThue thongTinThue) {
@@ -122,7 +114,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
         System.out.println("Sanh cuoi: " + thongTinThue.getSanhCuoi().getTenSC());
         System.out.println("Don gia thue sanh: " + thongTinThue.getDonGiaThueSanh());
 
-        System.out.println("==============================");
+        System.out.println("------------------------------");
 
         for (int i = 0; i < thongTinThue.getMenu().size(); i++) {
             System.out.println("Menu ban: " + i);
@@ -142,7 +134,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
         System.out.println("Tong don gia menu: " + thongTinThue.getTongDonGiaMenu());
 
-        System.out.println("==================================");
+        System.out.println("------------------------------");
 
         System.out.print("Dich vu: ");
         for (DichVu dichVu : thongTinThue.getDichVu()) {
@@ -154,8 +146,10 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
         System.out.println("Tong don gia dich vu: " + thongTinThue.getDonGiaDichVu());
 
         System.out.println("===================================");
+
+        System.out.println("Tong don gia  " + thongTinThue.getTongGia());
     }
-    
+
     @Override
     public void doc(String path) {
         File file = new File(Path.THONG_TIN_THUE.getPath());
@@ -179,23 +173,25 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     scanner.nextLine();
 
                     String menuStringCheck = scanner.nextLine();
-                    while (menuStringCheck.equals("Menu {")) {
+                    while (menuStringCheck.equals("Menu")) {
                         Menu menu = new Menu();
 
-                        while (!scanner.nextLine().equals("}")) {
-                            String thucAnStringCheck = scanner.nextLine();
-
-                            if (!thucAnStringCheck.equals(" ")) {
+                        String thucAnStringCheck = scanner.nextLine();
+                        while (!thucAnStringCheck.equals(".")) {
+                            if (!thucAnStringCheck.equals(".") && !thucAnStringCheck.equals("Thuc an")) {
                                 menu.dsThucAn.add(QLThucAn.getThucAnBangTen(thucAnStringCheck));
                             }
+
+                            thucAnStringCheck = scanner.nextLine();
                         }
 
-                        while (!scanner.nextLine().equals("}")) {
-                            String thucUongStringCheck = scanner.nextLine();
-
-                            if (!thucUongStringCheck.equals(" ")) {
+                        String thucUongStringCheck = scanner.nextLine();
+                        while (!thucUongStringCheck.equals(".")) {
+                            if (!thucUongStringCheck.equals(".") && !thucUongStringCheck.equals("Thuc uong")) {
                                 menu.dsThucUong.add(QLThucUong.getThucUongBangTen(thucUongStringCheck));
                             }
+
+                            thucUongStringCheck = scanner.nextLine();
                         }
 
                         scanner.nextLine();
@@ -206,15 +202,16 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
                     thongTinThue.setTongDonGiaMenu(new BigDecimal(menuStringCheck));
 
-                    while (!scanner.nextLine().equals("}")) {
-                        String dichVuStringCheck = scanner.nextLine();
-
-                        if (!dichVuStringCheck.equals(" ")) {
+                    String dichVuStringCheck = scanner.nextLine();
+                    while (!dichVuStringCheck.equals(".")) {
+                        if (!dichVuStringCheck.equals(".") && !dichVuStringCheck.equals("Dich vu")) {
                             thongTinThue.getDichVu().add(QLDichVu.getDichVuBangTen(dichVuStringCheck));
                         }
+
+                        dichVuStringCheck = scanner.nextLine();
                     }
 
-                    listThongTinThue.add(thongTinThue);
+                    this.dsThongTinThue.add(thongTinThue);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -222,7 +219,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                 }
 
                 // Lay so cuoi tu ma thue lam bien dem
-                ThongTinThue.dem = this.listThongTinThue.get(this.listThongTinThue.size() - 1).getMaThue();
+                ThongTinThue.dem = this.dsThongTinThue.get(this.dsThongTinThue.size() - 1).getMaThue();
 
                 scanner.close();
             } catch (Exception e) {
@@ -247,41 +244,40 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         printWriter.println(thongTinThue.getDonGiaThueSanh());
 
                         for (Menu menu : thongTinThue.getMenu()) {
-                            printWriter.println("Menu {");
+                            printWriter.println("Menu");
 
-                            printWriter.println("Thuc an {");
+                            printWriter.println("Thuc an");
                             if (!menu.dsThucAn.isEmpty()) {
                                 for (ThucAn thucAn : menu.dsThucAn) {
                                     printWriter.println(thucAn.ten);
                                 }
                             } else {
-                                printWriter.println(" ");
+                                printWriter.println(".");
                             }
-                            printWriter.println("}");
+                            printWriter.println(".");
 
-                            printWriter.println("Thuc uong {");
+                            printWriter.println("Thuc uong");
                             if (!menu.dsThucUong.isEmpty()) {
                                 for (ThucUong thucUong : menu.dsThucUong) {
                                     printWriter.println(thucUong.ten);
                                 }
-                            } else {
-                                printWriter.println(" ");
                             }
-                            printWriter.println("}");
-                            printWriter.println("}");
+
+                            printWriter.println(".");
+                            printWriter.println(".");
                         }
 
                         printWriter.println(thongTinThue.getTongDonGiaMenu());
 
-                        printWriter.println("Dich vu {");
+                        printWriter.println("Dich vu");
                         if (!thongTinThue.getDichVu().isEmpty()) {
                             for (DichVu dichVu : thongTinThue.getDichVu()) {
                                 printWriter.println(dichVu.ten);
                             }
                         } else {
-                            printWriter.println(" ");
+                            printWriter.println(".");
                         }
-                        printWriter.println("}");
+                        printWriter.println(".");
 
                         printWriter.println(thongTinThue.getDonGiaDichVu());
                     }
