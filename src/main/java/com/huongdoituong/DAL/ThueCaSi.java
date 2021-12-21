@@ -5,7 +5,7 @@ public class ThueCaSi extends DichVu {
     private int soLuongBai;
 
 
-    ThueCaSi(){
+    public ThueCaSi(){
         this.ten="Thue Ca Si";
     }
 
