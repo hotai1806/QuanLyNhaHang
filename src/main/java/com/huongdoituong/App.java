@@ -21,6 +21,7 @@ import com.huongdoituong.DAL.DichVu;
 import com.huongdoituong.DAL.Menu;
 import com.huongdoituong.DAL.ThucAn;
 import com.huongdoituong.DAL.ThucUong;
+import com.huongdoituong.Views.ViewDichVu;
 
 
 public class App {
@@ -173,8 +174,10 @@ public class App {
                 switch (choice) {
                     case "1": {
                         System.out.print("Nhap ten dich vu: ");
-                        DichVu dichVu = QuanLyDichVu.timByTen(SCANNER.nextLine());
-
+                        List<DichVu> listDichVu = QuanLyDichVu.timByTen(SCANNER.nextLine());
+                        qlDichVu.hienThi(listDichVu);
+                        System.out.print("Chon ma dich vu:");
+                        DichVu dichVu = QuanLyDichVu.timById(SCANNER.nextInt());
                         if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
                             thongTinThue.getDichVu().add(dichVu);
                         } else {
@@ -387,6 +390,7 @@ public class App {
     }
 
     private static void menuQuanLyDichVu() {
+        ViewDichVu view = new ViewDichVu( qlDichVu, SCANNER);
         while (true) {
             System.out.println("Quan ly dich vu");
             System.out.println("1. Them dich vu");
@@ -398,23 +402,23 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
-                    
-                    DichVu dichVu = new DichVu();
-                    System.out.print("Ten:");
-                    dichVu.setTen(SCANNER.nextLine());
-                    System.out.print("Gia: ");                    
-                    dichVu.setGia(SCANNER.nextBigDecimal());
-                
+                    if(!view.themDichVu()){
+                        System.out.println("Them khong thanh cong");
+                    };
+                    System.out.println("Them thanh cong");
 
                     break;
                 }
                 case "2": {
+                    view.capNhatDichVu();
                     break;
                 }
                 case "3": {
+                    view.xoaDichVu();
                     break;
                 }
                 case "4": {
+                    view.traCuu();
                     break;
                 }
                 case "5": {

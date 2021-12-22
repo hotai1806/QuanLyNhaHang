@@ -1,6 +1,7 @@
 package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class DichVu {
     protected BigDecimal gia;
     protected static int autoIncrement = 0;
     private Hashtable<String, String> luaChonDieuKien = new Hashtable<>();
-    private List<String> storeKey; 
+    private List<String> storeKey = new ArrayList<>() ; 
 
     public List<String> getStoreKey() {
         return this.storeKey;
@@ -23,7 +24,6 @@ public class DichVu {
     public DichVu(String ten, BigDecimal gia){
         this.ten =  ten;
         this.gia = gia;
-
     }
 
     public DichVu() {

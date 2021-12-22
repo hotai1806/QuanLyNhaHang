@@ -204,7 +204,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     String dichVuStringCheck = scanner.nextLine();
                     while (!dichVuStringCheck.equals(".")) {
                         if (!dichVuStringCheck.equals(".") && !dichVuStringCheck.equals("Dich vu")) {
-                            thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck));
+                            // thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck).get(0));
                         }
 
                         dichVuStringCheck = scanner.nextLine();
@@ -247,7 +247,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
                             printWriter.println("Thuc an");
                             if (!menu.getListThucAn().isEmpty()) {
-                                for (ThucAn thucAn : menu.getListThucAn()) {
+                                        for (ThucAn thucAn : menu.getListThucAn()) {
                                     printWriter.println(thucAn.getTen());
                                 }
                             } else {

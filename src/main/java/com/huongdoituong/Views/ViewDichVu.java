@@ -1,5 +1,7 @@
 package com.huongdoituong.Views;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLyDichVu;
@@ -8,13 +10,17 @@ import com.huongdoituong.DAL.Karaoke;
 import com.huongdoituong.DAL.ThueCaSi;
 
 public class ViewDichVu {
-
-    public boolean themDichVu(QuanLyDichVu quanLyDichVu, Scanner scanner) {
-
-        System.out.print("Chon loai dinh vu can them");
-        System.out.print("1. Thue ca si");
-        System.out.print("2. Karaoke");
-        System.out.print("3. Khac");
+    private QuanLyDichVu quanLyDichVu;
+    private Scanner scanner;
+    public ViewDichVu(QuanLyDichVu quanLyDichVu, Scanner scanner){
+        this.quanLyDichVu = quanLyDichVu;
+        this.scanner = scanner;
+    }
+    public boolean themDichVu() {
+        System.out.println("Chon loai dinh vu can them");
+        System.out.println("1. Thue ca si");
+        System.out.println("2. Karaoke");
+        System.out.println("3. Khac");
 
         switch (scanner.nextLine()) {
             case "1": {
@@ -44,9 +50,10 @@ public class ViewDichVu {
                 System.out.print("Ten:");
                 dichVu.setTen(scanner.nextLine());
                 System.out.print("Gia:");
-                dichVu.setGia(scanner.nextBigDecimal());
-                System.out.print("Them chi tiet:");
-                while (scanner.nextInt() == 0) {
+
+                dichVu.setGia(new BigDecimal(scanner.nextLine()));
+                System.out.print("Them chi tiet( neu khong co nhan phim 0) neu co nhan phim 1:");
+                while (Integer.parseInt(scanner.nextLine()) !=0) {
                     System.out.print("Ten chi tiet:");
                     String ten = scanner.nextLine();
                     System.out.print("Ten noi dung:");
@@ -60,15 +67,14 @@ public class ViewDichVu {
             }
             default: {
                 System.out.println("====================================");
-                System.out.println("*** Lua chong khong kha dung ***");
+                System.out.println("*** Lua chon khong kha dung ***");
                 System.out.println("====================================");
-
+                return false;
             }
         }
 
-        return true;
     }
-    public boolean capNhatDichVu(QuanLyDichVu quanLyDichVu, Scanner scanner) {
+    public boolean capNhatDichVu() {
         System.out.println("====================================");
         quanLyDichVu.hienThi();
 
@@ -86,7 +92,7 @@ public class ViewDichVu {
 
     }
 
-    public boolean xoaDichVu(QuanLyDichVu quanLyDichVu, Scanner scanner){
+    public boolean xoaDichVu(){
         System.out.println("====================================");
         quanLyDichVu.hienThi();
 
@@ -101,6 +107,19 @@ public class ViewDichVu {
 
         System.out.println("====================================");
         return false;
+    }
+
+    public void traCuu(){
+        System.out.println("====================================");
+        System.out.print("Nhap tu khoa can tim: ");
+        List<DichVu> dichVu= QuanLyDichVu.timByTen(scanner.nextLine());
+
+        if(dichVu.size() ==0){
+            System.out.print("Tu khoa tim kiem khong co trong danh sach.");
+        }
+        quanLyDichVu.hienThi();
+        quanLyDichVu.hienThi(dichVu);
+
     }
 
 }
