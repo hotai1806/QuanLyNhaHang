@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class Menu  {
-    private String maMenu;
+    private int maMenu;
 
     private List<ThucAn> listThucAn = new ArrayList<ThucAn>();
     private List<ThucUong> listThucUong = new ArrayList<ThucUong>();
@@ -33,11 +33,11 @@ public class Menu  {
         BigDecimal tongGiaThucUong = listThucUong.stream().map(p->p.getGia()).reduce(new BigDecimal(0),(x,y)->x.add(y));
         return tongGiaThucAn.add(tongGiaThucUong);
     }
-    public String getMaMenu() {
+    public int getMaMenu() {
         return maMenu;
     }
 
-    public void setMaMenu(String maMenu) {
+    public void setMaMenu(int maMenu) {
         this.maMenu = maMenu;
     }
 
@@ -47,5 +47,13 @@ public class Menu  {
 
     public List<ThucUong> getListThucUong(){
         return this.listThucUong;
+    }
+
+    public ThucAn timThucAn(int ma){
+        return this.listThucAn.stream().filter(p->p.getMa()==ma).findFirst().orElse(null);    
+    }
+
+    public ThucUong timThucUong(int ma){
+        return this.listThucUong.stream().filter(p->p.getMa()==ma).findFirst().orElse(null);    
     }
 }

@@ -18,6 +18,9 @@ public class ThucAn extends Mon{
     public void hienThi(){
         System.out.println("Ma" + this.ma);
         System.out.println("Ten"+ this.ten);
+        if(this.isMonChay()){
+              System.out.println("Mon chay");
+        } 
         System.out.println("Gia" + this.gia);
     }
 

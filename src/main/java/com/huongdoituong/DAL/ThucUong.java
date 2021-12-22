@@ -14,7 +14,13 @@ public class ThucUong extends Mon {
         super(ten, gia);
     }
 
+    public void hienThi(){
+        System.out.println("Ma:" + this.ma);
+        System.out.println("Ten:"+ this.ten);
+        System.out.println("Hang San Xuat:" + this.hangSanXuat);
+        System.out.println("Gia:" + this.gia);
 
+    }
 
     public ThucUong() {
     }

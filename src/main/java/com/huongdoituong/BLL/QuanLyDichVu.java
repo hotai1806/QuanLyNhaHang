@@ -2,7 +2,6 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.lang.annotation.Retention;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,9 +13,7 @@ import com.huongdoituong.DAL.ThueCaSi;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyDichVu implements IDocGhi<DichVu>
-// , BaseInterfaceQuanLy<DichVu>
- {
+public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu> {
     private static List<DichVu> listDichVu = new ArrayList<>();
 
     public QuanLyDichVu() {
@@ -105,57 +102,54 @@ public class QuanLyDichVu implements IDocGhi<DichVu>
         return false;
     }
 
-    // @Override
+    @Override
     public void hienThi() {
-        System.out.println("em ti"+QuanLyDichVu.listDichVu.size());
-        System.out.println("em ti"+QuanLyDichVu.listDichVu.isEmpty());
-
-        if (QuanLyDichVu.listDichVu.size() !=0 ) {
+        if (QuanLyDichVu.listDichVu.size() != 0) {
             for (DichVu dichVu : QuanLyDichVu.listDichVu) {
                 System.out.println("-------------- Dich Vu ----------------");
-                System.out.println("Ma dich vu:"+ String.format("%s", dichVu.getMa()));
-                System.out.println("Ten dich vu:"+ dichVu.getTen());
+                System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
+                System.out.println("Ten dich vu:" + dichVu.getTen());
                 if (dichVu.getStoreKey().isEmpty()) {
                     for (String key : dichVu.getStoreKey()) {
-                        if(key !=null){
-                            System.out.println(key+": "+ dichVu.getLuaChonDieuKien().get(key));
+                        if (key != null) {
+                            System.out.println(key + ": " + dichVu.getLuaChonDieuKien().get(key));
 
                         }
                     }
                 }
 
-                System.out.println("Tong gia dich vu:"+ dichVu.getGia());
+                System.out.println("Tong gia dich vu:" + dichVu.getGia());
 
             }
         }
 
     }
 
-    // @Override
+    @Override
     public void hienThi(List<DichVu> listDichVu) {
 
-        if (listDichVu.size() !=0 ) {
+        if (listDichVu.size() != 0) {
             for (DichVu dichVu : listDichVu) {
                 System.out.println("-------------- Dich Vu ----------------");
-                System.out.println("Ma dich vu:"+ String.format("%s", dichVu.getMa()));
-                System.out.println("Ten dich vu:"+ dichVu.getTen());
+                System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
+                System.out.println("Ten dich vu:" + dichVu.getTen());
                 if (dichVu.getStoreKey().isEmpty()) {
                     for (String key : dichVu.getStoreKey()) {
-                        if(key !=null){
-                            System.out.println(key+": "+ dichVu.getLuaChonDieuKien().get(key));
+                        if (key != null) {
+                            System.out.println(key + ": " + dichVu.getLuaChonDieuKien().get(key));
 
                         }
                     }
                 }
 
-                System.out.println("Tong gia dich vu:"+ dichVu.getGia());
+                System.out.println("Tong gia dich vu:" + dichVu.getGia());
 
             }
         }
 
     }
 
-    // @Override
+    @Override
     public boolean capNhat(int maDichVu, Scanner scanner) {
         DichVu dichVu = timById(maDichVu);
         if (dichVu != null) {
@@ -180,7 +174,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>
         return false;
     }
 
-    // @Override
+    @Override
     public boolean xoa(int ma) {
         DichVu dichVu = timById(ma);
         if (dichVu != null) {

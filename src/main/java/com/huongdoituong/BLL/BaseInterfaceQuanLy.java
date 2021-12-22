@@ -9,5 +9,6 @@ public interface BaseInterfaceQuanLy<T> {
     public  void hienThi(List<T> list);
 
     public boolean capNhat(int ma,Scanner scanner);
+
     public boolean xoa(int ma);
 }
