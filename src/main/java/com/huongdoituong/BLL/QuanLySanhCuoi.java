@@ -12,21 +12,23 @@ import com.huongdoituong.DAL.SanhCuoi;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
+public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, BaseInterfaceQuanLy<SanhCuoi> {
     private static List<SanhCuoi> dsSanhCuoi = new ArrayList<>();
 
     public QuanLySanhCuoi() {
         doc(Path.SANH_CUOI.getPath());
     }
 
-    public boolean themSC(SanhCuoi sc) {
-        QuanLySanhCuoi.dsSanhCuoi.add(sc);
+    @Override
+    public boolean them(SanhCuoi item) {
+        QuanLySanhCuoi.dsSanhCuoi.add(item);
 
         return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
     }
 
-    public boolean capNhatSC(String tenSC, Scanner scanner) {
-        SanhCuoi sc = traCuuBangTen(tenSC);
+    @Override
+    public boolean capNhat(String maSc, Scanner scanner) {
+        SanhCuoi sc = traCuuBangMaSC(maSc);
 
         if (sc != null) {
             try {
@@ -49,8 +51,9 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         return false;
     }
 
-    public boolean xoaSC(String tenSC) {
-        SanhCuoi sc = traCuuBangTen(tenSC);
+    @Override
+    public boolean xoa(String ma) {
+        SanhCuoi sc = traCuuBangMaSC(ma);
 
         if (sc != null) {
             QuanLySanhCuoi.dsSanhCuoi.remove(sc);
@@ -81,8 +84,10 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
                 .findFirst().orElse(null);
     }
 
+    @Override
     public void hienThi() {
         for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
+            System.out.println("Ma: " + sanhCuoi.getMaSC());
             System.out.println("Ten: " + sanhCuoi.getTenSC());
             System.out.println("Vi tri: " + sanhCuoi.getViTri());
             System.out.println("Suc chua: " + sanhCuoi.getSucChua());
@@ -90,6 +95,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi> {
         }
     }
 
+    @Override
     public void hienThi(List<SanhCuoi> dsSanhCuoi) {
         sapXep(dsSanhCuoi);
 

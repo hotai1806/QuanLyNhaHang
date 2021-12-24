@@ -9,15 +9,9 @@ import com.huongdoituong.DAL.DichVu;
 import com.huongdoituong.DAL.Karaoke;
 import com.huongdoituong.DAL.ThueCaSi;
 
-public class ViewDichVu implements ViewBase {
-    private QuanLyDichVu quanLyDichVu;
-    private Scanner scanner;
-    public ViewDichVu(QuanLyDichVu quanLyDichVu, Scanner scanner){
-        this.quanLyDichVu = quanLyDichVu;
-        this.scanner = scanner;
-    }
-    
-    public boolean themView() {
+public class ViewDichVu implements ViewBase<QuanLyDichVu> {
+    @Override
+    public void themView(Scanner scanner, QuanLyDichVu quanLyDichVu) {
         System.out.println("Chon loai dinh vu can them");
         System.out.println("1. Thue ca si");
         System.out.println("2. Karaoke");
@@ -32,9 +26,12 @@ public class ViewDichVu implements ViewBase {
                 dichVu.setSoLuongBai(scanner.nextInt());
                 System.out.print("Gia:");
                 dichVu.setGia(scanner.nextBigDecimal());
-                return quanLyDichVu.them(dichVu);
 
+                if (quanLyDichVu.them(dichVu)) {
+                    System.out.println("Them thanh cong!");
+                }
 
+                break;
             }
             case "2": {
                 Karaoke dichVu = new Karaoke();
@@ -42,9 +39,12 @@ public class ViewDichVu implements ViewBase {
                 dichVu.setThoiGianThue(scanner.nextInt());
                 System.out.print("Gia:");
                 dichVu.setGia(scanner.nextBigDecimal());
-                return quanLyDichVu.them(dichVu);
 
+                if (quanLyDichVu.them(dichVu)) {
+                    System.out.println("Them thanh cong!");
+                }
 
+                break;
             }
             case "3": {
                 DichVu dichVu = new DichVu();
@@ -54,7 +54,7 @@ public class ViewDichVu implements ViewBase {
 
                 dichVu.setGia(new BigDecimal(scanner.nextLine()));
                 System.out.print("Them chi tiet( neu khong co nhan phim 0) neu co nhan phim 1:");
-                while (Integer.parseInt(scanner.nextLine()) !=0) {
+                while (Integer.parseInt(scanner.nextLine()) != 0) {
                     System.out.print("Ten chi tiet:");
                     String ten = scanner.nextLine();
                     System.out.print("Ten noi dung:");
@@ -63,66 +63,65 @@ public class ViewDichVu implements ViewBase {
                     System.out.print("Nhan phim khong de thoat hoac bam bat ki phim de tiep tuc:");
 
                 }
-                return quanLyDichVu.them(dichVu);
+                
+                if (quanLyDichVu.them(dichVu)) {
+                    System.out.println("Them thanh cong!");
+                }
 
+                break;
             }
             default: {
                 System.out.println("====================================");
                 System.out.println("*** Lua chon khong kha dung ***");
                 System.out.println("====================================");
-                return false;
             }
         }
 
     }
-    public boolean capNhatView() {
+
+    @Override
+    public void capNhatView(Scanner scanner, QuanLyDichVu quanLyDichVu) {
         System.out.println("====================================");
         quanLyDichVu.hienThi();
 
         System.out.print("Nhap ma dich vu: ");
         // String ten = scanner.nextLine()
-        if (quanLyDichVu.capNhat(scanner.nextInt(), scanner)) {
+        if (quanLyDichVu.capNhat(scanner.nextLine(), scanner)) {
             System.out.println("Cap nhat thanh cong!");
-            return true;
         } else {
             System.out.println("Cap nhat khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
-
     }
 
-    public boolean xoaView(){
+    @Override
+    public void xoaView(Scanner scanner, QuanLyDichVu quanLyDichVu) {
         System.out.println("====================================");
         quanLyDichVu.hienThi();
 
         System.out.print("Nhap ma dich vu: ");
         // String ten = scanner.nextLine()
-        if (quanLyDichVu.xoa(scanner.nextInt())) {
+        if (quanLyDichVu.xoa(scanner.nextLine())) {
             System.out.println("Xoa thanh cong!");
-            return true;
         } else {
             System.out.println("Xoa khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
     }
 
-    public void traCuuView(){
+    @Override
+    public void traCuuView(Scanner scanner, QuanLyDichVu quanLyDichVu) {
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
-        List<DichVu> dichVu= QuanLyDichVu.timByTen(scanner.nextLine());
+        List<DichVu> dichVu = QuanLyDichVu.timByTen(scanner.nextLine());
 
-        if(dichVu.size() ==0){
+        if (dichVu.size() == 0) {
             quanLyDichVu.hienThi();
             System.out.print("Tu khoa tim kiem khong co trong danh sach.");
-        }else{
+        } else {
             quanLyDichVu.hienThi(dichVu);
-            
         }
-
     }
-
 }

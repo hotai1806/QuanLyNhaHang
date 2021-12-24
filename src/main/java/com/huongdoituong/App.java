@@ -23,9 +23,9 @@ import com.huongdoituong.DAL.ThucAn;
 import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Views.ViewDichVu;
 import com.huongdoituong.Views.ViewMenu;
+import com.huongdoituong.Views.ViewSanh;
 import com.huongdoituong.Views.ViewThucAn;
 import com.huongdoituong.Views.ViewThucUong;
-
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -38,7 +38,6 @@ public class App {
     private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
     private static QuanLyThue quanLyThue;
     private static QuanLyMenu quanLyMenu;
-
 
     public static void main(String[] args) throws NumberFormatException, Exception {
         quanLyThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
@@ -315,6 +314,8 @@ public class App {
     }
 
     private static void menuQuanLySanh() throws NumberFormatException, Exception {
+        ViewSanh viewSanh = new ViewSanh();
+
         while (true) {
             System.out.println("Quan ly sanh");
             System.out.println("1. Them sanh");
@@ -326,57 +327,19 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
-                    SanhCuoi sanhCuoi = new SanhCuoi();
-
-                    System.out.print("Ten: ");
-                    sanhCuoi.setTenSC(SCANNER.nextLine());
-                    System.out.print("Vi tri: ");
-                    sanhCuoi.setViTri(Integer.parseInt(SCANNER.nextLine()));
-                    System.out.print("Suc chua: ");
-                    sanhCuoi.setSucChua(Integer.parseInt(SCANNER.nextLine()));
-
-                    if (quanLySanhCuoi.themSC(sanhCuoi)) {
-                        System.out.print("Them thanh cong!");
-                    }
-
-                    System.out.println("====================================");
+                    viewSanh.themView(SCANNER, quanLySanhCuoi);
                     break;
                 }
                 case "2": {
-                    System.out.println("====================================");
-                    quanLySanhCuoi.hienThi();
-
-                    System.out.print("Nhap ten sanh cuoi: ");
-                    if (quanLySanhCuoi.capNhatSC(SCANNER.nextLine(), SCANNER)) {
-                        System.out.println("Cap nhat thanh cong!");
-                    } else {
-                        System.out.println("Cap nhat khong thanh cong!");
-                    }
-
-                    System.out.println("====================================");
+                    viewSanh.capNhatView(SCANNER, quanLySanhCuoi);
                     break;
                 }
                 case "3": {
-                    System.out.println("====================================");
-                    quanLySanhCuoi.hienThi();
-
-                    System.out.print("Nhap ten sanh cuoi: ");
-                    if (quanLySanhCuoi.xoaSC(SCANNER.nextLine())) {
-                        System.out.println("Xoa thanh cong!");
-                    } else {
-                        System.out.println("Xoa khong thanh cong!");
-                    }
-
-                    System.out.println("====================================");
+                    viewSanh.xoaView(SCANNER, quanLySanhCuoi);
                     break;
                 }
                 case "4": {
-                    System.out.println("====================================");
-                    
-                    System.out.print("Nhap tu khoa can tim: ");
-                    List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(SCANNER.nextLine());
-                    quanLySanhCuoi.hienThi(listSanhCuoi);
-
+                    viewSanh.traCuuView(SCANNER, quanLySanhCuoi);
                     break;
                 }
                 case "5": {
@@ -395,7 +358,8 @@ public class App {
     }
 
     private static void menuQuanLyDichVu() {
-        ViewDichVu view = new ViewDichVu( quanLyDichVu, SCANNER);
+        ViewDichVu view = new ViewDichVu();
+
         while (true) {
             System.out.println("Quan ly dich vu");
             System.out.println("1. Them dich vu");
@@ -407,23 +371,20 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
-                    if(!view.themView()){
-                        System.out.println("Them khong thanh cong");
-                    };
-                    System.out.println("Them thanh cong");
+                    view.themView(SCANNER, quanLyDichVu);
 
                     break;
                 }
                 case "2": {
-                    view.capNhatView();
+                    view.capNhatView(SCANNER, quanLyDichVu);
                     break;
                 }
                 case "3": {
-                    view.xoaView();
+                    view.xoaView(SCANNER, quanLyDichVu);
                     break;
                 }
                 case "4": {
-                    view.traCuuView();
+                    view.traCuuView(SCANNER, quanLyDichVu);
                     break;
                 }
                 case "5": {
@@ -442,7 +403,8 @@ public class App {
     }
 
     private static void menuQuanLyThucAn() {
-        ViewThucAn view = new ViewThucAn(quanLyThucAn, SCANNER);
+        ViewThucAn view = new ViewThucAn();
+
         while (true) {
             System.out.println("Quan ly thuc an");
             System.out.println("1. Them thuc an");
@@ -454,23 +416,20 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
-                    if(!view.themView()){
-                        System.out.println("Them khong thanh cong");
-                    };
-                    System.out.println("Them thanh cong");
+                    view.themView(SCANNER, quanLyThucAn);
 
                     break;
                 }
                 case "2": {
-                    view.capNhatView();
+                    view.capNhatView(SCANNER, quanLyThucAn);
                     break;
                 }
                 case "3": {
-                    view.xoaView();
+                    view.xoaView(SCANNER, quanLyThucAn);
                     break;
                 }
                 case "4": {
-                    view.traCuuView();
+                    view.traCuuView(SCANNER, quanLyThucAn);
                     break;
                 }
                 case "5": {
@@ -489,8 +448,8 @@ public class App {
     }
 
     private static void menuQuanLyThucUong() {
-        ViewThucUong view = new ViewThucUong(quanLyThucUong, SCANNER);
-        
+        ViewThucUong view = new ViewThucUong();
+
         while (true) {
             System.out.println("Quan ly thuc uong");
             System.out.println("1. Them thuc uong");
@@ -502,70 +461,21 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
-                    if(!view.themView()){
-                        System.out.println("Them khong thanh cong");
-                    };
+                    view.themView(SCANNER, quanLyThucUong);
                     System.out.println("Them thanh cong");
 
                     break;
                 }
                 case "2": {
-                    view.capNhatView();
+                    view.capNhatView(SCANNER, quanLyThucUong);
                     break;
                 }
                 case "3": {
-                    view.xoaView();
+                    view.xoaView(SCANNER, quanLyThucUong);
                     break;
                 }
                 case "4": {
-                    view.traCuuView();
-                    break;
-                }
-                case "5": {
-                    System.out.println("====================================");
-
-                    return;
-                }
-                default:
-                    System.out.println("====================================");
-                    System.out.println("*** Lua chong khong kha dung ***");
-                    System.out.println("====================================");
-
-                    continue;
-            }
-        }        
-    }
-
-    private static void menuQuanLyMenu() {
-        ViewMenu view = new ViewMenu( quanLyMenu,quanLyThucAn,quanLyThucUong ,SCANNER);
-        while (true) {
-            System.out.println("Quan ly dich vu");
-            System.out.println("1. Them dich vu");
-            System.out.println("2. Cap nhat dich vu");
-            System.out.println("3. Xoa dich vu");
-            System.out.println("4. Tra cuu dich vu");
-            System.out.println("5. Tro lai");
-            System.out.print("Lua chon: ");
-
-            switch (SCANNER.nextLine()) {
-                case "1": {
-                    if(!view.themView()){
-                        System.out.println("Them khong thanh cong");
-                    };
-                    System.out.println("Them thanh cong");
-
-                    break;
-                }
-                case "2": {
-                    view.capNhatView();
-                    break;
-                }
-                case "3": {
-                    view.xoaView();
-                    break;
-                }
-                case "4": {
-                    view.traCuuView();
+                    view.traCuuView(SCANNER, quanLyThucUong);
                     break;
                 }
                 case "5": {
@@ -583,5 +493,48 @@ public class App {
         }
     }
 
-    
+    private static void menuQuanLyMenu() {
+        ViewMenu view = new ViewMenu(quanLyThucAn, quanLyThucUong);
+
+        while (true) {
+            System.out.println("Quan ly dich vu");
+            System.out.println("1. Them dich vu");
+            System.out.println("2. Cap nhat dich vu");
+            System.out.println("3. Xoa dich vu");
+            System.out.println("4. Tra cuu dich vu");
+            System.out.println("5. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    view.themView(SCANNER, quanLyMenu);
+
+                    break;
+                }
+                case "2": {
+                    view.capNhatView(SCANNER, quanLyMenu);
+                    break;
+                }
+                case "3": {
+                    view.xoaView(SCANNER, quanLyMenu);
+                    break;
+                }
+                case "4": {
+                    view.traCuuView(SCANNER, quanLyMenu);
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
 }

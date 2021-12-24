@@ -15,22 +15,24 @@ import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<ThucUong>{
+public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<ThucUong> {
     private static List<ThucUong> listThucUong = new ArrayList<>();
-    
-    public QuanLyThucUong(){
-    }
-    public ThucUong tim(int ma){
-        return QuanLyThucUong.listThucUong.stream().filter(p->p.getMa()==ma).findFirst().get();
 
+    public QuanLyThucUong() {
     }
 
-    public static ThucUong timTheoTen(String ten){
-        return QuanLyThucUong.listThucUong.stream().filter(p->p.getTen()==ten).findFirst().get();
+    public ThucUong tim(int ma) {
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().get();
 
     }
 
-    public boolean them(ThucUong thucUong){
+    public static ThucUong timTheoTen(String ten) {
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).findFirst().get();
+
+    }
+
+    @Override
+    public boolean them(ThucUong thucUong) {
         return QuanLyThucUong.listThucUong.add(thucUong);
     }
 
@@ -41,11 +43,10 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
     public static List<ThucUong> timByTen(String ten) {
         return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).collect(Collectors.toList());
 
-
     }
     // public boolean xoa(int ma){
-        
-    //   return  QuanLyThucUong.listThucUong.removeIf(mon-> mon.getMa()==ma);
+
+    // return QuanLyThucUong.listThucUong.removeIf(mon-> mon.getMa()==ma);
 
     // }
 
@@ -79,6 +80,7 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
             }
         }
     }
+
     @Override
     public boolean ghi(String paths, List<ThucUong> items) {
         if (!items.isEmpty()) {
@@ -109,7 +111,7 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
             for (ThucUong thucAn : QuanLyThucUong.listThucUong) {
                 System.out.println("-------------- Dich Vu ----------------");
                 thucAn.hienThi();
-               
+
             }
         }
 
@@ -123,15 +125,14 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
             for (ThucUong thucUong : listThucUong) {
                 thucUong.hienThi();
 
-
             }
         }
 
     }
 
     @Override
-    public boolean capNhat(int maThucUong, Scanner scanner) {
-        ThucUong thucAn = timById(maThucUong);
+    public boolean capNhat(String maThucUong, Scanner scanner) {
+        ThucUong thucAn = timById(Integer.parseInt(maThucUong));
         if (thucAn != null) {
             try {
                 System.out.print("Ten: ");
@@ -140,10 +141,8 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
                 System.out.println("Hang san xuat:");
                 thucAn.setHangSanXuat(scanner.nextLine());
 
-
                 System.out.print("Gia: ");
                 thucAn.setGia(scanner.nextBigDecimal());
-               
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -156,8 +155,8 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
     }
 
     @Override
-    public boolean xoa(int ma) {
-        ThucUong thucUong = timById(ma);
+    public boolean xoa(String ma) {
+        ThucUong thucUong = timById(Integer.parseInt(ma));
         if (thucUong != null) {
             QuanLyThucUong.listThucUong.remove(thucUong);
             return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.listThucUong);

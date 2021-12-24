@@ -9,95 +9,87 @@ import com.huongdoituong.BLL.QuanLyThucAn;
 import com.huongdoituong.BLL.QuanLyThucUong;
 import com.huongdoituong.DAL.Menu;
 
-public class ViewMenu implements ViewBase {
-    private QuanLyMenu quanLyMenu;
+public class ViewMenu implements ViewBase<QuanLyMenu> {
     private QuanLyThucAn quanLyThucAn;
     private QuanLyThucUong quanLyThucUong;
 
-    private Scanner scanner;
-
-    public ViewMenu(QuanLyMenu quanLyMenu, QuanLyThucAn quanLyThucAn, QuanLyThucUong quanLyThucUong, Scanner scanner) {
-        this.quanLyMenu = quanLyMenu;
+    public ViewMenu(QuanLyThucAn quanLyThucAn, QuanLyThucUong quanLyThucUong) {
         this.quanLyThucAn = quanLyThucAn;
         this.quanLyThucUong = quanLyThucUong;
-        this.scanner = scanner;
     }
 
-    public boolean themView() {
+    @Override
+    public void themView(Scanner scanner, QuanLyMenu quanLyMenu) {
         try {
-
             Menu menu = new Menu();
             System.out.println("Chon mon them:");
             System.out.println("1. Thuc an:");
             System.out.println("2. Thuc uong:");
 
-            while (scanner.nextInt() != 0) {
+            while (scanner.nextLine() != "0") {
                 switch (scanner.nextInt()) {
                     case 1:
                         quanLyThucAn.hienThi();
                         System.out.println("Chon mon theo so:");
-                        menu.themThucAn(quanLyThucAn.tim(scanner.nextInt()));
+
+                        menu.themThucAn(quanLyThucAn.tim(Integer.parseInt(scanner.nextLine())));
                         break;
                     case 2:
                         quanLyThucUong.hienThi();
                         System.out.println("Chon mon theo so:");
 
-                        menu.themThucUong(quanLyThucUong.tim(scanner.nextInt()));
+                        menu.themThucUong(quanLyThucUong.tim(Integer.parseInt(scanner.nextLine())));
                         break;
                 }
             }
 
-            return true;
         } catch (Exception e) {
             System.out.println("Loi nhap");
-            return false;
         }
     }
 
-    public boolean xoaView() {
+    @Override
+    public void xoaView(Scanner scanner, QuanLyMenu quanLyMenu) {
         System.out.println("====================================");
         quanLyMenu.hienThi();
-        System.out.print("Nhap ma menu: ");
-        if (quanLyMenu.xoa(scanner.nextInt())) {
 
+        System.out.print("Nhap ma menu: ");
+        if (quanLyMenu.xoa(scanner.nextLine())) {
             System.out.println("Xoa thanh cong!");
-            return true;
         } else {
             System.out.println("Xoa khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
     }
 
-    public boolean capNhatView() {
+    @Override
+    public void capNhatView(Scanner scanner, QuanLyMenu quanLyMenu) {
         System.out.println("====================================");
         quanLyMenu.hienThi();
 
         System.out.print("Nhap ma menu: ");
         // String ten = scanner.nextLine()
-        if (quanLyMenu.capNhat(scanner.nextInt(), scanner)) {
+        if (quanLyMenu.capNhat(scanner.nextLine(), scanner)) {
             System.out.println("Cap nhat thanh cong!");
-            return true;
         } else {
             System.out.println("Cap nhat khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
     }
 
-    public void traCuuView() {
+    @Override
+    public void traCuuView(Scanner scanner, QuanLyMenu quanLyMenu) {
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
         List<Menu> listMenu = new ArrayList<>();
-        Menu menu= quanLyMenu.timById(scanner.nextInt());
+        Menu menu = quanLyMenu.timById(Integer.parseInt(scanner.nextLine()));
         listMenu.add(menu);
-        if(listMenu.size() ==0){
+        if (listMenu.size() == 0) {
             System.out.print("Tu khoa tim kiem khong co trong danh sach.");
             quanLyMenu.hienThi();
-        }else{
-
+        } else {
             quanLyMenu.hienThi(listMenu);
         }
 

@@ -6,9 +6,11 @@ import java.util.Scanner;
 public interface BaseInterfaceQuanLy<T> {
     public void hienThi();
 
-    public  void hienThi(List<T> list);
+    public void hienThi(List<T> list);
 
-    public boolean capNhat(int ma,Scanner scanner);
+    public boolean them(T item);
 
-    public boolean xoa(int ma);
+    public boolean capNhat(String ma, Scanner scanner);
+
+    public boolean xoa(String ma);
 }

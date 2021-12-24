@@ -18,7 +18,6 @@ import com.huongdoituong.DAL.ThucAn;
 import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.DAL.ThongTinThue;
 
-
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
@@ -51,7 +50,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     doanhThu = doanhThu.add(thongTinThue.getTongGia());
                 }
             }
-            
+
             System.out.println("Doanh thu thang: " + i + " " + doanhThu);
         }
     }
@@ -204,7 +203,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     String dichVuStringCheck = scanner.nextLine();
                     while (!dichVuStringCheck.equals(".")) {
                         if (!dichVuStringCheck.equals(".") && !dichVuStringCheck.equals("Dich vu")) {
-                            // thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck).get(0));
+                            thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck).get(0));
                         }
 
                         dichVuStringCheck = scanner.nextLine();
@@ -247,7 +246,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
                             printWriter.println("Thuc an");
                             if (!menu.getListThucAn().isEmpty()) {
-                                        for (ThucAn thucAn : menu.getListThucAn()) {
+                                for (ThucAn thucAn : menu.getListThucAn()) {
                                     printWriter.println(thucAn.getTen());
                                 }
                             } else {

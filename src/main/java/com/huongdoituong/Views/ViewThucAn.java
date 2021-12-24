@@ -8,16 +8,9 @@ import com.huongdoituong.BLL.QuanLyThucAn;
 import com.huongdoituong.DAL.Menu;
 import com.huongdoituong.DAL.ThucAn;
 
-public class ViewThucAn implements ViewBase {
-    private QuanLyThucAn quanLyThucAn;
-    private Scanner scanner;
-
-    public ViewThucAn(QuanLyThucAn quanLyThucAn, Scanner scanner) {
-        this.quanLyThucAn = quanLyThucAn;
-        this.scanner = scanner;
-    }
-
-    public boolean themView() {
+public class ViewThucAn implements ViewBase<QuanLyThucAn> {
+    @Override
+    public void themView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
         try {
 
             ThucAn thucAn = new ThucAn();
@@ -25,61 +18,61 @@ public class ViewThucAn implements ViewBase {
             thucAn.setTen(scanner.nextLine());
 
             System.out.print("Mon co chay khong(1 co, 0 khong):");
-            thucAn.setMonChay(scanner.nextInt() == 0 ? false : true);
+            thucAn.setMonChay(scanner.nextLine() == "0" ? false : true);
 
             System.out.print("Set gia:");
             thucAn.setGia(scanner.nextBigDecimal());
-            return quanLyThucAn.them(thucAn);
+            if (quanLyThucAn.them(thucAn)) {
+                System.out.println("Them thanh cong");
+            } else {
+                System.out.println("Them khong thanh cong");
+            }
         } catch (Exception e) {
             System.out.println("Loi nhap");
-            return false;
         }
     }
 
-    public boolean xoaView() {
+    @Override
+    public void xoaView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
         System.out.println("====================================");
         quanLyThucAn.hienThi();
         System.out.print("Nhap ma thuc an: ");
-        if (quanLyThucAn.xoa(scanner.nextInt())) {
+        if (quanLyThucAn.xoa(scanner.nextLine())) {
             System.out.println("Xoa thanh cong!");
-            return true;
         } else {
             System.out.println("Xoa khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
-
     }
 
-    public boolean capNhatView() {
+    @Override
+    public void capNhatView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
 
         System.out.println("====================================");
         quanLyThucAn.hienThi();
 
         System.out.print("Nhap ma thuc an: ");
         // String ten = scanner.nextLine()
-        if (quanLyThucAn.capNhat(scanner.nextInt(), scanner)) {
+        if (quanLyThucAn.capNhat(scanner.nextLine(), scanner)) {
             System.out.println("Cap nhat thanh cong!");
-            return true;
         } else {
             System.out.println("Cap nhat khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
     }
 
-    public void traCuuView() {
+    @Override
+    public void traCuuView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
-        List<ThucAn> thucAn= QuanLyThucAn.timByTen(scanner.nextLine());
+        List<ThucAn> thucAn = QuanLyThucAn.timByTen(scanner.nextLine());
 
-        if(thucAn.size() ==0){
+        if (thucAn.size() == 0) {
             System.out.print("Tu khoa tim kiem khong co trong danh sach.");
             quanLyThucAn.hienThi();
-        }else{
-
+        } else {
             quanLyThucAn.hienThi(thucAn);
         }
 

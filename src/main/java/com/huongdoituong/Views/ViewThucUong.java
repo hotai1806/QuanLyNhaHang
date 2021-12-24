@@ -6,16 +6,9 @@ import java.util.Scanner;
 import com.huongdoituong.BLL.QuanLyThucUong;
 import com.huongdoituong.DAL.ThucUong;
 
-public class ViewThucUong {
-    private QuanLyThucUong quanLyThucUong;
-    private Scanner scanner;
-
-    public ViewThucUong(QuanLyThucUong quanLyThucUong, Scanner scanner) {
-        this.quanLyThucUong = quanLyThucUong;
-        this.scanner = scanner;
-    }
-
-    public boolean themView() {
+public class ViewThucUong implements ViewBase<QuanLyThucUong> {
+    @Override
+    public void themView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         try {
 
             ThucUong thucAn = new ThucUong();
@@ -27,48 +20,49 @@ public class ViewThucUong {
 
             System.out.print("Set gia:");
             thucAn.setGia(scanner.nextBigDecimal());
-            return quanLyThucUong.them(thucAn);
+            if (quanLyThucUong.them(thucAn)) {
+                System.out.println("Them thanh cong");
+            } else {
+                System.out.println("Them khong thanh cong");
+            }
         } catch (Exception e) {
             System.out.println("Loi nhap");
-            return false;
         }
     }
 
-    public boolean xoaView() {
+    @Override
+    public void xoaView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         System.out.println("====================================");
         quanLyThucUong.hienThi();
         System.out.print("Nhap ma mon: ");
-        if (quanLyThucUong.xoa(scanner.nextInt())) {
+        if (quanLyThucUong.xoa(scanner.nextLine())) {
             System.out.println("Xoa thanh cong!");
-            return true;
         } else {
             System.out.println("Xoa khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
-
     }
 
-    public boolean capNhatView() {
+    @Override
+    public void capNhatView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
 
         System.out.println("====================================");
         quanLyThucUong.hienThi();
 
         System.out.print("Nhap ma thuc uong: ");
         // String ten = scanner.nextLine()
-        if (quanLyThucUong.capNhat(scanner.nextInt(), scanner)) {
+        if (quanLyThucUong.capNhat(scanner.nextLine(), scanner)) {
             System.out.println("Cap nhat thanh cong!");
-            return true;
         } else {
             System.out.println("Cap nhat khong thanh cong!");
         }
 
         System.out.println("====================================");
-        return false;
     }
 
-    public void traCuuView() {
+    @Override
+    public void traCuuView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
         List<ThucUong> thucUong = QuanLyThucUong.timByTen(scanner.nextLine());
@@ -77,7 +71,6 @@ public class ViewThucUong {
             System.out.print("Tu khoa tim kiem khong co trong danh sach.");
             quanLyThucUong.hienThi();
         } else {
-
             quanLyThucUong.hienThi(thucUong);
         }
 

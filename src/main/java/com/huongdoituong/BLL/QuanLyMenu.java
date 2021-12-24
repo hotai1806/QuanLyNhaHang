@@ -13,24 +13,25 @@ import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyMenu implements IDocGhi<Menu>,BaseInterfaceQuanLy<Menu> {
+public class QuanLyMenu implements IDocGhi<Menu>, BaseInterfaceQuanLy<Menu> {
     private List<Menu> listMenu = new ArrayList<>();
 
     public QuanLyMenu() {
 
     }
 
-    public Menu timById(int ma){
-        return listMenu.stream().filter(p -> p.getMaMenu()==ma).findFirst().get();
+    public Menu timById(int ma) {
+        return listMenu.stream().filter(p -> p.getMaMenu() == ma).findFirst().get();
     }
 
+    @Override
     public boolean them(Menu menu) {
         return this.listMenu.add(menu);
     }
 
     @Override
-    public boolean xoa(int id) {
-        return this.listMenu.removeIf(element -> element.getMaMenu() == id);
+    public boolean xoa(String id) {
+        return this.listMenu.removeIf(element -> element.getMaMenu() == Integer.parseInt(id));
     }
 
     public BigDecimal getTongGia() {
@@ -81,43 +82,20 @@ public class QuanLyMenu implements IDocGhi<Menu>,BaseInterfaceQuanLy<Menu> {
     }
 
     @Override
-    public void hienThi(){
-        if(!this.listMenu.isEmpty()){
-            for (Menu menu : this.listMenu){
+    public void hienThi() {
+        if (!this.listMenu.isEmpty()) {
+            for (Menu menu : this.listMenu) {
                 System.out.println("-------------- Menu ----------------");
                 System.out.println("Ma menu:" + String.format("%s", menu.getMaMenu()));
-                if(!menu.getListThucAn().isEmpty()){
-                    for(ThucAn thucAn: menu.getListThucAn()){
-                        thucAn.hienThi();                        
+                if (!menu.getListThucAn().isEmpty()) {
+                    for (ThucAn thucAn : menu.getListThucAn()) {
+                        thucAn.hienThi();
                     }
                 }
 
-                if(!menu.getListThucUong().isEmpty()){
-                    for(ThucUong thucUong: menu.getListThucUong()){
-                        thucUong.hienThi();                        
-                    }
-                }
-                System.out.println("Ma dich vu:" + String.format("%s", menu.getTongGia()));
-
-            }
-        }
-    }
-    
-    @Override
-    public void hienThi(List<Menu> listMenu){
-        if(!listMenu.isEmpty()){
-            for (Menu menu : listMenu){
-                System.out.println("-------------- Menu ----------------");
-                System.out.println("Ma menu:" + String.format("%s", menu.getMaMenu()));
-                if(!menu.getListThucAn().isEmpty()){
-                    for(ThucAn thucAn: menu.getListThucAn()){
-                        thucAn.hienThi();                        
-                    }
-                }
-
-                if(!menu.getListThucUong().isEmpty()){
-                    for(ThucUong thucUong: menu.getListThucUong()){
-                        thucUong.hienThi();                        
+                if (!menu.getListThucUong().isEmpty()) {
+                    for (ThucUong thucUong : menu.getListThucUong()) {
+                        thucUong.hienThi();
                     }
                 }
                 System.out.println("Ma dich vu:" + String.format("%s", menu.getTongGia()));
@@ -127,13 +105,36 @@ public class QuanLyMenu implements IDocGhi<Menu>,BaseInterfaceQuanLy<Menu> {
     }
 
     @Override
-    public boolean capNhat(int maMenu, Scanner scanner) {
-         Menu menu = this.timById(maMenu);
+    public void hienThi(List<Menu> listMenu) {
+        if (!listMenu.isEmpty()) {
+            for (Menu menu : listMenu) {
+                System.out.println("-------------- Menu ----------------");
+                System.out.println("Ma menu:" + String.format("%s", menu.getMaMenu()));
+                if (!menu.getListThucAn().isEmpty()) {
+                    for (ThucAn thucAn : menu.getListThucAn()) {
+                        thucAn.hienThi();
+                    }
+                }
+
+                if (!menu.getListThucUong().isEmpty()) {
+                    for (ThucUong thucUong : menu.getListThucUong()) {
+                        thucUong.hienThi();
+                    }
+                }
+                System.out.println("Ma dich vu:" + String.format("%s", menu.getTongGia()));
+
+            }
+        }
+    }
+
+    @Override
+    public boolean capNhat(String maMenu, Scanner scanner) {
+        Menu menu = this.timById(Integer.parseInt(maMenu));
         if (menu != null) {
             try {
                 System.out.println("Ma menu: ");
-                menu.setMaMenu(maMenu);
-                for (ThucAn thucAn: menu.getListThucAn()){
+                menu.setMaMenu(Integer.parseInt(maMenu));
+                for (ThucAn thucAn : menu.getListThucAn()) {
                     thucAn.hienThi();
                 }
 
@@ -142,16 +143,16 @@ public class QuanLyMenu implements IDocGhi<Menu>,BaseInterfaceQuanLy<Menu> {
                 System.out.println("Ten cu " + thucAn.getTen());
                 System.out.println("Doi ten:");
                 thucAn.setTen(scanner.nextLine());
-                if(thucAn.isMonChay()){
+                if (thucAn.isMonChay()) {
                     System.out.println("Mon chay, doi thanh mon khong chay nhan phim 0");
 
-                    thucAn.setMonChay(scanner.nextInt() ==1 ?true:false);
+                    thucAn.setMonChay(scanner.nextInt() == 1 ? true : false);
                 }
-                System.out.println("Doi gia(gia cu"+ thucAn.getGia() + "):");
+                System.out.println("Doi gia(gia cu" + thucAn.getGia() + "):");
 
                 thucAn.setGia(new BigDecimal(scanner.nextInt()));
 
-                for (ThucUong thucUong: menu.getListThucUong()){
+                for (ThucUong thucUong : menu.getListThucUong()) {
                     thucUong.hienThi();
                 }
 
@@ -160,13 +161,11 @@ public class QuanLyMenu implements IDocGhi<Menu>,BaseInterfaceQuanLy<Menu> {
                 System.out.println("Ten cu " + thucUong.getTen());
                 System.out.println("Doi ten:");
                 thucUong.setTen(scanner.nextLine());
-                System.out.println("Hang sang xuat("+ thucUong.getHangSanXuat()+"):");
+                System.out.println("Hang sang xuat(" + thucUong.getHangSanXuat() + "):");
                 thucUong.setHangSanXuat(scanner.nextLine());
-                System.out.println("Doi gia(gia cu"+ thucUong.getGia() + "):");
+                System.out.println("Doi gia(gia cu" + thucUong.getGia() + "):");
 
                 thucUong.setGia(new BigDecimal(scanner.nextInt()));
-
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -180,12 +179,12 @@ public class QuanLyMenu implements IDocGhi<Menu>,BaseInterfaceQuanLy<Menu> {
 
     // @Override
     // public boolean xoa(int ma) {
-    //     DichVu dichVu = timById(ma);
-    //     if (dichVu != null) {
-    //         QuanLyDichVu.listDichVu.remove(dichVu);
-    //         return ghi(Path.DICH_VU.getPath(), QuanLyDichVu.listDichVu);
-    //     }
-    //     return false;
+    // DichVu dichVu = timById(ma);
+    // if (dichVu != null) {
+    // QuanLyDichVu.listDichVu.remove(dichVu);
+    // return ghi(Path.DICH_VU.getPath(), QuanLyDichVu.listDichVu);
     // }
-   
+    // return false;
+    // }
+
 }
