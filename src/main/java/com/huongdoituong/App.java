@@ -402,7 +402,7 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
-                    if(!view.themDichVu()){
+                    if(!view.themView()){
                         System.out.println("Them khong thanh cong");
                     };
                     System.out.println("Them thanh cong");
@@ -410,15 +410,15 @@ public class App {
                     break;
                 }
                 case "2": {
-                    view.capNhatDichVu();
+                    view.capNhatView();
                     break;
                 }
                 case "3": {
-                    view.xoaDichVu();
+                    view.xoaView();
                     break;
                 }
                 case "4": {
-                    view.traCuu();
+                    view.traCuuView();
                     break;
                 }
                 case "5": {

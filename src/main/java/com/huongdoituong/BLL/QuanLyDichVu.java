@@ -107,18 +107,19 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
         if (QuanLyDichVu.listDichVu.size() != 0) {
             for (DichVu dichVu : QuanLyDichVu.listDichVu) {
                 System.out.println("-------------- Dich Vu ----------------");
-                System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
-                System.out.println("Ten dich vu:" + dichVu.getTen());
-                if (dichVu.getStoreKey().isEmpty()) {
-                    for (String key : dichVu.getStoreKey()) {
-                        if (key != null) {
-                            System.out.println(key + ": " + dichVu.getLuaChonDieuKien().get(key));
+                dichVu.hienThi();
+                // System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
+                // System.out.println("Ten dich vu:" + dichVu.getTen());
+                // if (dichVu.getStoreKey().isEmpty()) {
+                //     for (String key : dichVu.getStoreKey()) {
+                //         if (key != null) {
+                //             System.out.println(key + ": " + dichVu.getLuaChonDieuKien().get(key));
 
-                        }
-                    }
-                }
+                //         }
+                //     }
+                // }
 
-                System.out.println("Tong gia dich vu:" + dichVu.getGia());
+                // System.out.println("Tong gia dich vu:" + dichVu.getGia());
 
             }
         }
@@ -129,8 +130,8 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
     public void hienThi(List<DichVu> listDichVu) {
 
         if (listDichVu.size() != 0) {
+            System.out.println("-------------- Dich Vu ----------------");
             for (DichVu dichVu : listDichVu) {
-                System.out.println("-------------- Dich Vu ----------------");
                 System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
                 System.out.println("Ten dich vu:" + dichVu.getTen());
                 if (dichVu.getStoreKey().isEmpty()) {

@@ -9,14 +9,15 @@ import com.huongdoituong.DAL.DichVu;
 import com.huongdoituong.DAL.Karaoke;
 import com.huongdoituong.DAL.ThueCaSi;
 
-public class ViewDichVu {
+public class ViewDichVu implements ViewBase {
     private QuanLyDichVu quanLyDichVu;
     private Scanner scanner;
     public ViewDichVu(QuanLyDichVu quanLyDichVu, Scanner scanner){
         this.quanLyDichVu = quanLyDichVu;
         this.scanner = scanner;
     }
-    public boolean themDichVu() {
+    
+    public boolean themView() {
         System.out.println("Chon loai dinh vu can them");
         System.out.println("1. Thue ca si");
         System.out.println("2. Karaoke");
@@ -74,7 +75,7 @@ public class ViewDichVu {
         }
 
     }
-    public boolean capNhatDichVu() {
+    public boolean capNhatView() {
         System.out.println("====================================");
         quanLyDichVu.hienThi();
 
@@ -92,7 +93,7 @@ public class ViewDichVu {
 
     }
 
-    public boolean xoaDichVu(){
+    public boolean xoaView(){
         System.out.println("====================================");
         quanLyDichVu.hienThi();
 
@@ -109,7 +110,7 @@ public class ViewDichVu {
         return false;
     }
 
-    public void traCuu(){
+    public void traCuuView(){
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
         List<DichVu> dichVu= QuanLyDichVu.timByTen(scanner.nextLine());
