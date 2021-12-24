@@ -116,10 +116,12 @@ public class ViewDichVu implements ViewBase {
         List<DichVu> dichVu= QuanLyDichVu.timByTen(scanner.nextLine());
 
         if(dichVu.size() ==0){
+            quanLyDichVu.hienThi();
             System.out.print("Tu khoa tim kiem khong co trong danh sach.");
+        }else{
+            quanLyDichVu.hienThi(dichVu);
+            
         }
-        quanLyDichVu.hienThi();
-        quanLyDichVu.hienThi(dichVu);
 
     }
 

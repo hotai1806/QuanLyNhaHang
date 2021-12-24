@@ -13,6 +13,10 @@ public class DichVu {
     private Hashtable<String, String> luaChonDieuKien = new Hashtable<>();
     private List<String> storeKey = new ArrayList<>() ; 
 
+    {
+        this.setMa(++autoIncrement);
+    }
+
     public List<String> getStoreKey() {
         return this.storeKey;
     }

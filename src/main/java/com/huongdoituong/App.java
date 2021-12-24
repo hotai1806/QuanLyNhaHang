@@ -22,6 +22,9 @@ import com.huongdoituong.DAL.Menu;
 import com.huongdoituong.DAL.ThucAn;
 import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Views.ViewDichVu;
+import com.huongdoituong.Views.ViewMenu;
+import com.huongdoituong.Views.ViewThucAn;
+import com.huongdoituong.Views.ViewThucUong;
 
 
 public class App {
@@ -30,23 +33,25 @@ public class App {
     private static final String YEAR_REGEX = "^\\d{4}$";
 
     private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-    private static QuanLyThucAn qlThucAn = new QuanLyThucAn();
-    private static QuanLyThucUong qlThucUong = new QuanLyThucUong();
-    private static QuanLyDichVu qlDichVu = new QuanLyDichVu();
+    private static QuanLyThucAn quanLyThucAn = new QuanLyThucAn();
+    private static QuanLyThucUong quanLyThucUong = new QuanLyThucUong();
+    private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
     private static QuanLyThue quanLyThue;
+    private static QuanLyMenu quanLyMenu;
+
 
     public static void main(String[] args) throws NumberFormatException, Exception {
-        qlThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
-        qlThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
-        qlThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
+        quanLyThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
+        quanLyThucAn.them(new ThucAn("Ca", new BigDecimal(20)));
+        quanLyThucAn.them(new ThucAn("Bo", new BigDecimal(50)));
 
-        qlThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
-        qlThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
-        qlThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
+        quanLyThucUong.them(new ThucUong("Coca", new BigDecimal(30)));
+        quanLyThucUong.them(new ThucUong("Pepsi", new BigDecimal(40)));
+        quanLyThucUong.them(new ThucUong("Sting", new BigDecimal(60)));
 
-        qlDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
-        qlDichVu.them(new DichVu("Hat", new BigDecimal(20)));
-        qlDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
+        quanLyDichVu.them(new DichVu("Trang tri", new BigDecimal(10)));
+        quanLyDichVu.them(new DichVu("Hat", new BigDecimal(20)));
+        quanLyDichVu.them(new DichVu("Banh kem", new BigDecimal(50)));
 
         quanLyThue = new QuanLyThue();
 
@@ -137,7 +142,7 @@ public class App {
                     switch (choice) {
                         case "1": {
                             System.out.print("Nhap ten thuc an: ");
-                            menu.getListThucAn().add(QuanLyThucAn.timTheoTen(SCANNER.nextLine()));
+                            menu.getListThucAn().add(QuanLyThucAn.timByTen(SCANNER.nextLine()).get(0));
 
                             System.out.println("------------------------------------");
                             continue;
@@ -175,7 +180,7 @@ public class App {
                     case "1": {
                         System.out.print("Nhap ten dich vu: ");
                         List<DichVu> listDichVu = QuanLyDichVu.timByTen(SCANNER.nextLine());
-                        qlDichVu.hienThi(listDichVu);
+                        quanLyDichVu.hienThi(listDichVu);
                         System.out.print("Chon ma dich vu:");
                         DichVu dichVu = QuanLyDichVu.timById(SCANNER.nextInt());
                         if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
@@ -390,7 +395,7 @@ public class App {
     }
 
     private static void menuQuanLyDichVu() {
-        ViewDichVu view = new ViewDichVu( qlDichVu, SCANNER);
+        ViewDichVu view = new ViewDichVu( quanLyDichVu, SCANNER);
         while (true) {
             System.out.println("Quan ly dich vu");
             System.out.println("1. Them dich vu");
@@ -437,6 +442,7 @@ public class App {
     }
 
     private static void menuQuanLyThucAn() {
+        ViewThucAn view = new ViewThucAn(quanLyThucAn, SCANNER);
         while (true) {
             System.out.println("Quan ly thuc an");
             System.out.println("1. Them thuc an");
@@ -448,15 +454,23 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
+                    if(!view.themView()){
+                        System.out.println("Them khong thanh cong");
+                    };
+                    System.out.println("Them thanh cong");
+
                     break;
                 }
                 case "2": {
+                    view.capNhatView();
                     break;
                 }
                 case "3": {
+                    view.xoaView();
                     break;
                 }
                 case "4": {
+                    view.traCuuView();
                     break;
                 }
                 case "5": {
@@ -475,6 +489,8 @@ public class App {
     }
 
     private static void menuQuanLyThucUong() {
+        ViewThucUong view = new ViewThucUong(quanLyThucUong, SCANNER);
+        
         while (true) {
             System.out.println("Quan ly thuc uong");
             System.out.println("1. Them thuc uong");
@@ -486,15 +502,70 @@ public class App {
 
             switch (SCANNER.nextLine()) {
                 case "1": {
+                    if(!view.themView()){
+                        System.out.println("Them khong thanh cong");
+                    };
+                    System.out.println("Them thanh cong");
+
                     break;
                 }
                 case "2": {
+                    view.capNhatView();
                     break;
                 }
                 case "3": {
+                    view.xoaView();
                     break;
                 }
                 case "4": {
+                    view.traCuuView();
+                    break;
+                }
+                case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }        
+    }
+
+    private static void menuQuanLyMenu() {
+        ViewMenu view = new ViewMenu( quanLyMenu,quanLyThucAn,quanLyThucUong ,SCANNER);
+        while (true) {
+            System.out.println("Quan ly dich vu");
+            System.out.println("1. Them dich vu");
+            System.out.println("2. Cap nhat dich vu");
+            System.out.println("3. Xoa dich vu");
+            System.out.println("4. Tra cuu dich vu");
+            System.out.println("5. Tro lai");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    if(!view.themView()){
+                        System.out.println("Them khong thanh cong");
+                    };
+                    System.out.println("Them thanh cong");
+
+                    break;
+                }
+                case "2": {
+                    view.capNhatView();
+                    break;
+                }
+                case "3": {
+                    view.xoaView();
+                    break;
+                }
+                case "4": {
+                    view.traCuuView();
                     break;
                 }
                 case "5": {

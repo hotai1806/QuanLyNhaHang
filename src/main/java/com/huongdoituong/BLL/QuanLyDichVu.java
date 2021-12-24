@@ -31,13 +31,13 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
         return QuanLyDichVu.listDichVu.add(dichVu);
     }
 
-    public boolean them(Karaoke dichVu) {
-        return QuanLyDichVu.listDichVu.add(dichVu);
-    }
+    // public boolean them(Karaoke dichVu) {
+    //     return QuanLyDichVu.listDichVu.add(dichVu);
+    // }
 
-    public boolean them(ThueCaSi dichVu) {
-        return QuanLyDichVu.listDichVu.add(dichVu);
-    }
+    // public boolean them(ThueCaSi dichVu) {
+    //     return QuanLyDichVu.listDichVu.add(dichVu);
+    // }
 
     // public boolean xoa(int ma) {
 
@@ -105,8 +105,9 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
     @Override
     public void hienThi() {
         if (QuanLyDichVu.listDichVu.size() != 0) {
+            System.out.println("-------------- Dich Vu ----------------");
+
             for (DichVu dichVu : QuanLyDichVu.listDichVu) {
-                System.out.println("-------------- Dich Vu ----------------");
                 dichVu.hienThi();
                 // System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
                 // System.out.println("Ten dich vu:" + dichVu.getTen());
@@ -132,19 +133,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
         if (listDichVu.size() != 0) {
             System.out.println("-------------- Dich Vu ----------------");
             for (DichVu dichVu : listDichVu) {
-                System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
-                System.out.println("Ten dich vu:" + dichVu.getTen());
-                if (dichVu.getStoreKey().isEmpty()) {
-                    for (String key : dichVu.getStoreKey()) {
-                        if (key != null) {
-                            System.out.println(key + ": " + dichVu.getLuaChonDieuKien().get(key));
-
-                        }
-                    }
-                }
-
-                System.out.println("Tong gia dich vu:" + dichVu.getGia());
-
+               dichVu.hienThi();
             }
         }
 
@@ -159,11 +148,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
                 dichVu.setTen(scanner.nextLine());
                 System.out.print("Gia: ");
                 dichVu.setGia(scanner.nextBigDecimal());
-                if (dichVu.getClass() == Karaoke.class) {
-                    System.out.print("Thoi gian thue: ");
-
-                }
-                System.out.print("Suc chua: ");
+                
 
             } catch (Exception e) {
                 e.printStackTrace();

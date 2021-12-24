@@ -8,8 +8,11 @@ public class Mon {
     protected BigDecimal gia;
     protected static int autoIncrement = 0;
 
+    {
+        this.setMa(++autoIncrement);
+    }
+
     public Mon(){
-        
     }
 
     public Mon(String ten,BigDecimal gia){

@@ -12,7 +12,12 @@ public class Menu  {
     private List<ThucAn> listThucAn = new ArrayList<ThucAn>();
     private List<ThucUong> listThucUong = new ArrayList<ThucUong>();
     
+    private static int autoIncrement = 0;
 
+    {
+        this.setMaMenu(++autoIncrement); 
+
+    }
 
     public void themThucAn(ThucAn mon){
         this.listThucAn.add(mon);

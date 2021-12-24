@@ -9,17 +9,18 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyThucUong implements IDocGhi<ThucUong>{
+public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<ThucUong>{
     private static List<ThucUong> listThucUong = new ArrayList<>();
     
     public QuanLyThucUong(){
     }
-    public static ThucUong tim(int ma){
+    public ThucUong tim(int ma){
         return QuanLyThucUong.listThucUong.stream().filter(p->p.getMa()==ma).findFirst().get();
 
     }
@@ -32,11 +33,21 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>{
     public boolean them(ThucUong thucUong){
         return QuanLyThucUong.listThucUong.add(thucUong);
     }
-    public boolean xoa(int ma){
-        
-      return  QuanLyThucUong.listThucUong.removeIf(mon-> mon.getMa()==ma);
+
+    public static ThucUong timById(int ma) {
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().get();
+    }
+
+    public static List<ThucUong> timByTen(String ten) {
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).collect(Collectors.toList());
+
 
     }
+    // public boolean xoa(int ma){
+        
+    //   return  QuanLyThucUong.listThucUong.removeIf(mon-> mon.getMa()==ma);
+
+    // }
 
     @Override
     public void doc(String path) {
@@ -89,6 +100,68 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>{
             }
         }
 
+        return false;
+    }
+
+    @Override
+    public void hienThi() {
+        if (QuanLyThucUong.listThucUong.size() != 0) {
+            for (ThucUong thucAn : QuanLyThucUong.listThucUong) {
+                System.out.println("-------------- Dich Vu ----------------");
+                thucAn.hienThi();
+               
+            }
+        }
+
+    }
+
+    @Override
+    public void hienThi(List<ThucUong> listThucUong) {
+
+        if (listThucUong.size() != 0) {
+            System.out.println("-------------- Dich Vu ----------------");
+            for (ThucUong thucUong : listThucUong) {
+                thucUong.hienThi();
+
+
+            }
+        }
+
+    }
+
+    @Override
+    public boolean capNhat(int maThucUong, Scanner scanner) {
+        ThucUong thucAn = timById(maThucUong);
+        if (thucAn != null) {
+            try {
+                System.out.print("Ten: ");
+                thucAn.setTen(scanner.nextLine());
+
+                System.out.println("Hang san xuat:");
+                thucAn.setHangSanXuat(scanner.nextLine());
+
+
+                System.out.print("Gia: ");
+                thucAn.setGia(scanner.nextBigDecimal());
+               
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean xoa(int ma) {
+        ThucUong thucUong = timById(ma);
+        if (thucUong != null) {
+            QuanLyThucUong.listThucUong.remove(thucUong);
+            return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.listThucUong);
+        }
         return false;
     }
 

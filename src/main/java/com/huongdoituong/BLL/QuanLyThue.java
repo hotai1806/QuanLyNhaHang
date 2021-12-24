@@ -178,7 +178,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         String thucAnStringCheck = scanner.nextLine();
                         while (!thucAnStringCheck.equals(".")) {
                             if (!thucAnStringCheck.equals(".") && !thucAnStringCheck.equals("Thuc an")) {
-                                menu.getListThucAn().add(QuanLyThucAn.timTheoTen(thucAnStringCheck));
+                                menu.getListThucAn().add(QuanLyThucAn.timByTen(thucAnStringCheck).get(0));
                             }
 
                             thucAnStringCheck = scanner.nextLine();
