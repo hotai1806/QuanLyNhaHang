@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class ThucUong extends Mon {
     private String hangSanXuat;
-
+    static int autoIncrement;
     public ThucUong(String ten, BigDecimal gia, String hangSX) {
         super(ten, gia);
 

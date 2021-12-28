@@ -3,7 +3,8 @@ package com.huongdoituong.DAL;
 import java.math.BigDecimal;
 
 public class ThucAn extends Mon{
-    private boolean monChay;       
+    private boolean monChay;      
+    static int autoIncrement; 
     public ThucAn(String ten,BigDecimal gia) {
         super(ten,gia);
     }

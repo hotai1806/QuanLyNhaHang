@@ -2,7 +2,7 @@ package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
 
-public class Mon {
+public abstract class Mon {
     protected int ma = 0;
     protected String ten;
     protected BigDecimal gia;

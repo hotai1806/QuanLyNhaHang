@@ -22,12 +22,12 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
     }
 
     public ThucUong tim(int ma) {
-        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().get();
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
 
     }
 
     public static ThucUong timTheoTen(String ten) {
-        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).findFirst().get();
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).findFirst().orElse(null);
 
     }
 
@@ -37,7 +37,7 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
     }
 
     public static ThucUong timById(int ma) {
-        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().get();
+        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public static List<ThucUong> timByTen(String ten) {

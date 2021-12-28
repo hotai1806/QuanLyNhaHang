@@ -21,7 +21,7 @@ public class QuanLyMenu implements IDocGhi<Menu>, BaseInterfaceQuanLy<Menu> {
     }
 
     public Menu timById(int ma) {
-        return listMenu.stream().filter(p -> p.getMaMenu() == ma).findFirst().get();
+        return listMenu.stream().filter(p -> p.getMaMenu() == ma).findFirst().orElse(null);
     }
 
     @Override

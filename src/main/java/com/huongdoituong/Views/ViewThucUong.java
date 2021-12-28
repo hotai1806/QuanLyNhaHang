@@ -1,5 +1,6 @@
 package com.huongdoituong.Views;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
             thucAn.setHangSanXuat(scanner.nextLine());
 
             System.out.print("Set gia:");
-            thucAn.setGia(scanner.nextBigDecimal());
+            thucAn.setGia(new BigDecimal(scanner.nextLine()));
             if (quanLyThucUong.them(thucAn)) {
                 System.out.println("Them thanh cong");
             } else {

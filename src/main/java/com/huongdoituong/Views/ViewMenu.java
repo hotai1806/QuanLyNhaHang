@@ -25,6 +25,7 @@ public class ViewMenu implements ViewBase<QuanLyMenu> {
             System.out.println("Chon mon them:");
             System.out.println("1. Thuc an:");
             System.out.println("2. Thuc uong:");
+            System.out.println("3. Tro lai:");
 
             while (scanner.nextLine() != "0") {
                 switch (scanner.nextInt()) {
@@ -40,6 +41,14 @@ public class ViewMenu implements ViewBase<QuanLyMenu> {
 
                         menu.themThucUong(quanLyThucUong.tim(Integer.parseInt(scanner.nextLine())));
                         break;
+                    case 3:
+                        break;
+                    default:
+                        System.out.println("====================================");
+                        System.out.println("*** Lua chong khong kha dung ***");
+                        System.out.println("====================================");
+
+                        continue;
                 }
             }
 

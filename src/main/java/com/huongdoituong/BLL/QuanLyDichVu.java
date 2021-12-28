@@ -20,7 +20,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
     }
 
     public static DichVu timById(int ma) {
-        return QuanLyDichVu.listDichVu.stream().filter(p -> p.getMa() == ma).findFirst().get();
+        return QuanLyDichVu.listDichVu.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public static List<DichVu> timByTen(String ten) {

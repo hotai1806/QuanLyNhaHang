@@ -17,11 +17,11 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
     }
 
     public static ThucAn timById(int ma) {
-        return QuanLyThucAn.listThucAn.stream().filter(p -> p.getMa() == ma).findFirst().get();
+        return QuanLyThucAn.listThucAn.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public ThucAn tim(int ma) {
-        return QuanLyThucAn.listThucAn.stream().filter(p -> p.getMa() == ma).findFirst().get();
+        return QuanLyThucAn.listThucAn.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
 
     }
 
@@ -150,7 +150,8 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
         ThucAn thucAn = timById(Integer.parseInt(ma));
         if (thucAn != null) {
             QuanLyThucAn.listThucAn.remove(thucAn);
-            return ghi(Path.THUC_AN.getPath(), QuanLyThucAn.listThucAn);
+            return true;
+            // return ghi(Path.THUC_AN.getPath(), QuanLyThucAn.listThucAn);
         }
         return false;
     }

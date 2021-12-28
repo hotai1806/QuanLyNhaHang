@@ -402,7 +402,7 @@ public class App {
         }
     }
 
-    private static void menuQuanLyThucAn() {
+    private static void menuQuanLyThucAn() throws NumberFormatException, Exception {
         ViewThucAn view = new ViewThucAn();
 
         while (true) {
@@ -417,7 +417,6 @@ public class App {
             switch (SCANNER.nextLine()) {
                 case "1": {
                     view.themView(SCANNER, quanLyThucAn);
-
                     break;
                 }
                 case "2": {
@@ -437,7 +436,7 @@ public class App {
 
                     return;
                 }
-                default:
+                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
                     System.out.println("====================================");
