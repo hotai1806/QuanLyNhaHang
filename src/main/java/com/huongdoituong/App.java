@@ -11,7 +11,6 @@ import com.huongdoituong.BLL.QuanLyThue;
 import com.huongdoituong.BLL.QuanLyDichVu;
 import com.huongdoituong.BLL.QuanLyThucAn;
 import com.huongdoituong.BLL.QuanLyThucUong;
-import com.huongdoituong.BLL.QuanLyMenu;
 
 // import DAL package
 import com.huongdoituong.DAL.SanhCuoi;
@@ -21,7 +20,6 @@ import com.huongdoituong.DAL.Menu;
 import com.huongdoituong.DAL.ThucAn;
 import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Views.ViewDichVu;
-import com.huongdoituong.Views.ViewMenu;
 import com.huongdoituong.Views.ViewSanh;
 import com.huongdoituong.Views.ViewThucAn;
 import com.huongdoituong.Views.ViewThucUong;
@@ -36,7 +34,6 @@ public class App {
     private static QuanLyThucUong quanLyThucUong = new QuanLyThucUong();
     private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
     private static QuanLyThue quanLyThue;
-    private static QuanLyMenu quanLyMenu;
 
     public static void main(String[] args) throws NumberFormatException, Exception {
         quanLyThucAn.them(new ThucAn("Ga", new BigDecimal(10)));
@@ -491,48 +488,4 @@ public class App {
         }
     }
 
-    private static void menuQuanLyMenu() {
-        ViewMenu view = new ViewMenu(quanLyThucAn, quanLyThucUong);
-
-        while (true) {
-            System.out.println("Quan ly dich vu");
-            System.out.println("1. Them dich vu");
-            System.out.println("2. Cap nhat dich vu");
-            System.out.println("3. Xoa dich vu");
-            System.out.println("4. Tra cuu dich vu");
-            System.out.println("5. Tro lai");
-            System.out.print("Lua chon: ");
-
-            switch (SCANNER.nextLine()) {
-                case "1": {
-                    view.themView(SCANNER, quanLyMenu);
-
-                    break;
-                }
-                case "2": {
-                    view.capNhatView(SCANNER, quanLyMenu);
-                    break;
-                }
-                case "3": {
-                    view.xoaView(SCANNER, quanLyMenu);
-                    break;
-                }
-                case "4": {
-                    view.traCuuView(SCANNER, quanLyMenu);
-                    break;
-                }
-                case "5": {
-                    System.out.println("====================================");
-
-                    return;
-                }
-                default:
-                    System.out.println("====================================");
-                    System.out.println("*** Lua chong khong kha dung ***");
-                    System.out.println("====================================");
-
-                    continue;
-            }
-        }
-    }
 }
