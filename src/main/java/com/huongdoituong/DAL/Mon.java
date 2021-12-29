@@ -6,11 +6,12 @@ public abstract class Mon {
     protected int ma = 0;
     protected String ten;
     protected BigDecimal gia;
-    protected static int autoIncrement = 0;
 
     {
-        this.setMa(++autoIncrement);
+        ma = nextId();
+        // this.setMa(++autoIncrement);
     }
+    abstract protected int nextId();
 
     public Mon(){
     }

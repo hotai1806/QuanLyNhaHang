@@ -3,8 +3,8 @@ package com.huongdoituong.DAL;
 import java.math.BigDecimal;
 
 public class ThucUong extends Mon {
+    private static int maThucUong=0;
     private String hangSanXuat;
-    static int autoIncrement;
     public ThucUong(String ten, BigDecimal gia, String hangSX) {
         super(ten, gia);
 
@@ -13,6 +13,11 @@ public class ThucUong extends Mon {
     public ThucUong(String ten, BigDecimal gia) {
         super(ten, gia);
     }
+
+    protected int nextId(){
+        return ++maThucUong;
+    }
+
 
     public void hienThi(){
         System.out.println("Ma:" + this.ma);

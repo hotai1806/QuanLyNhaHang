@@ -47,7 +47,7 @@ public class QuanLyMenu implements IDocGhi<Menu>, BaseInterfaceQuanLy<Menu> {
                 Scanner scanner = new Scanner(file);
 
                 while (scanner.hasNext()) {
-                    Menu menu = new Menu();
+                    // Menu menu = new Menu();
 
                 }
                 scanner.close();

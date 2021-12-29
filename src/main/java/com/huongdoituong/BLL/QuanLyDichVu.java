@@ -8,8 +8,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.DichVu;
-import com.huongdoituong.DAL.Karaoke;
-import com.huongdoituong.DAL.ThueCaSi;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
@@ -32,19 +30,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
         return QuanLyDichVu.listDichVu.add(dichVu);
     }
 
-    // public boolean them(Karaoke dichVu) {
-    // return QuanLyDichVu.listDichVu.add(dichVu);
-    // }
-
-    // public boolean them(ThueCaSi dichVu) {
-    // return QuanLyDichVu.listDichVu.add(dichVu);
-    // }
-
-    // public boolean xoa(int ma) {
-
-    // return QuanLyDichVu.listDichVu.removeIf(mon -> mon.getMa() == ma);
-
-    // }
+   
 
     @Override
     public void doc(String path) {
