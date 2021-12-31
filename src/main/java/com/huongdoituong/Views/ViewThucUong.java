@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLyThucUong;
+
 import com.huongdoituong.DAL.ThucUong;
 
 public class ViewThucUong implements ViewBase<QuanLyThucUong> {
@@ -13,21 +14,28 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
         try {
 
             ThucUong thucAn = new ThucUong();
-            System.out.print("Ten mon:");
+            System.out.print("Ten mon: ");
             thucAn.setTen(scanner.nextLine());
 
-            System.out.print("Hang san xuat:");
+            System.out.print("Hang san xuat: ");
             thucAn.setHangSanXuat(scanner.nextLine());
 
-            System.out.print("Set gia:");
+            System.out.print("Set gia: ");
             thucAn.setGia(new BigDecimal(scanner.nextLine()));
+
             if (quanLyThucUong.them(thucAn)) {
-                System.out.println("Them thanh cong");
+                System.out.println("------------------------------------");
+                System.out.println("Them thanh cong!");
             } else {
-                System.out.println("Them khong thanh cong");
+                System.out.println("------------------------------------");
+                System.out.println("Them khong thanh cong!");
             }
+
+            System.out.println("====================================");
         } catch (Exception e) {
-            System.out.println("Loi nhap");
+            System.out.println("====================================");
+            System.out.println("**************Loi nhap**************");
+            System.out.println("====================================");
         }
     }
 
@@ -35,10 +43,13 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
     public void xoaView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         System.out.println("====================================");
         quanLyThucUong.hienThi();
+
         System.out.print("Nhap ma mon: ");
         if (quanLyThucUong.xoa(scanner.nextLine())) {
+            System.out.println("------------------------------------");
             System.out.println("Xoa thanh cong!");
         } else {
+            System.out.println("------------------------------------");
             System.out.println("Xoa khong thanh cong!");
         }
 
@@ -54,8 +65,10 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
         System.out.print("Nhap ma thuc uong: ");
         // String ten = scanner.nextLine()
         if (quanLyThucUong.capNhat(scanner.nextLine(), scanner)) {
+            System.out.println("------------------------------------");
             System.out.println("Cap nhat thanh cong!");
         } else {
+            System.out.println("------------------------------------");
             System.out.println("Cap nhat khong thanh cong!");
         }
 
@@ -74,6 +87,5 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
         } else {
             quanLyThucUong.hienThi(thucUong);
         }
-
     }
 }

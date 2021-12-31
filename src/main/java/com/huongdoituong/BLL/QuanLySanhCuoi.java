@@ -9,13 +9,14 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.SanhCuoi;
+
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
 public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, BaseInterfaceQuanLy<SanhCuoi> {
     private static List<SanhCuoi> dsSanhCuoi = new ArrayList<>();
 
-    public QuanLySanhCuoi() {
+    {
         doc(Path.SANH_CUOI.getPath());
     }
 
@@ -72,6 +73,10 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, BaseInterfaceQuanLy<Sa
                 .collect(Collectors.toList());
     }
 
+    public List<SanhCuoi> traCuuTatCa() {
+        return QuanLySanhCuoi.dsSanhCuoi;
+    }
+
     public SanhCuoi traCuuBangTen(String tenSC) {
         return QuanLySanhCuoi.dsSanhCuoi.stream()
                 .filter(p -> p.getTenSC().equalsIgnoreCase(tenSC))
@@ -82,6 +87,12 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, BaseInterfaceQuanLy<Sa
         return QuanLySanhCuoi.dsSanhCuoi.stream()
                 .filter(p -> p.getMaSC().equalsIgnoreCase(maSC))
                 .findFirst().orElse(null);
+    }
+
+    public void tangSoLanThue(SanhCuoi sanhCuoi) {
+        sanhCuoi.tangSoLanThue();
+
+        ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
     }
 
     @Override
@@ -136,15 +147,20 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, BaseInterfaceQuanLy<Sa
                 }
 
                 // Lay 3 so cuoi tu ma sanh cuoi S*** cuoi cung lam bien dem
-                SanhCuoi.dem = Integer.parseInt(
-                        QuanLySanhCuoi.dsSanhCuoi.get(
-                                QuanLySanhCuoi.dsSanhCuoi.size() - 1).getMaSC().substring(1));
+                SanhCuoi.setDem(getMaxDem());
 
                 scanner.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private int getMaxDem() {
+        int maxCount = QuanLySanhCuoi.dsSanhCuoi.size() - 1;
+        String maxCountString = QuanLySanhCuoi.dsSanhCuoi.get(maxCount).getMaSC().substring(1);
+
+        return Integer.parseInt(maxCountString);
     }
 
     @Override

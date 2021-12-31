@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
 public class ThongTinThue {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
     private final Calendar CALENDAR = new GregorianCalendar();
@@ -22,7 +21,7 @@ public class ThongTinThue {
     private ThoiDiemThue thoiDiemThue;
     private SanhCuoi sanhCuoi;
     private BigDecimal donGiaThueSanh;
-    private List<Menu> menu;
+    private List<Menu> dsMenu;
     private BigDecimal tongDonGiaMenu;
     private List<DichVu> dichVu;
     private BigDecimal donGiaDichVu;
@@ -34,8 +33,49 @@ public class ThongTinThue {
         this.tongDonGiaMenu = new BigDecimal(0);
         this.donGiaDichVu = new BigDecimal(0);
 
-        menu = new ArrayList<>();
+        dsMenu = new ArrayList<>();
         dichVu = new ArrayList<>();
+    }
+
+    public void xuatHoaDon() {
+        System.out.println("Ma thue: " + this.getMaThue());
+        System.out.println("Tiec: " + this.getTenTiec());
+        System.out.println("Ngay thue: " + this.getNgayThue());
+        System.out.println("Thoi diem thue: " + this.getThoiDiemThue().toString());
+        System.out.println("Sanh cuoi: " + this.getSanhCuoi().getTenSC());
+        System.out.println("Don gia thue sanh: " + this.getDonGiaThueSanh());
+        System.out.println("------------------------------");
+
+        for (int i = 0; i < this.getDSMenu().size(); i++) {
+            System.out.println("Menu ban: " + i);
+
+            System.out.print("Thuc an: ");
+            for (ThucAn thucAn : this.getDSMenu().get(i).getListThucAn()) {
+                System.out.print(thucAn.getTen() + " ");
+            }
+
+            System.out.print("\nThuc uong: ");
+            for (ThucUong thucUong : this.getDSMenu().get(i).getListThucUong()) {
+                System.out.print(thucUong.getTen() + " ");
+            }
+
+            System.out.println("\n------------------------------------");
+        }
+
+        System.out.println("Tong don gia menu: " + this.getTongDonGiaMenu());
+        System.out.println("------------------------------");
+
+        System.out.print("Dich vu: ");
+        for (DichVu dichVu : this.getDichVu()) {
+            System.out.print(dichVu.getTen() + " ");
+        }
+
+        System.out.println("\n------------------------------------");
+        System.out.println("Tong don gia dich vu: " + this.getDonGiaDichVu());
+
+        System.out.println("===================================");
+        System.out.println("Tong don gia  " + this.getTongGia());
+        System.out.println("===================================");
     }
 
     public BigDecimal getTongGia() {
@@ -130,16 +170,16 @@ public class ThongTinThue {
         this.donGiaThueSanh = donGiaThueSanh;
     }
 
-    public List<Menu> getMenu() {
-        return menu;
+    public List<Menu> getDSMenu() {
+        return dsMenu;
     }
 
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
+    public void setDSMenu(List<Menu> menu) {
+        this.dsMenu = menu;
     }
 
     public BigDecimal getTongDonGiaMenu() {
-        for (Menu m : menu) {
+        for (Menu m : dsMenu) {
             tongDonGiaMenu = tongDonGiaMenu.add(m.getTongGia());
         }
 

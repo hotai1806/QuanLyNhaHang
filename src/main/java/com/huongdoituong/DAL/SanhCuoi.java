@@ -12,7 +12,7 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
 
     private final String ID_FORMAT = "S%03d";
 
-    public static int dem = 0;
+    private static int dem = 0;
 
     private String maSC;
     private String tenSC;
@@ -34,6 +34,10 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
             return 1;
         else
             return -1;
+    }
+
+    public static void setDem(int dem) {
+        SanhCuoi.dem = dem;
     }
 
     public String getMaSC() {
@@ -72,6 +76,10 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
         this.soLanThue = soLanThue;
     }
 
+    public void tangSoLanThue() {
+        this.soLanThue++;
+    }
+
     public int getSucChua() {
         return sucChua;
     }
@@ -89,18 +97,27 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
     }
 
     public void setGia(String ngayThue) throws ParseException {
+        String ngaythueFormat = ngayThue.substring(0, 5);
+
+        if (ngaythueFormat.equals(GiaThue.NOEL.getNgay())) {
+            this.gia = GiaThue.NOEL.getGia();
+        } else {
+            setGiaNgayThuong(ngayThue);
+        }
+    }
+
+    private void setGiaNgayThuong(String ngayThue) throws ParseException {
         CALENDAR.setTime(DATE_FORMATER.parse(ngayThue));
 
         int day = CALENDAR.get(Calendar.DAY_OF_WEEK);
-
         switch (day) {
             case Calendar.SATURDAY:
             case Calendar.SUNDAY:
-                this.gia = GiaThue.CUOI_TUAN.getGiaThue();
+                this.gia = GiaThue.CUOI_TUAN.getGia();
 
                 break;
             default:
-                this.gia = GiaThue.NGAY_THUONG.getGiaThue();
+                this.gia = GiaThue.NGAY_THUONG.getGia();
 
                 break;
         }

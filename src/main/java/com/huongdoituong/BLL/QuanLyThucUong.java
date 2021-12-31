@@ -2,6 +2,7 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 
 // import com.huongdoituong.Utils.IDocGhi;
 // import com.huongdoituong.Utils.Path;
@@ -12,13 +13,15 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.ThucUong;
+
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
 public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<ThucUong> {
     private static List<ThucUong> listThucUong = new ArrayList<>();
 
-    public QuanLyThucUong() {
+    {
+        doc(Path.THUC_UONG.getPath());
     }
 
     public ThucUong tim(int ma) {
@@ -27,13 +30,15 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
     }
 
     public static ThucUong timTheoTen(String ten) {
-        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).findFirst().orElse(null);
-
+        return QuanLyThucUong.listThucUong.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten)).findFirst().orElse(null);
     }
 
     @Override
     public boolean them(ThucUong thucUong) {
-        return QuanLyThucUong.listThucUong.add(thucUong);
+        QuanLyThucUong.listThucUong.add(thucUong);
+
+        return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.listThucUong);
     }
 
     public static ThucUong timById(int ma) {
@@ -65,14 +70,11 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
                     scanner.nextLine();
 
                     mon.setTen(scanner.nextLine());
-                    scanner.nextLine();
                     mon.setGia(scanner.nextBigDecimal());
                     scanner.nextLine();
                     mon.setHangSanXuat(scanner.nextLine());
 
-                    scanner.nextLine();
                     QuanLyThucUong.listThucUong.add(mon);
-
                 }
                 scanner.close();
             } catch (Exception e) {
@@ -82,10 +84,10 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
     }
 
     @Override
-    public boolean ghi(String paths, List<ThucUong> items) {
+    public boolean ghi(String path, List<ThucUong> items) {
         if (!items.isEmpty()) {
             try {
-                File file = new File(Path.THUC_AN.getPath());
+                File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
                     for (ThucUong mon : items) {
@@ -109,9 +111,8 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
     public void hienThi() {
         if (QuanLyThucUong.listThucUong.size() != 0) {
             for (ThucUong thucAn : QuanLyThucUong.listThucUong) {
-                System.out.println("-------------- Dich Vu ----------------");
                 thucAn.hienThi();
-
+                System.out.println("------------------------------------");
             }
         }
 
@@ -121,10 +122,9 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
     public void hienThi(List<ThucUong> listThucUong) {
 
         if (listThucUong.size() != 0) {
-            System.out.println("-------------- Dich Vu ----------------");
             for (ThucUong thucUong : listThucUong) {
                 thucUong.hienThi();
-
+                System.out.println("------------------------------------");
             }
         }
 
@@ -138,11 +138,13 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
                 System.out.print("Ten: ");
                 thucAn.setTen(scanner.nextLine());
 
-                System.out.println("Hang san xuat:");
+                System.out.print("Hang san xuat:");
                 thucAn.setHangSanXuat(scanner.nextLine());
 
                 System.out.print("Gia: ");
-                thucAn.setGia(scanner.nextBigDecimal());
+                thucAn.setGia(new BigDecimal(scanner.nextLine()));
+
+                return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.listThucUong);
 
             } catch (Exception e) {
                 e.printStackTrace();

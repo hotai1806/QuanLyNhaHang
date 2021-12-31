@@ -8,12 +8,14 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.ThucAn;
+
 import com.huongdoituong.Utils.*;
 
 public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn> {
     private static List<ThucAn> listThucAn = new ArrayList<>();
 
-    public QuanLyThucAn() {
+    {
+        doc(Path.THUC_AN.getPath());
     }
 
     public static ThucAn timById(int ma) {
@@ -26,13 +28,15 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
     }
 
     public static List<ThucAn> timByTen(String ten) {
-        return QuanLyThucAn.listThucAn.stream().filter(p -> p.getTen() == ten).collect(Collectors.toList());
-
+        return QuanLyThucAn.listThucAn.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten)).collect(Collectors.toList());
     }
 
     @Override
     public boolean them(ThucAn mon) {
-        return QuanLyThucAn.listThucAn.add(mon);
+        QuanLyThucAn.listThucAn.add(mon);
+
+        return ghi(Path.THUC_AN.getPath(), listThucAn);
     }
 
     // public boolean xoa(int ma) {
@@ -56,7 +60,6 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
                     scanner.nextLine();
 
                     thucAn.setTen(scanner.nextLine());
-                    scanner.nextLine();
                     thucAn.setGia(scanner.nextBigDecimal());
                     scanner.nextLine();
                     thucAn.setMonChay(scanner.nextBoolean());
@@ -100,25 +103,19 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
     public void hienThi() {
         if (QuanLyThucAn.listThucAn.size() != 0) {
             for (ThucAn thucAn : QuanLyThucAn.listThucAn) {
-                System.out.println("-------------- Dich Vu ----------------");
                 thucAn.hienThi();
-
+                System.out.println("------------------------------------");
             }
         }
-
     }
 
     @Override
     public void hienThi(List<ThucAn> listThucAn) {
-
         if (listThucAn.size() != 0) {
-            System.out.println("-------------- Dich Vu ----------------");
             for (ThucAn thucAn : listThucAn) {
                 thucAn.hienThi();
-
             }
         }
-
     }
 
     @Override
@@ -135,6 +132,7 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
                 System.out.print("Gia: ");
                 thucAn.setGia(scanner.nextBigDecimal());
 
+                return ghi(Path.THUC_AN.getPath(), listThucAn);
             } catch (Exception e) {
                 e.printStackTrace();
 
@@ -150,10 +148,8 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
         ThucAn thucAn = timById(Integer.parseInt(ma));
         if (thucAn != null) {
             QuanLyThucAn.listThucAn.remove(thucAn);
-            return true;
-            // return ghi(Path.THUC_AN.getPath(), QuanLyThucAn.listThucAn);
+            return ghi(Path.THUC_AN.getPath(), QuanLyThucAn.listThucAn);
         }
         return false;
     }
-
 }

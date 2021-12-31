@@ -27,7 +27,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
     private List<ThongTinThue> dsThongTinThue = new ArrayList<>();
 
-    public QuanLyThue() {
+    {
         doc(Path.THONG_TIN_THUE.getPath());
     }
 
@@ -37,115 +37,82 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
         return ghi(Path.THONG_TIN_THUE.getPath(), this.dsThongTinThue);
     }
 
-    public void xemDoanhThuThang(String nam) throws ParseException {
-        CALENDAR.setTime(DATE_FORMATER.parse(nam));
+    public void xemDoanhThuThang(String nam) {
+        try {
+            CALENDAR.setTime(DATE_FORMATER.parse(nam));
+            List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
 
-        List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
+            for (int i = 1; i <= 12; i++) {
+                BigDecimal doanhThu = new BigDecimal(0);
 
-        for (int i = 1; i <= 12; i++) {
-            BigDecimal doanhThu = new BigDecimal(0);
-
-            for (ThongTinThue thongTinThue : dsThongTinThue) {
-                if (thongTinThue.getThangThue() == i) {
-                    doanhThu = doanhThu.add(thongTinThue.getTongGia());
+                for (ThongTinThue thongTinThue : dsThongTinThue) {
+                    if (thongTinThue.getThangThue() == i) {
+                        doanhThu = doanhThu.add(thongTinThue.getTongGia());
+                    }
                 }
-            }
 
-            System.out.println("Doanh thu thang: " + i + " " + doanhThu);
+                System.out.println("Doanh thu thang: " + i + " " + doanhThu);
+            }
+        } catch (ParseException e) {
+            System.out.println("====================================");
+            System.out.println("**************Loi nhap**************");
+            System.out.println("====================================");
         }
     }
 
-    public void xemDoanhThuQuy(String nam) throws ParseException {
-        CALENDAR.setTime(DATE_FORMATER.parse(nam));
+    public void xemDoanhThuQuy(String nam) {
+        try {
+            CALENDAR.setTime(DATE_FORMATER.parse(nam));
+            List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
 
-        List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
+            BigDecimal doanhThuQ1 = new BigDecimal(0);
+            BigDecimal doanhThuQ2 = new BigDecimal(0);
+            BigDecimal doanhThuQ3 = new BigDecimal(0);
+            BigDecimal doanhThuQ4 = new BigDecimal(0);
 
-        BigDecimal doanhThuQ1 = new BigDecimal(0);
-        BigDecimal doanhThuQ2 = new BigDecimal(0);
-        BigDecimal doanhThuQ3 = new BigDecimal(0);
-        BigDecimal doanhThuQ4 = new BigDecimal(0);
-
-        for (ThongTinThue thongTinThue : dsThongTinThue) {
-            switch (thongTinThue.getThangThue()) {
-                case 1:
-                case 2:
-                case 3:
-                    doanhThuQ1 = doanhThuQ1.add(thongTinThue.getTongGia());
-                    break;
-                case 4:
-                case 5:
-                case 6:
-                    doanhThuQ2 = doanhThuQ2.add(thongTinThue.getTongGia());
-                    break;
-                case 7:
-                case 8:
-                case 9:
-                    doanhThuQ3 = doanhThuQ3.add(thongTinThue.getTongGia());
-                    break;
-                case 10:
-                case 11:
-                case 12:
-                    doanhThuQ4 = doanhThuQ4.add(thongTinThue.getTongGia());
-                    break;
-                default:
-                    break;
+            for (ThongTinThue thongTinThue : dsThongTinThue) {
+                switch (thongTinThue.getThangThue()) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        doanhThuQ1 = doanhThuQ1.add(thongTinThue.getTongGia());
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                        doanhThuQ2 = doanhThuQ2.add(thongTinThue.getTongGia());
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                        doanhThuQ3 = doanhThuQ3.add(thongTinThue.getTongGia());
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                        doanhThuQ4 = doanhThuQ4.add(thongTinThue.getTongGia());
+                        break;
+                    default:
+                        break;
+                }
             }
+
+            System.out.println("Quy 1: " + doanhThuQ1);
+            System.out.println("Quy 2: " + doanhThuQ2);
+            System.out.println("Quy 3: " + doanhThuQ3);
+            System.out.println("Quy 4: " + doanhThuQ4);
+        } catch (ParseException e) {
+            System.out.println("====================================");
+            System.out.println("**************Loi nhap**************");
+            System.out.println("====================================");
         }
 
-        System.out.println("Quy 1: " + doanhThuQ1);
-        System.out.println("Quy 2: " + doanhThuQ2);
-        System.out.println("Quy 3: " + doanhThuQ3);
-        System.out.println("Quy 4: " + doanhThuQ4);
     }
 
     private List<ThongTinThue> getThongTinThueTheoNam(int nam) {
         return this.dsThongTinThue.stream()
                 .filter(p -> p.getNamThue() == nam)
                 .collect(Collectors.toList());
-    }
-
-    public void xuatHoaDon(ThongTinThue thongTinThue) {
-        System.out.println("Ma thue: " + thongTinThue.getMaThue());
-        System.out.println("Tiec: " + thongTinThue.getTenTiec());
-        System.out.println("Ngay thue: " + thongTinThue.getNgayThue());
-        System.out.println("Thoi diem thue: " + thongTinThue.getThoiDiemThue().toString());
-        System.out.println("Sanh cuoi: " + thongTinThue.getSanhCuoi().getTenSC());
-        System.out.println("Don gia thue sanh: " + thongTinThue.getDonGiaThueSanh());
-
-        System.out.println("------------------------------");
-
-        for (int i = 0; i < thongTinThue.getMenu().size(); i++) {
-            System.out.println("Menu ban: " + i);
-
-            System.out.print("Thuc an: ");
-            for (ThucAn thucAn : thongTinThue.getMenu().get(i).getListThucAn()) {
-                System.out.print(thucAn.getTen() + " ");
-            }
-
-            System.out.print("\nThuc uong: ");
-            for (ThucUong thucUong : thongTinThue.getMenu().get(i).getListThucUong()) {
-                System.out.print(thucUong.getTen() + " ");
-            }
-
-            System.out.println("\n------------------------------------");
-        }
-
-        System.out.println("Tong don gia menu: " + thongTinThue.getTongDonGiaMenu());
-
-        System.out.println("------------------------------");
-
-        System.out.print("Dich vu: ");
-        for (DichVu dichVu : thongTinThue.getDichVu()) {
-            System.out.print(dichVu.getTen() + " ");
-        }
-
-        System.out.println("\n------------------------------------");
-
-        System.out.println("Tong don gia dich vu: " + thongTinThue.getDonGiaDichVu());
-
-        System.out.println("===================================");
-
-        System.out.println("Tong don gia  " + thongTinThue.getTongGia());
     }
 
     @Override
@@ -170,31 +137,32 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     thongTinThue.setDonGiaThueSanh(scanner.nextBigDecimal());
                     scanner.nextLine();
 
+                    // Them menu
                     String menuStringCheck = scanner.nextLine();
                     while (menuStringCheck.equals("Menu")) {
                         Menu menu = new Menu();
 
+                        // Them thuc an
                         String thucAnStringCheck = scanner.nextLine();
                         while (!thucAnStringCheck.equals(".")) {
-                            if (!thucAnStringCheck.equals(".") && !thucAnStringCheck.equals("Thuc an")) {
-                                menu.getListThucAn().add(QuanLyThucAn.timByTen(thucAnStringCheck).get(0));
+                            if (!thucAnStringCheck.equals("Thuc an")) {
+                                menu.themThucAn(QuanLyThucAn.timByTen(thucAnStringCheck).get(0));
                             }
 
                             thucAnStringCheck = scanner.nextLine();
                         }
 
+                        // Them thuc uong
                         String thucUongStringCheck = scanner.nextLine();
                         while (!thucUongStringCheck.equals(".")) {
-                            if (!thucUongStringCheck.equals(".") && !thucUongStringCheck.equals("Thuc uong")) {
-                                menu.getListThucUong().add(QuanLyThucUong.timTheoTen(thucUongStringCheck));
+                            if (!thucUongStringCheck.equals("Thuc uong")) {
+                                menu.themThucUong(QuanLyThucUong.timTheoTen(thucUongStringCheck));
                             }
 
                             thucUongStringCheck = scanner.nextLine();
                         }
 
-                        scanner.nextLine();
-
-                        thongTinThue.getMenu().add(menu);
+                        thongTinThue.getDSMenu().add(menu);
                         menuStringCheck = scanner.nextLine();
                     }
 
@@ -202,7 +170,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
                     String dichVuStringCheck = scanner.nextLine();
                     while (!dichVuStringCheck.equals(".")) {
-                        if (!dichVuStringCheck.equals(".") && !dichVuStringCheck.equals("Dich vu")) {
+                        if (!dichVuStringCheck.equals("Dich vu")) {
                             thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck).get(0));
                         }
 
@@ -241,7 +209,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         printWriter.println(thongTinThue.getSanhCuoi().getMaSC());
                         printWriter.println(thongTinThue.getDonGiaThueSanh());
 
-                        for (Menu menu : thongTinThue.getMenu()) {
+                        for (Menu menu : thongTinThue.getDSMenu()) {
                             printWriter.println("Menu");
 
                             printWriter.println("Thuc an");
@@ -249,9 +217,8 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                                 for (ThucAn thucAn : menu.getListThucAn()) {
                                     printWriter.println(thucAn.getTen());
                                 }
-                            } else {
-                                printWriter.println(".");
                             }
+
                             printWriter.println(".");
 
                             printWriter.println("Thuc uong");
@@ -262,7 +229,6 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                             }
 
                             printWriter.println(".");
-                            printWriter.println(".");
                         }
 
                         printWriter.println(thongTinThue.getTongDonGiaMenu());
@@ -272,9 +238,8 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                             for (DichVu dichVu : thongTinThue.getDichVu()) {
                                 printWriter.println(dichVu.getTen());
                             }
-                        } else {
-                            printWriter.println(".");
                         }
+
                         printWriter.println(".");
 
                         printWriter.println(thongTinThue.getDonGiaDichVu());

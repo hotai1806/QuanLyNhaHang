@@ -11,7 +11,7 @@ public class DichVu {
     protected BigDecimal gia;
     protected static int autoIncrement = 0;
     private Hashtable<String, String> luaChonDieuKien = new Hashtable<>();
-    private List<String> storeKey = new ArrayList<>() ; 
+    private List<String> storeKey = new ArrayList<>();
 
     {
         this.setMa(++autoIncrement);
@@ -22,11 +22,11 @@ public class DichVu {
     }
 
     // public void setStoreKey(List<String> storeKey) {
-    //     this.storeKey = storeKey;
+    // this.storeKey = storeKey;
     // }
 
-    public DichVu(String ten, BigDecimal gia){
-        this.ten =  ten;
+    public DichVu(String ten, BigDecimal gia) {
+        this.ten = ten;
         this.gia = gia;
     }
 
@@ -39,13 +39,14 @@ public class DichVu {
 
     public void setMa(int ma) {
         this.ma = ma;
-        
+
     }
-    public Hashtable<String,String> getLuaChonDieuKien() {
+
+    public Hashtable<String, String> getLuaChonDieuKien() {
         return this.luaChonDieuKien;
     }
 
-    public void setLuaChonDieuKien(String key,String value) {
+    public void setLuaChonDieuKien(String key, String value) {
         this.storeKey.add(key);
         this.luaChonDieuKien.put(key, value);
     }
@@ -66,9 +67,9 @@ public class DichVu {
         this.gia = gia;
     }
 
-    public void hienThi(){
-        System.out.println("Ma dich vu:" + String.format("%s", this.getMa()));
-        System.out.println("Ten dich vu:" + this.getTen());
+    public void hienThi() {
+        System.out.println("Ma dich vu: " + String.format("%s", this.getMa()));
+        System.out.println("Ten dich vu: " + this.getTen());
         if (this.getStoreKey().isEmpty()) {
             for (String key : this.getStoreKey()) {
                 if (key != null) {
@@ -78,7 +79,6 @@ public class DichVu {
             }
         }
 
-        System.out.println("Gia dich vu:" + this.getGia());
-        System.out.println("");
+        System.out.println("Gia dich vu: " + this.getGia());
     }
 }

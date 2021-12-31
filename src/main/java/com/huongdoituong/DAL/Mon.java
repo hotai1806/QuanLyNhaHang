@@ -11,15 +11,17 @@ public abstract class Mon {
         ma = nextId();
         // this.setMa(++autoIncrement);
     }
+
     abstract protected int nextId();
 
-    public Mon(){
+    public Mon() {
     }
 
-    public Mon(String ten,BigDecimal gia){
+    public Mon(String ten, BigDecimal gia) {
         this.ten = ten;
         this.gia = gia;
     }
+
     public int getMa() {
         return this.ma;
     }
@@ -43,5 +45,4 @@ public abstract class Mon {
     public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
-
 }

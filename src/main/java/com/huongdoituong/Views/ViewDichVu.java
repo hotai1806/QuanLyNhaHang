@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLyDichVu;
+
 import com.huongdoituong.DAL.DichVu;
 import com.huongdoituong.DAL.Karaoke;
 import com.huongdoituong.DAL.ThueCaSi;
@@ -40,7 +41,6 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
                 System.out.print("Gia:");
                 dichVu.setGia(new BigDecimal(scanner.nextLine()));
 
-
                 if (quanLyDichVu.them(dichVu)) {
                     System.out.println("Them thanh cong!");
                 }
@@ -53,7 +53,7 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
                 dichVu.setTen(scanner.nextLine());
                 System.out.println("Them chi tiet( neu khong co nhan phim 0) neu co nhan phim 1:");
                 int isThem = Integer.parseInt(scanner.nextLine());
-                while (isThem!=0 ) {
+                while (isThem != 0) {
                     System.out.print("Ten chi tiet:");
                     String ten = scanner.nextLine();
                     System.out.print("Ten noi dung:");
@@ -65,7 +65,6 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
                 System.out.print("Gia:");
                 dichVu.setGia(new BigDecimal(scanner.nextLine()));
 
-                
                 if (quanLyDichVu.them(dichVu)) {
                     System.out.println("Them thanh cong!");
                 }

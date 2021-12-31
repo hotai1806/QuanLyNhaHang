@@ -8,29 +8,32 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.DichVu;
+
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
 public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu> {
     private static List<DichVu> listDichVu = new ArrayList<>();
 
-    public QuanLyDichVu() {
+    {
+        doc(Path.DICH_VU.getPath());
     }
 
-    public static DichVu timById(int ma) {
+    public DichVu timById(int ma) {
         return QuanLyDichVu.listDichVu.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public static List<DichVu> timByTen(String ten) {
-        return QuanLyDichVu.listDichVu.stream().filter(p -> p.getTen() == ten).collect(Collectors.toList());
+        return QuanLyDichVu.listDichVu.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten)).collect(Collectors.toList());
     }
 
     @Override
     public boolean them(DichVu dichVu) {
-        return QuanLyDichVu.listDichVu.add(dichVu);
-    }
+        QuanLyDichVu.listDichVu.add(dichVu);
 
-   
+        return ghi(Path.DICH_VU.getPath(), QuanLyDichVu.listDichVu);
+    }
 
     @Override
     public void doc(String path) {
@@ -64,10 +67,10 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
     }
 
     @Override
-    public boolean ghi(String paths, List<DichVu> items) {
+    public boolean ghi(String path, List<DichVu> items) {
         if (!items.isEmpty()) {
             try {
-                File file = new File(Path.THUC_AN.getPath());
+                File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
                     for (DichVu mon : items) {
@@ -92,10 +95,9 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
     @Override
     public void hienThi() {
         if (QuanLyDichVu.listDichVu.size() != 0) {
-            System.out.println("-------------- Dich Vu ----------------");
-
             for (DichVu dichVu : QuanLyDichVu.listDichVu) {
                 dichVu.hienThi();
+                System.out.println("------------------------------------");
                 // System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
                 // System.out.println("Ten dich vu:" + dichVu.getTen());
                 // if (dichVu.getStoreKey().isEmpty()) {
@@ -118,7 +120,6 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
     public void hienThi(List<DichVu> listDichVu) {
 
         if (listDichVu.size() != 0) {
-            System.out.println("-------------- Dich Vu ----------------");
             for (DichVu dichVu : listDichVu) {
                 dichVu.hienThi();
             }
