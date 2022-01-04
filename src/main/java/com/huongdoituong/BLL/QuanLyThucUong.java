@@ -110,8 +110,8 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> 
     @Override
     public void hienThi() {
         if (QuanLyThucUong.listThucUong.size() != 0) {
-            for (ThucUong thucAn : QuanLyThucUong.listThucUong) {
-                thucAn.hienThi();
+            for (ThucUong thucUong : QuanLyThucUong.listThucUong) {
+                thucUong.hienThi();
                 System.out.println("------------------------------------");
             }
         }

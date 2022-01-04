@@ -2,7 +2,6 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -64,10 +63,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
                             break;
                         default:
                             DichVu dichVu = new DichVu();
-
-                            dichVu.setTen(tenDichVu);
-                            dichVu.doc(scanner,maDichVu);
-
+                            dichVu.doc(scanner,maDichVu,tenDichVu);
                             QuanLyDichVu.listDichVu.add(dichVu);
                             continue;
 
@@ -111,18 +107,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
             for (DichVu dichVu : QuanLyDichVu.listDichVu) {
                 dichVu.hienThi();
                 System.out.println("------------------------------------");
-                // System.out.println("Ma dich vu:" + String.format("%s", dichVu.getMa()));
-                // System.out.println("Ten dich vu:" + dichVu.getTen());
-                // if (dichVu.getStoreKey().isEmpty()) {
-                // for (String key : dichVu.getStoreKey()) {
-                // if (key != null) {
-                // System.out.println(key + ": " + dichVu.getLuaChonDieuKien().get(key));
-
-                // }
-                // }
-                // }
-
-                // System.out.println("Tong gia dich vu:" + dichVu.getGia());
+          
 
             }
         }
@@ -135,6 +120,8 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
         if (listDichVu.size() != 0) {
             for (DichVu dichVu : listDichVu) {
                 dichVu.hienThi();
+                System.out.println("------------------------------------");
+
             }
         }
 
@@ -145,13 +132,10 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
         DichVu dichVu = timById(Integer.parseInt(maDichVu));
         if (dichVu != null) {
             try {
-                // System.out.print("Ten: ");
-                // dichVu.setTen(scanner.nextLine());
-                // System.out.print("Gia: ");
-                // dichVu.setGia(new BigDecimal(scanner.nextLine()));
+
                 dichVu.capNhat(scanner);
-                // return ghi(Path.DICH_VU.getPath(), listDichVu);
-                return true;
+                return ghi(Path.DICH_VU.getPath(), listDichVu);
+                // return true;
 
             } catch (Exception e) {
                 e.printStackTrace();

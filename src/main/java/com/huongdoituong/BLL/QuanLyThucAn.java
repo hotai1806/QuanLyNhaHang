@@ -115,6 +115,8 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
         if (listThucAn.size() != 0) {
             for (ThucAn thucAn : listThucAn) {
                 thucAn.hienThi();
+                System.out.println("------------------------------------");
+            
             }
         }
     }

@@ -35,7 +35,6 @@ public class ThueCaSi extends DichVu {
         printWriter.println(this.getSoLuongBai());
     }
 
-    @Override
     public void doc(Scanner scanner,int maDichVu){
         this.setMa(maDichVu);
         this.setGia(new BigDecimal(scanner.nextLine()));

@@ -60,7 +60,8 @@ public class DichVu {
         printWriter.println(this.getGia());
     }
 
-    public void doc(Scanner scanner, int maDichVu) {
+    public void doc(Scanner scanner, int maDichVu,String tenDichVu) {
+        this.setTen(tenDichVu);
         this.setMa(maDichVu);
         int lenghtKey = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < lenghtKey; i++) {

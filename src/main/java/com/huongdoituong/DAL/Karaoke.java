@@ -27,7 +27,7 @@ public class Karaoke extends DichVu {
         
         System.out.print("Gia: ");
         this.setGia(new BigDecimal(scanner.nextLine()));
-        
+
         
     }
 
@@ -38,7 +38,7 @@ public class Karaoke extends DichVu {
 
     }
 
-    @Override
+    
     public void doc(Scanner scanner, int maDichVu){
         this.setMa(maDichVu);
         this.setGia(new BigDecimal(scanner.nextLine()));
