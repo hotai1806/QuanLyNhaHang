@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 import com.huongdoituong.DAL.DichVu;
 import com.huongdoituong.DAL.Karaoke;
 import com.huongdoituong.DAL.ThueCaSi;
-
+import com.huongdoituong.Utils.IBaseQuanLy;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu> {
+public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
     private static List<DichVu> listDichVu = new ArrayList<>();
 
     {

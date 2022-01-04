@@ -13,11 +13,11 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.ThucUong;
-
+import com.huongdoituong.Utils.IBaseQuanLy;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<ThucUong> {
+public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> {
     private static List<ThucUong> listThucUong = new ArrayList<>();
 
     {

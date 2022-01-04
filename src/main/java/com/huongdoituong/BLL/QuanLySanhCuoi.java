@@ -9,11 +9,11 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.SanhCuoi;
-
+import com.huongdoituong.Utils.IBaseQuanLy;
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
 
-public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, BaseInterfaceQuanLy<SanhCuoi> {
+public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> {
     private static List<SanhCuoi> dsSanhCuoi = new ArrayList<>();
 
     {

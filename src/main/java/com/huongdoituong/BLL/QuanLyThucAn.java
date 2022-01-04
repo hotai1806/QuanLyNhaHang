@@ -12,7 +12,7 @@ import com.huongdoituong.DAL.ThucAn;
 
 import com.huongdoituong.Utils.*;
 
-public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn> {
+public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
     private static List<ThucAn> listThucAn = new ArrayList<>();
 
     {
