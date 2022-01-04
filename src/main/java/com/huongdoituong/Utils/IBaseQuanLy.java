@@ -1,9 +1,9 @@
-package com.huongdoituong.BLL;
+package com.huongdoituong.Utils;
 
 import java.util.List;
 import java.util.Scanner;
 
-public interface BaseInterfaceQuanLy<T> {
+public interface IBaseQuanLy<T> {
     public void hienThi();
 
     public void hienThi(List<T> list);
