@@ -56,7 +56,7 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
                 while (isThem != 0) {
                     System.out.print("Ten chi tiet:");
                     String ten = scanner.nextLine();
-                    System.out.print("Ten noi dung:");
+                    System.out.print("Noi dung:");
                     String noiDung = scanner.nextLine();
                     dichVu.setLuaChonDieuKien(ten, noiDung);
                     System.out.print("Nhan phim 0 de thoat hoac bam bat ki phim de tiep tuc:");

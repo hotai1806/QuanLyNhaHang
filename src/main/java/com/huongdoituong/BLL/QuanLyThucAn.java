@@ -2,6 +2,7 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -127,10 +128,10 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, BaseInterfaceQuanLy<ThucAn
                 thucAn.setTen(scanner.nextLine());
 
                 System.out.println("Mon co chay khong(1 co, 0 khong):");
-                thucAn.setMonChay(scanner.nextInt() == 0 ? false : true);
+                thucAn.setMonChay(Integer.parseInt(scanner.nextLine()) == 0 ? false : true);
 
                 System.out.print("Gia: ");
-                thucAn.setGia(scanner.nextBigDecimal());
+                thucAn.setGia(new BigDecimal(scanner.nextLine()));
 
                 return ghi(Path.THUC_AN.getPath(), listThucAn);
             } catch (Exception e) {

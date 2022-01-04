@@ -2,12 +2,15 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.DichVu;
+import com.huongdoituong.DAL.Karaoke;
+import com.huongdoituong.DAL.ThueCaSi;
 
 import com.huongdoituong.Utils.IDocGhi;
 import com.huongdoituong.Utils.Path;
@@ -44,19 +47,34 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
                 Scanner scanner = new Scanner(file);
 
                 while (scanner.hasNext()) {
-                    DichVu dichVu = new DichVu();
+                    int maDichVu = Integer.parseInt(scanner.nextLine());
+                    String tenDichVu = scanner.nextLine();
+                    switch (tenDichVu) {
+                        case "Karaoke":
+                            Karaoke karaoke = new Karaoke();
+                            karaoke.doc(scanner,maDichVu);
+                            QuanLyDichVu.listDichVu.add(karaoke);
 
-                    dichVu.setMa(scanner.nextInt());
-                    scanner.nextLine();
+                            break;
+                        case "Thue Ca Si":
+                            ThueCaSi thueCaSi = new ThueCaSi();
+                            thueCaSi.doc(scanner,maDichVu);
+                            QuanLyDichVu.listDichVu.add(thueCaSi);
 
-                    dichVu.setTen(scanner.nextLine());
-                    scanner.nextLine();
-                    dichVu.setGia(scanner.nextBigDecimal());
-                    scanner.nextLine();
-                    dichVu.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
+                            break;
+                        default:
+                            DichVu dichVu = new DichVu();
 
-                    scanner.nextLine();
-                    QuanLyDichVu.listDichVu.add(dichVu);
+                            dichVu.setTen(tenDichVu);
+                            dichVu.doc(scanner,maDichVu);
+
+                            QuanLyDichVu.listDichVu.add(dichVu);
+                            continue;
+
+                    }
+                    // if (scanner.hasNext()) {
+                    //     scanner.nextLine();
+                    // }
 
                 }
                 scanner.close();
@@ -74,12 +92,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
                     for (DichVu mon : items) {
-                        printWriter.println(mon.getMa());
-                        printWriter.println(mon.getTen());
-                        printWriter.println(mon.getLuaChonDieuKien());
-                        // printWriter.println(mon.getListThucAn());
-                        // printWriter.println(mon.getListThucUong());
-                        printWriter.println(mon.getGia());
+                        mon.ghi(printWriter);
                     }
 
                     return true;
@@ -132,10 +145,13 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, BaseInterfaceQuanLy<DichVu
         DichVu dichVu = timById(Integer.parseInt(maDichVu));
         if (dichVu != null) {
             try {
-                System.out.print("Ten: ");
-                dichVu.setTen(scanner.nextLine());
-                System.out.print("Gia: ");
-                dichVu.setGia(scanner.nextBigDecimal());
+                // System.out.print("Ten: ");
+                // dichVu.setTen(scanner.nextLine());
+                // System.out.print("Gia: ");
+                // dichVu.setGia(new BigDecimal(scanner.nextLine()));
+                dichVu.capNhat(scanner);
+                // return ghi(Path.DICH_VU.getPath(), listDichVu);
+                return true;
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -132,17 +132,17 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, BaseInterfaceQuanLy<Th
 
     @Override
     public boolean capNhat(String maThucUong, Scanner scanner) {
-        ThucUong thucAn = timById(Integer.parseInt(maThucUong));
-        if (thucAn != null) {
+        ThucUong thucUong = timById(Integer.parseInt(maThucUong));
+        if (thucUong != null) {
             try {
                 System.out.print("Ten: ");
-                thucAn.setTen(scanner.nextLine());
+                thucUong.setTen(scanner.nextLine());
 
                 System.out.print("Hang san xuat:");
-                thucAn.setHangSanXuat(scanner.nextLine());
+                thucUong.setHangSanXuat(scanner.nextLine());
 
                 System.out.print("Gia: ");
-                thucAn.setGia(new BigDecimal(scanner.nextLine()));
+                thucUong.setGia(new BigDecimal(scanner.nextLine()));
 
                 return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.listThucUong);
 

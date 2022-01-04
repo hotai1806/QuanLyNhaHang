@@ -1,5 +1,9 @@
 package com.huongdoituong.DAL;
 
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.Scanner;
+
 public class ThueCaSi extends DichVu {
     private String tenCaSi;
     private int soLuongBai;
@@ -23,6 +27,37 @@ public class ThueCaSi extends DichVu {
     public void setSoLuongBai(int soLuongBai) {
         this.soLuongBai = soLuongBai;
     }
+
+    @Override
+    public void ghi(PrintWriter printWriter){
+        super.ghi(printWriter);
+        printWriter.println(this.getTenCaSi());
+        printWriter.println(this.getSoLuongBai());
+    }
+
+    @Override
+    public void doc(Scanner scanner,int maDichVu){
+        this.setMa(maDichVu);
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        this.setTenCaSi(scanner.nextLine());
+        this.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
+    }
+
+    @Override
+    public void capNhat(Scanner scanner) {
+
+        System.out.print("Ten Ca Si: ");
+        this.setTenCaSi(scanner.nextLine());
+
+        System.out.print("So bai hat: ");
+        this.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
+        
+        System.out.print("Gia: ");
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        
+    }
+
+    
 
     @Override
     public void hienThi() {

@@ -1,9 +1,11 @@
 package com.huongdoituong.DAL;
 
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Scanner;
 
 public class DichVu {
     protected int ma = 0;
@@ -31,6 +33,41 @@ public class DichVu {
     }
 
     public DichVu() {
+    }
+
+    public void capNhat(Scanner scanner) {
+        System.out.print("Ten: ");
+        this.setTen(scanner.nextLine());
+        System.out.print("Gia: ");
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        int lenghtKey = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < lenghtKey; i++) {
+            this.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
+        }
+    }
+
+    public void ghi(PrintWriter printWriter) {
+        printWriter.println(this.getMa());
+        printWriter.println(this.getTen());
+
+        if (!this.getStoreKey().isEmpty()) {
+            printWriter.println(this.getStoreKey().size());
+            for (String key : this.getStoreKey()) {
+                printWriter.println(key);
+                printWriter.println(this.luaChonDieuKien.get(key));
+            }
+        }
+        printWriter.println(this.getGia());
+    }
+
+    public void doc(Scanner scanner, int maDichVu) {
+        this.setMa(maDichVu);
+        int lenghtKey = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < lenghtKey; i++) {
+            this.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
+        }
+        this.setGia(new BigDecimal(scanner.nextLine()));
+
     }
 
     public int getMa() {

@@ -1,10 +1,15 @@
 package com.huongdoituong.DAL;
 
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.Scanner;
+
 public class Karaoke extends DichVu {
+    final String NAME= "Karaoke";
     private double thoiGianThue;
 
     public Karaoke() {
-        this.ten = "Karaoke";
+        this.ten = NAME;
     }
 
     public double getThoiGianThue() {
@@ -13,6 +18,31 @@ public class Karaoke extends DichVu {
 
     public void setThoiGianThue(double thoiGianThue) {
         this.thoiGianThue = thoiGianThue;
+    }
+    @Override
+    public void capNhat(Scanner scanner) {
+
+        System.out.print("Thoi gian thue: ");
+        this.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
+        
+        System.out.print("Gia: ");
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        
+        
+    }
+
+    @Override
+    public void ghi(PrintWriter printWriter){
+        super.ghi(printWriter);
+        printWriter.println(this.getThoiGianThue());
+
+    }
+
+    @Override
+    public void doc(Scanner scanner, int maDichVu){
+        this.setMa(maDichVu);
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        this.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
     }
 
     @Override
