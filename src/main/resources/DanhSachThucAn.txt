@@ -1,12 +1,12 @@
 1
+Ga
+50000
+false
+2
 Bo
-2000
+100000
 false
 3
-Ga
-300
-false
-5
-con heo
-30120312
+Ca
+80000
 false

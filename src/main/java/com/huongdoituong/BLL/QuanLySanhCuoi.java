@@ -35,7 +35,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
             try {
                 System.out.print("Ten: ");
                 sc.setTenSC(scanner.nextLine());
-                System.out.print("Vi tri: ");
+                System.out.print("Vi tri(tang 1, tang 2): ");
                 sc.setViTri(Integer.parseInt(scanner.nextLine()));
                 System.out.print("Suc chua: ");
                 sc.setSucChua(Integer.parseInt(scanner.nextLine()));
@@ -46,7 +46,6 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
 
                 return false;
             }
-
         }
 
         return false;
@@ -108,6 +107,14 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
 
     @Override
     public void hienThi(List<SanhCuoi> dsSanhCuoi) {
+        if (dsSanhCuoi.isEmpty()) {
+            System.out.println("************************************");
+            System.out.println("Sanh cuoi hien khong co!");
+            System.out.println("************************************");
+
+            return;
+        }
+
         sapXep(dsSanhCuoi);
 
         for (SanhCuoi sanhCuoi : dsSanhCuoi) {
@@ -123,7 +130,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
 
     @Override
     public void doc(String path) {
-        File file = new File(Path.SANH_CUOI.getPath());
+        File file = new File(path);
 
         if (file.exists() && file.length() > 0) {
             try {
@@ -166,7 +173,7 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
     @Override
     public boolean ghi(String path, List<SanhCuoi> items) {
         if (!items.isEmpty()) {
-            File file = new File(Path.SANH_CUOI.getPath());
+            File file = new File(path);
 
             try (PrintWriter printWriter = new PrintWriter(file)) {
                 for (SanhCuoi sanhCuoi : items) {

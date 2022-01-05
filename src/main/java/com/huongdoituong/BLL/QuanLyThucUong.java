@@ -57,7 +57,7 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> 
 
     @Override
     public void doc(String path) {
-        File file = new File(Path.THUC_UONG.getPath());
+        File file = new File(path);
 
         if (file.exists() && file.length() > 0) {
             try {

@@ -40,7 +40,7 @@ public class ThongTinThue {
     public void xuatHoaDon() {
         System.out.println("Ma thue: " + this.getMaThue());
         System.out.println("Tiec: " + this.getTenTiec());
-        System.out.println("Ngay thue: " + this.getNgayThue());
+        System.out.println("Ngay thue: " + this.getNgayThueString());
         System.out.println("Thoi diem thue: " + this.getThoiDiemThue().toString());
         System.out.println("Sanh cuoi: " + this.getSanhCuoi().getTenSC());
         System.out.println("Don gia thue sanh: " + this.getDonGiaThueSanh());
@@ -79,7 +79,9 @@ public class ThongTinThue {
     }
 
     public BigDecimal getTongGia() {
-        BigDecimal tongGia = getDonGiaThueSanh().add(getTongDonGiaMenu()).add(getDonGiaDichVu());
+        BigDecimal tongGia = this.getDonGiaThueSanh()
+                .add(this.getTongDonGiaMenu())
+                .add(this.getDonGiaDichVu());
 
         return tongGia;
     }
@@ -95,13 +97,13 @@ public class ThongTinThue {
     }
 
     public int getThangThue() {
-        CALENDAR.setTime(this.ngayThue);
+        CALENDAR.setTime(this.getNgayThue());
 
         return CALENDAR.get(Calendar.MONTH) + 1;
     }
 
     public int getNamThue() {
-        CALENDAR.setTime(this.ngayThue);
+        CALENDAR.setTime(this.getNgayThue());
 
         return CALENDAR.get(Calendar.YEAR);
     }
@@ -122,7 +124,11 @@ public class ThongTinThue {
         this.tenTiec = tenTiec;
     }
 
-    public String getNgayThue() {
+    public Date getNgayThue() {
+        return ngayThue;
+    }
+
+    public String getNgayThueString() {
         return DATE_FORMATER.format(ngayThue);
     }
 
@@ -179,8 +185,10 @@ public class ThongTinThue {
     }
 
     public BigDecimal getTongDonGiaMenu() {
-        for (Menu m : dsMenu) {
-            tongDonGiaMenu = tongDonGiaMenu.add(m.getTongGia());
+        if (this.tongDonGiaMenu.compareTo(new BigDecimal(0)) == 0) {
+            for (Menu m : dsMenu) {
+                tongDonGiaMenu = tongDonGiaMenu.add(m.getTongGia());
+            }
         }
 
         return tongDonGiaMenu;
@@ -199,8 +207,10 @@ public class ThongTinThue {
     }
 
     public BigDecimal getDonGiaDichVu() {
-        for (DichVu dv : dichVu) {
-            donGiaDichVu = donGiaDichVu.add(dv.gia);
+        if (donGiaDichVu.compareTo(new BigDecimal(0)) == 0) {
+            for (DichVu dv : dichVu) {
+                donGiaDichVu = donGiaDichVu.add(dv.gia);
+            }
         }
 
         return donGiaDichVu;

@@ -1,15 +1,8 @@
 package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class SanhCuoi implements Comparable<SanhCuoi> {
-    private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
-    private final Calendar CALENDAR = new GregorianCalendar();
-
     private final String ID_FORMAT = "S%03d";
 
     private static int dem = 0;
@@ -68,16 +61,16 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
         }
     }
 
+    public void tangSoLanThue() {
+        this.setSoLanThue(this.getSoLanThue() + 1);
+    }
+
     public int getSoLanThue() {
         return soLanThue;
     }
 
     public void setSoLanThue(int soLanThue) {
         this.soLanThue = soLanThue;
-    }
-
-    public void tangSoLanThue() {
-        this.soLanThue++;
     }
 
     public int getSucChua() {
@@ -94,32 +87,5 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
 
     public void setGia(BigDecimal gia) {
         this.gia = gia;
-    }
-
-    public void setGia(String ngayThue) throws ParseException {
-        String ngaythueFormat = ngayThue.substring(0, 5);
-
-        if (ngaythueFormat.equals(GiaThue.NOEL.getNgay())) {
-            this.gia = GiaThue.NOEL.getGia();
-        } else {
-            setGiaNgayThuong(ngayThue);
-        }
-    }
-
-    private void setGiaNgayThuong(String ngayThue) throws ParseException {
-        CALENDAR.setTime(DATE_FORMATER.parse(ngayThue));
-
-        int day = CALENDAR.get(Calendar.DAY_OF_WEEK);
-        switch (day) {
-            case Calendar.SATURDAY:
-            case Calendar.SUNDAY:
-                this.gia = GiaThue.CUOI_TUAN.getGia();
-
-                break;
-            default:
-                this.gia = GiaThue.NGAY_THUONG.getGia();
-
-                break;
-        }
     }
 }

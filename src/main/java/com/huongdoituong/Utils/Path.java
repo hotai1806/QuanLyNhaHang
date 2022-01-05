@@ -13,6 +13,12 @@ public enum Path {
             return "src/main/resources/DanhSachThongTinThue.txt";
         }
     },
+    GIA_THUE {
+        @Override
+        public String getPath() {
+            return "src/main/resources/DanhSachGiaThue.txt";
+        }
+    },
     THUC_AN {
         @Override
         public String getPath() {

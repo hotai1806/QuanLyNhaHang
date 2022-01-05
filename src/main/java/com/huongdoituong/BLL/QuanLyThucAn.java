@@ -48,7 +48,7 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
 
     @Override
     public void doc(String path) {
-        File file = new File(Path.THUC_AN.getPath());
+        File file = new File(path);
 
         if (file.exists() && file.length() > 0) {
             try {
@@ -77,10 +77,10 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
     }
 
     @Override
-    public boolean ghi(String paths, List<ThucAn> items) {
+    public boolean ghi(String path, List<ThucAn> items) {
         if (!items.isEmpty()) {
             try {
-                File file = new File(Path.THUC_AN.getPath());
+                File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
                     for (ThucAn mon : items) {

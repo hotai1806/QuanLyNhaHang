@@ -1,17 +1,17 @@
 package com.huongdoituong;
 
-import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLySanhCuoi;
 import com.huongdoituong.BLL.QuanLyThue;
 import com.huongdoituong.BLL.QuanLyDichVu;
+import com.huongdoituong.BLL.QuanLyGiaThue;
 import com.huongdoituong.BLL.QuanLyThucAn;
 import com.huongdoituong.BLL.QuanLyThucUong;
 
-import com.huongdoituong.DAL.Karaoke;
-
 import com.huongdoituong.Views.ViewDichVu;
+import com.huongdoituong.Views.ViewGiaThue;
 import com.huongdoituong.Views.ViewSanh;
 import com.huongdoituong.Views.ViewThucAn;
 import com.huongdoituong.Views.ViewThucUong;
@@ -19,22 +19,16 @@ import com.huongdoituong.Views.ViewThue;
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
-
     private static final String YEAR_REGEX = "^\\d{4}$";
 
+    private static QuanLyGiaThue quanLyGiaThue = new QuanLyGiaThue();
     private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
     private static QuanLyThucAn quanLyThucAn = new QuanLyThucAn();
     private static QuanLyThucUong quanLyThucUong = new QuanLyThucUong();
     private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
-    private static QuanLyThue quanLyThue;
+    private static QuanLyThue quanLyThue = new QuanLyThue();
 
-    public static void main(String[] args) {
-        Karaoke karaoke = new Karaoke();
-        karaoke.setThoiGianThue(1);
-        karaoke.setGia(new BigDecimal(30));
-        quanLyDichVu.them(karaoke);
-
-        quanLyThue = new QuanLyThue();
+    public static void main(String[] args) throws ParseException {
         while (true) {
             System.out.println("Quan ly nha hang");
             System.out.println("1. Thue sanh");
@@ -70,7 +64,9 @@ public class App {
     }
 
     private static void Thue() {
-        ViewThue viewThue = new ViewThue(quanLySanhCuoi, quanLyDichVu, quanLyThucAn, quanLyThucUong);
+        ViewThue viewThue = new ViewThue(quanLySanhCuoi, quanLyDichVu,
+                quanLyThucAn, quanLyThucUong, quanLyGiaThue);
+
         viewThue.thue(SCANNER, quanLyThue);
     }
 
@@ -82,7 +78,8 @@ public class App {
             System.out.println("3. Dich vu");
             System.out.println("4. Thuc an");
             System.out.println("5. Thuc uong");
-            System.out.println("6. Tro lai");
+            System.out.println("6. Gia thue");
+            System.out.println("7. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
@@ -118,6 +115,12 @@ public class App {
                     break;
                 }
                 case "6": {
+                    System.out.println("====================================");
+                    menuQuanLyGiaThue();
+
+                    break;
+                }
+                case "7": {
                     return;
                 }
                 default:
@@ -347,6 +350,36 @@ public class App {
                     break;
                 }
                 case "5": {
+                    System.out.println("====================================");
+
+                    return;
+                }
+                default:
+                    System.out.println("====================================");
+                    System.out.println("*** Lua chong khong kha dung ***");
+                    System.out.println("====================================");
+
+                    continue;
+            }
+        }
+    }
+
+    private static void menuQuanLyGiaThue() {
+        ViewGiaThue view = new ViewGiaThue();
+
+        while (true) {
+            System.out.println("Quan ly gia thue");
+            System.out.println("1. Them gia thue");
+            System.out.println("2. Tro lai");
+            System.out.println("------------------------------------");
+            System.out.print("Lua chon: ");
+
+            switch (SCANNER.nextLine()) {
+                case "1": {
+                    view.themView(SCANNER, quanLyGiaThue);
+                    break;
+                }
+                case "2": {
                     System.out.println("====================================");
 
                     return;

@@ -1,30 +1,58 @@
 package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public enum GiaThue {
-    NOEL("24/12", new BigDecimal(10000000)),
-    NGAY_THUONG(new BigDecimal(6000000)),
-    CUOI_TUAN(new BigDecimal(8000000));
+public class GiaThue {
+    private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM");
+    
+    public static int dem = 0;
+    
+    private int maGiaThue;
+    private String ten;
+    private Date ngayThue;
+    private BigDecimal giaThue;
 
-    private final String ngay;
-    private final BigDecimal gia;
-
-    private GiaThue(String ngay, BigDecimal gia) {
-        this.ngay = ngay;
-        this.gia = gia;
+    {
+        this.setMaGiaThue(++dem);
+        this.giaThue = new BigDecimal(0);
     }
 
-    private GiaThue(BigDecimal gia) {
-        this.ngay = "";
-        this.gia = gia;
+    public String getTen() {
+        return ten;
     }
 
-    public String getNgay() {
-        return ngay;
+    public int getMaGiaThue() {
+        return maGiaThue;
     }
 
-    public BigDecimal getGia() {
-        return gia;
-    };
+    public void setMaGiaThue(int maGiaThue) {
+        this.maGiaThue = maGiaThue;
+    }
+
+    public BigDecimal getGiaThue() {
+        return giaThue;
+    }
+
+    public void setGiaThue(BigDecimal giaThue) {
+        this.giaThue = giaThue;
+    }
+
+    public String getNgayThue() {
+        return this.ngayThue == null ? "null" : DATE_FORMATER.format(ngayThue);
+    }
+
+    public void setNgayThue(String ngayThue) throws ParseException {
+        if (ngayThue.equals("null")) {
+            this.ngayThue = null;
+        } else {
+            this.ngayThue = DATE_FORMATER.parse(ngayThue);
+        }
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
 }

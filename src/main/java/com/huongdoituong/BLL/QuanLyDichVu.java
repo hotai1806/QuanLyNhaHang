@@ -39,7 +39,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
 
     @Override
     public void doc(String path) {
-        File file = new File(Path.DICH_VU.getPath());
+        File file = new File(path);
 
         if (file.exists() && file.length() > 0) {
             try {
@@ -107,8 +107,6 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
             for (DichVu dichVu : QuanLyDichVu.listDichVu) {
                 dichVu.hienThi();
                 System.out.println("------------------------------------");
-          
-
             }
         }
 
@@ -121,7 +119,6 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
             for (DichVu dichVu : listDichVu) {
                 dichVu.hienThi();
                 System.out.println("------------------------------------");
-
             }
         }
 

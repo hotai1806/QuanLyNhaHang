@@ -20,7 +20,7 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
             System.out.print("Hang san xuat: ");
             thucUong.setHangSanXuat(scanner.nextLine());
 
-            System.out.print("Set gia: ");
+            System.out.print("Gia: ");
             thucUong.setGia(new BigDecimal(scanner.nextLine()));
 
             if (quanLyThucUong.them(thucUong)) {

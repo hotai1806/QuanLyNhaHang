@@ -17,10 +17,13 @@ public class Menu {
     }
 
     public BigDecimal getTongGia() {
-        BigDecimal tongGiaThucAn = listThucAn.stream().map(p -> p.getGia()).reduce(new BigDecimal(0),
-                (x, y) -> x.add(y));
-        BigDecimal tongGiaThucUong = listThucUong.stream().map(p -> p.getGia()).reduce(new BigDecimal(0),
-                (x, y) -> x.add(y));
+        BigDecimal tongGiaThucAn = listThucAn.stream()
+                .map(p -> p.getGia())
+                .reduce(BigDecimal.ZERO, (x, y) -> x.add(y));
+
+        BigDecimal tongGiaThucUong = listThucUong.stream()
+                .map(p -> p.getGia())
+                .reduce(BigDecimal.ZERO, (x, y) -> x.add(y));
 
         return tongGiaThucAn.add(tongGiaThucUong);
     }

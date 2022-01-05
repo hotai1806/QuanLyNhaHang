@@ -15,7 +15,7 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
 
             System.out.print("Ten: ");
             sanhCuoi.setTenSC(scanner.nextLine());
-            System.out.print("Vi tri: ");
+            System.out.print("Vi tri(tang 1, tang 2): ");
             sanhCuoi.setViTri(Integer.parseInt(scanner.nextLine()));
             System.out.print("Suc chua: ");
             sanhCuoi.setSucChua(Integer.parseInt(scanner.nextLine()));

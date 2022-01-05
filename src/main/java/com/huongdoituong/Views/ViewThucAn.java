@@ -16,10 +16,10 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
             System.out.print("Ten mon: ");
             thucAn.setTen(scanner.nextLine());
 
-            System.out.print("Mon co chay khong(1 co, 0 khong): ");
+            System.out.print("Mon chay(1 co, 0 khong): ");
             thucAn.setMonChay(scanner.nextLine().equals("0") ? false : true);
 
-            System.out.print("Set gia:");
+            System.out.print("Gia: ");
             thucAn.setGia(new BigDecimal(scanner.nextLine()));
             if (quanLyThucAn.them(thucAn)) {
                 System.out.println("------------------------------------");
@@ -28,14 +28,12 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
                 System.out.println("------------------------------------");
                 System.out.println("Them khong thanh cong");
             }
-            System.out.println("====================================");
         } catch (Exception e) {
             System.out.println("====================================");
             System.out.println("**************Loi nhap**************");
             System.out.println("====================================");
-        }
-    
 
+        }
     }
 
     @Override

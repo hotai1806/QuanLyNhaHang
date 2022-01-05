@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLyDichVu;
+import com.huongdoituong.BLL.QuanLyGiaThue;
 import com.huongdoituong.BLL.QuanLySanhCuoi;
 import com.huongdoituong.BLL.QuanLyThucAn;
 import com.huongdoituong.BLL.QuanLyThucUong;
@@ -20,13 +21,15 @@ public class ViewThue {
     private QuanLyDichVu quanLyDichVu;
     private QuanLyThucAn quanLyThucAn;
     private QuanLyThucUong quanLyThucUong;
+    private QuanLyGiaThue quanLyGiaThue;
 
     public ViewThue(QuanLySanhCuoi quanLySanhCuoi, QuanLyDichVu quanLyDichVu,
-            QuanLyThucAn quanLyThucAn, QuanLyThucUong quanLyThucUong) {
+            QuanLyThucAn quanLyThucAn, QuanLyThucUong quanLyThucUong, QuanLyGiaThue quanLyGiaThue) {
         this.quanLySanhCuoi = quanLySanhCuoi;
         this.quanLyDichVu = quanLyDichVu;
         this.quanLyThucAn = quanLyThucAn;
         this.quanLyThucUong = quanLyThucUong;
+        this.quanLyGiaThue = quanLyGiaThue;
     }
 
     public void thue(Scanner scanner, QuanLyThue quanLyThue) {
@@ -34,7 +37,7 @@ public class ViewThue {
 
         try {
             themTenTiec(scanner, thongTinThue);
-            theNgayThue(scanner, thongTinThue);
+            themNgayThue(scanner, thongTinThue);
             themThoiDiemThue(scanner, thongTinThue);
 
             SanhCuoi sanhCuoi = themSanhCuoiDuocThue(scanner, thongTinThue);
@@ -47,7 +50,9 @@ public class ViewThue {
             // Tang so lan thue sanh --------------------------------------------------
             quanLySanhCuoi.tangSoLanThue(sanhCuoi);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("====================================");
+            System.out.println("Ngay thue khong phu hop!");
+            System.out.println("====================================");
         }
     }
 
@@ -231,7 +236,7 @@ public class ViewThue {
         System.out.println("====================================");
 
         // Them don gia thue sanh -------------------------------------------------
-        sanhCuoi.setGia(thongTinThue.getNgayThue());
+        sanhCuoi.setGia(quanLyGiaThue.getGia(thongTinThue.getNgayThueString()));
         thongTinThue.setDonGiaThueSanh(sanhCuoi.getGia());
 
         return sanhCuoi;
@@ -248,7 +253,7 @@ public class ViewThue {
         System.out.println("====================================");
     }
 
-    private void theNgayThue(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
+    private void themNgayThue(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
         System.out.print("Ngay thue: ");
         thongTinThue.setNgayThue(scanner.nextLine());
         System.out.println("====================================");

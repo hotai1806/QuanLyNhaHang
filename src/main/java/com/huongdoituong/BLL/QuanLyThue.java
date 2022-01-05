@@ -51,7 +51,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     }
                 }
 
-                System.out.println("Doanh thu thang: " + i + " " + doanhThu);
+                System.out.println("Doanh thu thang: " + i + " - " + doanhThu);
             }
         } catch (ParseException e) {
             System.out.println("====================================");
@@ -117,7 +117,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
 
     @Override
     public void doc(String path) {
-        File file = new File(Path.THONG_TIN_THUE.getPath());
+        File file = new File(path);
 
         if (file.exists() && file.length() > 0) {
             try {
@@ -198,13 +198,13 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     public boolean ghi(String path, List<ThongTinThue> items) {
         if (!items.isEmpty()) {
             try {
-                File file = new File(Path.THONG_TIN_THUE.getPath());
+                File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
                     for (ThongTinThue thongTinThue : items) {
                         printWriter.println(thongTinThue.getMaThue());
                         printWriter.println(thongTinThue.getTenTiec());
-                        printWriter.println(thongTinThue.getNgayThue());
+                        printWriter.println(thongTinThue.getNgayThueString());
                         printWriter.println(thongTinThue.getThoiDiemThue());
                         printWriter.println(thongTinThue.getSanhCuoi().getMaSC());
                         printWriter.println(thongTinThue.getDonGiaThueSanh());

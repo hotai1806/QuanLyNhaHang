@@ -21,14 +21,15 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
             switch (scanner.nextLine()) {
                 case "1": {
                     ThueCaSi dichVu = new ThueCaSi();
-                    System.out.print("Ten Ca Si:");
+                    System.out.print("Ten Ca Si: ");
                     dichVu.setTenCaSi(scanner.nextLine());
-                    System.out.print("So Bai Hat:");
+                    System.out.print("So Bai Hat: ");
                     dichVu.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
-                    System.out.print("Gia:");
+                    System.out.print("Gia: ");
                     dichVu.setGia(new BigDecimal(scanner.nextLine()));
 
                     if (quanLyDichVu.them(dichVu)) {
+                        System.out.println("------------------------------------");
                         System.out.println("Them thanh cong!");
                     }
 
@@ -36,12 +37,13 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
                 }
                 case "2": {
                     Karaoke dichVu = new Karaoke();
-                    System.out.print("Thoi luong:");
+                    System.out.print("Thoi luong: ");
                     dichVu.setThoiGianThue(Integer.parseInt(scanner.nextLine()));
-                    System.out.print("Gia:");
+                    System.out.print("Gia: ");
                     dichVu.setGia(new BigDecimal(scanner.nextLine()));
 
                     if (quanLyDichVu.them(dichVu)) {
+                        System.out.println("------------------------------------");
                         System.out.println("Them thanh cong!");
                     }
 
@@ -49,23 +51,24 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
                 }
                 case "3": {
                     DichVu dichVu = new DichVu();
-                    System.out.print("Ten:");
+                    System.out.print("Ten: ");
                     dichVu.setTen(scanner.nextLine());
-                    System.out.println("Them chi tiet( neu khong co nhan phim 0) neu co nhan phim 1:");
+                    System.out.println("Them chi tiet( neu khong co nhan phim 0) neu co nhan phim 1: ");
                     int isThem = Integer.parseInt(scanner.nextLine());
                     while (isThem != 0) {
-                        System.out.print("Ten chi tiet:");
+                        System.out.print("Ten chi tiet: ");
                         String ten = scanner.nextLine();
-                        System.out.print("Noi dung:");
+                        System.out.print("Noi dung: ");
                         String noiDung = scanner.nextLine();
                         dichVu.setLuaChonDieuKien(ten, noiDung);
-                        System.out.print("Nhan phim 0 de thoat hoac bam bat ki phim de tiep tuc:");
+                        System.out.print("Nhan phim 0 de thoat hoac bam bat ki phim de tiep tuc: ");
                         isThem = Integer.parseInt(scanner.nextLine());
                     }
-                    System.out.print("Gia:");
+                    System.out.print("Gia: ");
                     dichVu.setGia(new BigDecimal(scanner.nextLine()));
 
                     if (quanLyDichVu.them(dichVu)) {
+                        System.out.println("------------------------------------");
                         System.out.println("Them thanh cong!");
                     }
 
@@ -82,7 +85,6 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
             System.out.println("**************Loi nhap**************");
             System.out.println("====================================");
         }
-    
 
     }
 
