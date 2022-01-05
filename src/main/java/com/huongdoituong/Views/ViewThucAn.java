@@ -11,24 +11,30 @@ import com.huongdoituong.DAL.ThucAn;
 public class ViewThucAn implements ViewBase<QuanLyThucAn> {
     @Override
     public void themView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
+        try {
+            ThucAn thucAn = new ThucAn();
+            System.out.print("Ten mon: ");
+            thucAn.setTen(scanner.nextLine());
 
-        ThucAn thucAn = new ThucAn();
-        System.out.print("Ten mon: ");
-        thucAn.setTen(scanner.nextLine());
+            System.out.print("Mon co chay khong(1 co, 0 khong): ");
+            thucAn.setMonChay(scanner.nextLine().equals("0") ? false : true);
 
-        System.out.print("Mon co chay khong(1 co, 0 khong): ");
-        thucAn.setMonChay(scanner.nextLine().equals("0") ? false : true);
-
-        System.out.print("Set gia:");
-        thucAn.setGia(new BigDecimal(scanner.nextLine()));
-        if (quanLyThucAn.them(thucAn)) {
-            System.out.println("------------------------------------");
-            System.out.println("Them thanh cong");
-        } else {
-            System.out.println("------------------------------------");
-            System.out.println("Them khong thanh cong");
+            System.out.print("Set gia:");
+            thucAn.setGia(new BigDecimal(scanner.nextLine()));
+            if (quanLyThucAn.them(thucAn)) {
+                System.out.println("------------------------------------");
+                System.out.println("Them thanh cong");
+            } else {
+                System.out.println("------------------------------------");
+                System.out.println("Them khong thanh cong");
+            }
+            System.out.println("====================================");
+        } catch (Exception e) {
+            System.out.println("====================================");
+            System.out.println("**************Loi nhap**************");
+            System.out.println("====================================");
         }
-        System.out.println("====================================");
+    
 
     }
 

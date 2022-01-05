@@ -13,17 +13,17 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
     public void themView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         try {
 
-            ThucUong thucAn = new ThucUong();
+            ThucUong thucUong = new ThucUong();
             System.out.print("Ten mon: ");
-            thucAn.setTen(scanner.nextLine());
+            thucUong.setTen(scanner.nextLine());
 
             System.out.print("Hang san xuat: ");
-            thucAn.setHangSanXuat(scanner.nextLine());
+            thucUong.setHangSanXuat(scanner.nextLine());
 
             System.out.print("Set gia: ");
-            thucAn.setGia(new BigDecimal(scanner.nextLine()));
+            thucUong.setGia(new BigDecimal(scanner.nextLine()));
 
-            if (quanLyThucUong.them(thucAn)) {
+            if (quanLyThucUong.them(thucUong)) {
                 System.out.println("------------------------------------");
                 System.out.println("Them thanh cong!");
             } else {

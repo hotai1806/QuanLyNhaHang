@@ -45,4 +45,6 @@ public abstract class Mon {
     public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
+
+    public abstract void hienThi();
 }
