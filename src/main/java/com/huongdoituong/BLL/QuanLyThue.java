@@ -184,9 +184,6 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     }
                 }
 
-                // Lay so cuoi tu ma thue lam bien dem
-                ThongTinThue.dem = this.dsThongTinThue.get(this.dsThongTinThue.size() - 1).getMaThue();
-
                 scanner.close();
             } catch (Exception e) {
                 e.printStackTrace();

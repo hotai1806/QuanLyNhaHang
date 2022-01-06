@@ -79,7 +79,7 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
     public void traCuuView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
-        List<ThucUong> thucUong = QuanLyThucUong.timByTen(scanner.nextLine());
+        List<ThucUong> thucUong = quanLyThucUong.timByTen(scanner.nextLine());
 
         if (thucUong.size() == 0) {
             System.out.print("Tu khoa tim kiem khong co trong danh sach.");

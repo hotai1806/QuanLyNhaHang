@@ -1,6 +1,9 @@
 package com.huongdoituong.DAL;
 
-import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.List;
+
+import com.huongdoituong.BLL.QuanLyGiaThue;
 
 public class SanhCuoi implements Comparable<SanhCuoi> {
     private final String ID_FORMAT = "S%03d";
@@ -12,11 +15,10 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
     private int viTri;
     private int soLanThue;
     private int sucChua;
-    private BigDecimal gia;
+    private List<GiaThue> dsGiaThue;
 
     {
         this.setMaSC(String.format(ID_FORMAT, ++dem));
-        this.setGia(new BigDecimal(0));
     }
 
     @Override
@@ -81,11 +83,15 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
         this.sucChua = sucChua;
     }
 
-    public BigDecimal getGia() {
-        return gia;
+    public GiaThue getGiaThue(String ngayThue, QuanLyGiaThue quanLyGiaThue) throws ParseException {
+        return quanLyGiaThue.getGiaThue(ngayThue);
     }
 
-    public void setGia(BigDecimal gia) {
-        this.gia = gia;
+    public List<GiaThue> getDsGiaThue() {
+        return dsGiaThue;
+    }
+
+    public void setDsGiaThue(List<GiaThue> dsGiaThue) {
+        this.dsGiaThue = dsGiaThue;
     }
 }

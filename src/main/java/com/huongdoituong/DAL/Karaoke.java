@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Karaoke extends DichVu {
-    final String NAME= "Karaoke";
+    private final String NAME = "Karaoke";
+
     private double thoiGianThue;
 
     public Karaoke() {
@@ -19,27 +20,24 @@ public class Karaoke extends DichVu {
     public void setThoiGianThue(double thoiGianThue) {
         this.thoiGianThue = thoiGianThue;
     }
+
     @Override
     public void capNhat(Scanner scanner) {
 
         System.out.print("Thoi gian thue: ");
         this.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
-        
+
         System.out.print("Gia: ");
         this.setGia(new BigDecimal(scanner.nextLine()));
-
-        
     }
 
     @Override
-    public void ghi(PrintWriter printWriter){
+    public void ghi(PrintWriter printWriter) {
         super.ghi(printWriter);
         printWriter.println(this.getThoiGianThue());
-
     }
 
-    
-    public void doc(Scanner scanner, int maDichVu){
+    public void doc(Scanner scanner, int maDichVu) {
         this.setMa(maDichVu);
         this.setGia(new BigDecimal(scanner.nextLine()));
         this.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
@@ -62,5 +60,4 @@ public class Karaoke extends DichVu {
 
         System.out.println("Gia dich vu:" + this.getGia());
     }
-
 }

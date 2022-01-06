@@ -140,24 +140,24 @@ public class ThongTinThue {
         return thoiDiemThue;
     }
 
-    public void setThoiDiemThue(ThoiDiemThue thoiDiemThue) {
-        this.thoiDiemThue = thoiDiemThue;
-    }
-
     public void setThoiDiemThue(String thoiDiem) throws Exception {
         switch (thoiDiem.toLowerCase().trim()) {
             case "sang":
-                this.setThoiDiemThue(ThoiDiemThue.SANG);
-                break;
+            this.setThoiDiemThue(ThoiDiemThue.SANG);
+            break;
             case "chieu":
-                this.setThoiDiemThue(ThoiDiemThue.CHIEU);
-                break;
+            this.setThoiDiemThue(ThoiDiemThue.CHIEU);
+            break;
             case "toi":
-                this.setThoiDiemThue(ThoiDiemThue.TOI);
-                break;
+            this.setThoiDiemThue(ThoiDiemThue.TOI);
+            break;
             default:
-                throw new Exception("Thoi diem thue hien khong co!!!");
+            throw new Exception("Thoi diem thue hien khong co!!!");
         }
+    }
+    
+    private void setThoiDiemThue(ThoiDiemThue thoiDiemThue) {
+        this.thoiDiemThue = thoiDiemThue;
     }
 
     public SanhCuoi getSanhCuoi() {
@@ -180,10 +180,6 @@ public class ThongTinThue {
         return dsMenu;
     }
 
-    public void setDSMenu(List<Menu> menu) {
-        this.dsMenu = menu;
-    }
-
     public BigDecimal getTongDonGiaMenu() {
         if (this.tongDonGiaMenu.compareTo(new BigDecimal(0)) == 0) {
             for (Menu m : dsMenu) {
@@ -202,10 +198,6 @@ public class ThongTinThue {
         return dichVu;
     }
 
-    public void setDichVu(List<DichVu> dichVu) {
-        this.dichVu = dichVu;
-    }
-
     public BigDecimal getDonGiaDichVu() {
         if (donGiaDichVu.compareTo(new BigDecimal(0)) == 0) {
             for (DichVu dv : dichVu) {
@@ -214,9 +206,5 @@ public class ThongTinThue {
         }
 
         return donGiaDichVu;
-    }
-
-    public void setDonGiaDichVu(BigDecimal donGiaDichVu) {
-        this.donGiaDichVu = donGiaDichVu;
     }
 }

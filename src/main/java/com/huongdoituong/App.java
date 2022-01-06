@@ -1,6 +1,5 @@
 package com.huongdoituong;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 import com.huongdoituong.BLL.QuanLySanhCuoi;
@@ -11,6 +10,7 @@ import com.huongdoituong.BLL.QuanLyThucAn;
 import com.huongdoituong.BLL.QuanLyThucUong;
 
 import com.huongdoituong.Views.ViewDichVu;
+import com.huongdoituong.Views.ViewDoanhThu;
 import com.huongdoituong.Views.ViewGiaThue;
 import com.huongdoituong.Views.ViewSanh;
 import com.huongdoituong.Views.ViewThucAn;
@@ -19,25 +19,26 @@ import com.huongdoituong.Views.ViewThue;
 
 public class App {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final String YEAR_REGEX = "^\\d{4}$";
 
     private static QuanLyGiaThue quanLyGiaThue = new QuanLyGiaThue();
-    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
     private static QuanLyThucAn quanLyThucAn = new QuanLyThucAn();
     private static QuanLyThucUong quanLyThucUong = new QuanLyThucUong();
     private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
+    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
     private static QuanLyThue quanLyThue = new QuanLyThue();
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         while (true) {
             System.out.println("Quan ly nha hang");
             System.out.println("1. Thue sanh");
             System.out.println("2. Quan ly");
-            System.out.println("3. Thoat");
+            System.out.println("0. Thoat");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
+                case "0":
+                    return;
                 case "1": {
                     System.out.println("====================================");
                     Thue();
@@ -49,9 +50,6 @@ public class App {
                     menuQuanLy();
 
                     break;
-                }
-                case "3": {
-                    return;
                 }
                 default:
                     System.out.println("====================================");
@@ -79,50 +77,38 @@ public class App {
             System.out.println("4. Thuc an");
             System.out.println("5. Thuc uong");
             System.out.println("6. Gia thue");
-            System.out.println("7. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
+                case "0":
+                    System.out.println("====================================");
+                    return;
+                case "1":
                     System.out.println("====================================");
                     menuQuanLyDoanhThu();
-
                     break;
-                }
-                case "2": {
+                case "2":
                     System.out.println("====================================");
                     menuQuanLySanh();
-
                     break;
-                }
-                case "3": {
+                case "3":
                     System.out.println("====================================");
                     menuQuanLyDichVu();
-
                     break;
-                }
-                case "4": {
+                case "4":
                     System.out.println("====================================");
                     menuQuanLyThucAn();
-
                     break;
-                }
-                case "5": {
+                case "5":
                     System.out.println("====================================");
                     menuQuanLyThucUong();
-
                     break;
-                }
-                case "6": {
+                case "6":
                     System.out.println("====================================");
                     menuQuanLyGiaThue();
-
                     break;
-                }
-                case "7": {
-                    return;
-                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -134,45 +120,26 @@ public class App {
     }
 
     private static void menuQuanLyDoanhThu() {
+        ViewDoanhThu viewDoanhThu = new ViewDoanhThu();
+
         while (true) {
             System.out.println("Quan ly doanh thu");
             System.out.println("1. Xem doanh thu thang");
             System.out.println("2. Xem doanh thu quy");
-            System.out.println("3. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
-                    String nam = "";
-                    while (!nam.matches(YEAR_REGEX)) {
-                        System.out.print("Nhap nam can xem doanh thu thang: ");
-                        nam = SCANNER.nextLine();
-                    }
-
-                    quanLyThue.xemDoanhThuThang(nam);
+                case "0":
                     System.out.println("====================================");
-
-                    break;
-                }
-                case "2": {
-                    String nam = "";
-
-                    while (!nam.matches(YEAR_REGEX)) {
-                        System.out.print("Nhap nam can xem doanh thu quy: ");
-                        nam = SCANNER.nextLine();
-                    }
-
-                    quanLyThue.xemDoanhThuQuy(nam);
-                    System.out.println("====================================");
-
-                    break;
-                }
-                case "3": {
-                    System.out.println("====================================");
-
                     return;
-                }
+                case "1":
+                    viewDoanhThu.xemDoanhThuThangView(SCANNER, quanLyThue);
+                    break;
+                case "2":
+                    viewDoanhThu.xemDoanhThuThangView(SCANNER, quanLyThue);
+                    break;
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -192,32 +159,26 @@ public class App {
             System.out.println("2. Cap nhat sanh");
             System.out.println("3. Xoa sanh");
             System.out.println("4. Tra cuu sanh");
-            System.out.println("5. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
+                case "0":
+                    System.out.println("====================================");
+                    return;
+                case "1":
                     viewSanh.themView(SCANNER, quanLySanhCuoi);
                     break;
-                }
-                case "2": {
+                case "2":
                     viewSanh.capNhatView(SCANNER, quanLySanhCuoi);
                     break;
-                }
-                case "3": {
+                case "3":
                     viewSanh.xoaView(SCANNER, quanLySanhCuoi);
                     break;
-                }
-                case "4": {
+                case "4":
                     viewSanh.traCuuView(SCANNER, quanLySanhCuoi);
                     break;
-                }
-                case "5": {
-                    System.out.println("====================================");
-
-                    return;
-                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -237,33 +198,26 @@ public class App {
             System.out.println("2. Cap nhat dich vu");
             System.out.println("3. Xoa dich vu");
             System.out.println("4. Tra cuu dich vu");
-            System.out.println("5. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
+                case "0":
+                    System.out.println("====================================");
+                    return;
+                case "1":
                     view.themView(SCANNER, quanLyDichVu);
-
                     break;
-                }
-                case "2": {
+                case "2":
                     view.capNhatView(SCANNER, quanLyDichVu);
                     break;
-                }
-                case "3": {
+                case "3":
                     view.xoaView(SCANNER, quanLyDichVu);
                     break;
-                }
-                case "4": {
+                case "4":
                     view.traCuuView(SCANNER, quanLyDichVu);
                     break;
-                }
-                case "5": {
-                    System.out.println("====================================");
-
-                    return;
-                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -283,32 +237,26 @@ public class App {
             System.out.println("2. Cap nhat thuc an");
             System.out.println("3. Xoa thuc an");
             System.out.println("4. Tra cuu thuc an");
-            System.out.println("5. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
+                case "0":
+                    System.out.println("====================================");
+                    return;
+                case "1":
                     view.themView(SCANNER, quanLyThucAn);
                     break;
-                }
-                case "2": {
+                case "2":
                     view.capNhatView(SCANNER, quanLyThucAn);
                     break;
-                }
-                case "3": {
+                case "3":
                     view.xoaView(SCANNER, quanLyThucAn);
                     break;
-                }
-                case "4": {
+                case "4":
                     view.traCuuView(SCANNER, quanLyThucAn);
                     break;
-                }
-                case "5": {
-                    System.out.println("====================================");
-
-                    return;
-                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -328,32 +276,26 @@ public class App {
             System.out.println("2. Cap nhat thuc uong");
             System.out.println("3. Xoa thuc uong");
             System.out.println("4. Tra cuu thuc uong");
-            System.out.println("5. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
+                case "0":
+                    System.out.println("====================================");
+                    return;
+                case "1":
                     view.themView(SCANNER, quanLyThucUong);
                     break;
-                }
-                case "2": {
+                case "2":
                     view.capNhatView(SCANNER, quanLyThucUong);
                     break;
-                }
-                case "3": {
+                case "3":
                     view.xoaView(SCANNER, quanLyThucUong);
                     break;
-                }
-                case "4": {
+                case "4":
                     view.traCuuView(SCANNER, quanLyThucUong);
                     break;
-                }
-                case "5": {
-                    System.out.println("====================================");
-
-                    return;
-                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -370,20 +312,17 @@ public class App {
         while (true) {
             System.out.println("Quan ly gia thue");
             System.out.println("1. Them gia thue");
-            System.out.println("2. Tro lai");
+            System.out.println("0. Tro lai");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (SCANNER.nextLine()) {
-                case "1": {
+                case "0":
+                    System.out.println("====================================");
+                    return;
+                case "1":
                     view.themView(SCANNER, quanLyGiaThue);
                     break;
-                }
-                case "2": {
-                    System.out.println("====================================");
-
-                    return;
-                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");

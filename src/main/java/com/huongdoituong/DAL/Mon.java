@@ -15,6 +15,7 @@ public abstract class Mon {
     abstract protected int nextId();
 
     public Mon() {
+
     }
 
     public Mon(String ten, BigDecimal gia) {

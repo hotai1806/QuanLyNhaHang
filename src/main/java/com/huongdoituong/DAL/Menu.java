@@ -35,12 +35,4 @@ public class Menu {
     public List<ThucUong> getListThucUong() {
         return this.listThucUong;
     }
-
-    public ThucAn timThucAn(int ma) {
-        return this.listThucAn.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
-    }
-
-    public ThucUong timThucUong(int ma) {
-        return this.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
-    }
 }

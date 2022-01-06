@@ -33,6 +33,7 @@ public class DichVu {
     }
 
     public DichVu() {
+        
     }
 
     public void capNhat(Scanner scanner) {
@@ -60,7 +61,7 @@ public class DichVu {
         printWriter.println(this.getGia());
     }
 
-    public void doc(Scanner scanner, int maDichVu,String tenDichVu) {
+    public void doc(Scanner scanner, int maDichVu, String tenDichVu) {
         this.setTen(tenDichVu);
         this.setMa(maDichVu);
         int lenghtKey = Integer.parseInt(scanner.nextLine());
@@ -77,7 +78,6 @@ public class DichVu {
 
     public void setMa(int ma) {
         this.ma = ma;
-
     }
 
     public Hashtable<String, String> getLuaChonDieuKien() {
@@ -118,5 +118,9 @@ public class DichVu {
         }
 
         System.out.println("Gia dich vu: " + this.getGia());
+    }
+
+    public static void setAutoIncreament(int count) {
+        autoIncrement = count;
     }
 }

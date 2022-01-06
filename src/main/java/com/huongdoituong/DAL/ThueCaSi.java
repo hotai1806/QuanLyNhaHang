@@ -29,13 +29,13 @@ public class ThueCaSi extends DichVu {
     }
 
     @Override
-    public void ghi(PrintWriter printWriter){
+    public void ghi(PrintWriter printWriter) {
         super.ghi(printWriter);
         printWriter.println(this.getTenCaSi());
         printWriter.println(this.getSoLuongBai());
     }
 
-    public void doc(Scanner scanner,int maDichVu){
+    public void doc(Scanner scanner, int maDichVu) {
         this.setMa(maDichVu);
         this.setGia(new BigDecimal(scanner.nextLine()));
         this.setTenCaSi(scanner.nextLine());
@@ -50,13 +50,11 @@ public class ThueCaSi extends DichVu {
 
         System.out.print("So bai hat: ");
         this.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
-        
+
         System.out.print("Gia: ");
         this.setGia(new BigDecimal(scanner.nextLine()));
-        
-    }
 
-    
+    }
 
     @Override
     public void hienThi() {

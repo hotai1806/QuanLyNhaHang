@@ -1,5 +1,6 @@
 package com.huongdoituong.Views;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
@@ -236,8 +237,8 @@ public class ViewThue {
         System.out.println("====================================");
 
         // Them don gia thue sanh -------------------------------------------------
-        sanhCuoi.setGia(quanLyGiaThue.getGia(thongTinThue.getNgayThueString()));
-        thongTinThue.setDonGiaThueSanh(sanhCuoi.getGia());
+        BigDecimal giaThue = sanhCuoi.getGiaThue(thongTinThue.getNgayThueString(), quanLyGiaThue).getGiaThue();
+        thongTinThue.setDonGiaThueSanh(giaThue);
 
         return sanhCuoi;
     }

@@ -17,6 +17,10 @@ public class ThucUong extends Mon {
         super(ten, gia);
     }
 
+    public ThucUong() {
+        
+    }
+
     protected int nextId() {
         return ++maThucUong;
     }
@@ -29,14 +33,15 @@ public class ThucUong extends Mon {
 
     }
 
-    public ThucUong() {
-    }
-
     public String getHangSanXuat() {
         return this.hangSanXuat;
     }
 
     public void setHangSanXuat(String hangSanXuat) {
         this.hangSanXuat = hangSanXuat;
+    }
+
+    public static void setMaThucUong(int maTU) {
+        maThucUong = maTU;
     }
 }

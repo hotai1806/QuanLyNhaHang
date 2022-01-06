@@ -1,0 +1,66 @@
+1
+ABC
+24/12/1999
+sang
+S001
+2800000
+Menu
+Thuc an
+Ga
+.
+Thuc uong
+Coca
+.
+Menu
+Thuc an
+Ga
+.
+Thuc uong
+Coca
+.
+Menu
+Thuc an
+Ga
+.
+Thuc uong
+Coca
+.
+180000
+Dich vu
+Trang tri
+.
+100000
+2
+b
+02/02/1999
+chieu
+S002
+2000000
+Menu
+Thuc an
+Ga
+.
+Thuc uong
+Coca
+.
+60000
+Dich vu
+.
+0
+3
+p
+01/01/1999
+toi
+S002
+2000000
+Menu
+Thuc an
+Ca
+.
+Thuc uong
+Coca
+.
+90000
+Dich vu
+.
+0

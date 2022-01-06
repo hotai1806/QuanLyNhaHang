@@ -4,24 +4,25 @@ import java.math.BigDecimal;
 
 public class ThucAn extends Mon {
     private static int maThucAn = 0;
+    private static int autoIncrement;
 
     private boolean monChay;
-    static int autoIncrement;
 
     public ThucAn(String ten, BigDecimal gia) {
         super(ten, gia);
-    }
-
-    protected int nextId() {
-        return ++maThucAn;
     }
 
     public ThucAn(String ten, BigDecimal gia, boolean monChay) {
         super(ten, gia);
         this.monChay = monChay;
     }
-
+    
     public ThucAn() {
+        
+    }
+    
+    protected int nextId() {
+        return ++maThucAn;
     }
 
     public void hienThi() {
@@ -45,4 +46,7 @@ public class ThucAn extends Mon {
         this.monChay = monChay;
     }
 
+    public static void setMaThucAn(int maTA) {
+        maThucAn = maTA;
+    }
 }

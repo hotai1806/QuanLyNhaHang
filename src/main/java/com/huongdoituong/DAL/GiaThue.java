@@ -7,9 +7,9 @@ import java.util.Date;
 
 public class GiaThue {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM");
-    
+
     public static int dem = 0;
-    
+
     private int maGiaThue;
     private String ten;
     private Date ngayThue;
@@ -22,6 +22,10 @@ public class GiaThue {
 
     public String getTen() {
         return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public int getMaGiaThue() {
@@ -50,9 +54,5 @@ public class GiaThue {
         } else {
             this.ngayThue = DATE_FORMATER.parse(ngayThue);
         }
-    }
-
-    public void setTen(String ten) {
-        this.ten = ten;
     }
 }
