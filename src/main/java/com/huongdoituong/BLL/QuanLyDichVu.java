@@ -25,7 +25,13 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
         return QuanLyDichVu.dsDichVu.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
-    public static List<DichVu> timByTen(String ten) {
+    public static DichVu timByTen(String ten) {
+        return QuanLyDichVu.dsDichVu.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten))
+                .findFirst().orElse(null);
+    }
+
+    public List<DichVu> traCuuByTen(String ten) {
         return QuanLyDichVu.dsDichVu.stream()
                 .filter(p -> p.getTen().equalsIgnoreCase(ten)).collect(Collectors.toList());
     }

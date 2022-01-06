@@ -171,7 +171,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     String dichVuStringCheck = scanner.nextLine();
                     while (!dichVuStringCheck.equals(".")) {
                         if (!dichVuStringCheck.equals("Dich vu")) {
-                            thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck).get(0));
+                            thongTinThue.getDichVu().add(QuanLyDichVu.timByTen(dichVuStringCheck));
                         }
 
                         dichVuStringCheck = scanner.nextLine();

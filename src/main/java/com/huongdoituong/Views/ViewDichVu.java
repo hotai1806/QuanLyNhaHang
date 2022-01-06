@@ -124,7 +124,7 @@ public class ViewDichVu implements ViewBase<QuanLyDichVu> {
     public void traCuuView(Scanner scanner, QuanLyDichVu quanLyDichVu) {
         System.out.println("====================================");
         System.out.print("Nhap tu khoa can tim: ");
-        List<DichVu> dichVu = QuanLyDichVu.timByTen(scanner.nextLine());
+        List<DichVu> dichVu = quanLyDichVu.traCuuByTen(scanner.nextLine());
 
         if (dichVu.size() == 0) {
             quanLyDichVu.hienThi();
