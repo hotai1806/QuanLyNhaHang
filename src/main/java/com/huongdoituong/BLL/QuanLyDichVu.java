@@ -2,6 +2,7 @@ package com.huongdoituong.BLL;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -57,26 +58,36 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
                     switch (tenDichVu) {
                         case "Karaoke":
                             Karaoke karaoke = new Karaoke();
-                            karaoke.doc(scanner, maDichVu);
+                            karaoke.setMa(maDichVu);
+                            karaoke.setGia(new BigDecimal(scanner.nextLine()));
+                            karaoke.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
                             QuanLyDichVu.dsDichVu.add(karaoke);
 
                             break;
                         case "Thue Ca Si":
                             ThueCaSi thueCaSi = new ThueCaSi();
-                            thueCaSi.doc(scanner, maDichVu);
+                            thueCaSi.setMa(maDichVu);
+                            thueCaSi.setGia(new BigDecimal(scanner.nextLine()));
+                            thueCaSi.setTenCaSi(scanner.nextLine());
+                            thueCaSi.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
                             QuanLyDichVu.dsDichVu.add(thueCaSi);
 
                             break;
                         default:
                             DichVu dichVu = new DichVu();
-                            dichVu.doc(scanner, maDichVu, tenDichVu);
+                            dichVu.setTen(tenDichVu);
+                            dichVu.setMa(maDichVu);
+                            int lenghtKey = Integer.parseInt(scanner.nextLine());
+                            for (int i = 0; i < lenghtKey; i++) {
+                                dichVu.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
+                            }
+                            dichVu.setGia(new BigDecimal(scanner.nextLine()));
+
                             QuanLyDichVu.dsDichVu.add(dichVu);
                             continue;
 
                     }
-                    // if (scanner.hasNext()) {
-                    // scanner.nextLine();
-                    // }
+                   
 
                 }
 

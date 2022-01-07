@@ -13,3 +13,12 @@ Trang tri
 Hoa
 Vong hoa cuoi
 100000
+4
+Karaoke
+30
+200.0
+5
+Thue Ca Si
+21122
+Tai
+21312012
