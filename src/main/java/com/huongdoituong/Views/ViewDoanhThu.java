@@ -13,6 +13,7 @@ public class ViewDoanhThu {
         while (!nam.matches(YEAR_REGEX)) {
             System.out.print("Nhap nam can xem doanh thu thang: ");
             nam = scanner.nextLine();
+            System.out.println("------------------------------------");
         }
 
         quanLyThue.xemDoanhThuThang(nam);
@@ -25,6 +26,7 @@ public class ViewDoanhThu {
         while (!nam.matches(YEAR_REGEX)) {
             System.out.print("Nhap nam can xem doanh thu quy: ");
             nam = scanner.nextLine();
+            System.out.println("------------------------------------");
         }
 
         quanLyThue.xemDoanhThuQuy(nam);

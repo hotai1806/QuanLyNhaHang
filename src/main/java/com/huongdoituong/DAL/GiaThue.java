@@ -8,7 +8,7 @@ import java.util.Date;
 public class GiaThue {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM");
 
-    public static int dem = 0;
+    private static int dem = 0;
 
     private int maGiaThue;
     private String ten;
@@ -18,6 +18,10 @@ public class GiaThue {
     {
         this.setMaGiaThue(++dem);
         this.giaThue = new BigDecimal(0);
+    }
+
+    public static void setDem(int dem) {
+        GiaThue.dem = dem;
     }
 
     public String getTen() {

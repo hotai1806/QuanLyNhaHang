@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DichVu {
+    protected static int autoIncrement = 0;
+
     protected int ma = 0;
     protected String ten;
     protected BigDecimal gia;
-    protected static int autoIncrement = 0;
     private Hashtable<String, String> luaChonDieuKien = new Hashtable<>();
     private List<String> storeKey = new ArrayList<>();
 
@@ -19,21 +20,13 @@ public class DichVu {
         this.setMa(++autoIncrement);
     }
 
-    public List<String> getStoreKey() {
-        return this.storeKey;
-    }
-
-    // public void setStoreKey(List<String> storeKey) {
-    // this.storeKey = storeKey;
-    // }
-
     public DichVu(String ten, BigDecimal gia) {
         this.ten = ten;
         this.gia = gia;
     }
 
     public DichVu() {
-        
+
     }
 
     public void capNhat(Scanner scanner) {
@@ -45,6 +38,21 @@ public class DichVu {
         for (int i = 0; i < lenghtKey; i++) {
             this.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
         }
+    }
+
+    public void hienThi() {
+        System.out.println("Ma dich vu: " + String.format("%s", this.getMa()));
+        System.out.println("Ten dich vu: " + this.getTen());
+        if (this.getStoreKey().isEmpty()) {
+            for (String key : this.getStoreKey()) {
+                if (key != null) {
+                    System.out.println(key + ": " + this.getLuaChonDieuKien().get(key));
+
+                }
+            }
+        }
+
+        System.out.println("Gia dich vu: " + this.getGia());
     }
 
     public void ghi(PrintWriter printWriter) {
@@ -71,6 +79,14 @@ public class DichVu {
         this.setGia(new BigDecimal(scanner.nextLine()));
 
     }
+
+    public List<String> getStoreKey() {
+        return this.storeKey;
+    }
+
+    // public void setStoreKey(List<String> storeKey) {
+    // this.storeKey = storeKey;
+    // }
 
     public int getMa() {
         return this.ma;
@@ -103,21 +119,6 @@ public class DichVu {
 
     public void setGia(BigDecimal gia) {
         this.gia = gia;
-    }
-
-    public void hienThi() {
-        System.out.println("Ma dich vu: " + String.format("%s", this.getMa()));
-        System.out.println("Ten dich vu: " + this.getTen());
-        if (this.getStoreKey().isEmpty()) {
-            for (String key : this.getStoreKey()) {
-                if (key != null) {
-                    System.out.println(key + ": " + this.getLuaChonDieuKien().get(key));
-
-                }
-            }
-        }
-
-        System.out.println("Gia dich vu: " + this.getGia());
     }
 
     public static void setAutoIncreament(int count) {

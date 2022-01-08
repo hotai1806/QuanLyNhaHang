@@ -9,46 +9,67 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.SanhCuoi;
-import com.huongdoituong.Utils.IBaseQuanLy;
-import com.huongdoituong.Utils.IDocGhi;
-import com.huongdoituong.Utils.Path;
+
+import com.huongdoituong.Utils.*;
 
 public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> {
-    private static List<SanhCuoi> dsSanhCuoi = new ArrayList<>();
+    private List<SanhCuoi> dsSanhCuoi = new ArrayList<>();
+    private QuanLyGiaThue quanLyGiaThue;
+    
+    public QuanLySanhCuoi(QuanLyGiaThue quanLyGiaThue) {
+        this.quanLyGiaThue = quanLyGiaThue;
 
-    {
         doc(Path.SANH_CUOI.getPath());
+    }
+
+    public List<SanhCuoi> getDSSanhCuoi() {
+        return this.dsSanhCuoi;
+    }
+
+    public SanhCuoi traCuuBangMaSC(String maSC) {
+        return this.dsSanhCuoi.stream()
+                .filter(p -> p.getMaSC().equalsIgnoreCase(maSC))
+                .findFirst().orElse(null);
+    }
+
+    public List<SanhCuoi> traCuuBangTuKhoa(String tuKhoa) {
+        return this.dsSanhCuoi.stream()
+                .filter(p -> p.getTenSC().contains(tuKhoa) ||
+                        Integer.toString(p.getViTri()).contains(tuKhoa) ||
+                        Integer.toString(p.getSucChua()).contains(tuKhoa))
+                .collect(Collectors.toList());
+    }
+
+    public SanhCuoi traCuuBangTen(String tenSC) {
+        return this.dsSanhCuoi.stream()
+                .filter(p -> p.getTenSC().equalsIgnoreCase(tenSC))
+                .findFirst().orElse(null);
+    }
+
+    private List<SanhCuoi> sapXep(List<SanhCuoi> dsSanhCuoi) {
+        List<SanhCuoi> dsSC = new ArrayList<>(this.dsSanhCuoi);
+        dsSC.sort((sc1, sc2) -> sc1.compareTo(sc2));
+
+        return dsSC;
+    }
+
+    private int getMaxDem() {
+        int maxCount = this.dsSanhCuoi.size() - 1;
+        String maxCountString = this.dsSanhCuoi.get(maxCount).getMaSC().substring(1);
+
+        return Integer.parseInt(maxCountString);
     }
 
     @Override
     public boolean them(SanhCuoi item) {
-        QuanLySanhCuoi.dsSanhCuoi.add(item);
+        this.dsSanhCuoi.add(item);
 
-        return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
+        return ghi(Path.SANH_CUOI.getPath(), this.dsSanhCuoi);
     }
 
     @Override
-    public boolean capNhat(String maSc, Scanner scanner) {
-        SanhCuoi sc = traCuuBangMaSC(maSc);
-
-        if (sc != null) {
-            try {
-                System.out.print("Ten: ");
-                sc.setTenSC(scanner.nextLine());
-                System.out.print("Vi tri(tang 1, tang 2): ");
-                sc.setViTri(Integer.parseInt(scanner.nextLine()));
-                System.out.print("Suc chua: ");
-                sc.setSucChua(Integer.parseInt(scanner.nextLine()));
-
-                return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                return false;
-            }
-        }
-
-        return false;
+    public boolean capNhatDS() {
+        return ghi(Path.SANH_CUOI.getPath(), this.dsSanhCuoi);
     }
 
     @Override
@@ -56,41 +77,20 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
         SanhCuoi sc = traCuuBangMaSC(ma);
 
         if (sc != null) {
-            QuanLySanhCuoi.dsSanhCuoi.remove(sc);
+            this.dsSanhCuoi.remove(sc);
 
-            return ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
+            return ghi(Path.SANH_CUOI.getPath(), this.dsSanhCuoi);
         }
 
         return false;
     }
 
     @Override
-    public void hienThi() {
-        for (SanhCuoi sanhCuoi : QuanLySanhCuoi.dsSanhCuoi) {
-            System.out.println("Ma: " + sanhCuoi.getMaSC());
-            System.out.println("Ten: " + sanhCuoi.getTenSC());
-            System.out.println("Vi tri: " + sanhCuoi.getViTri());
-            System.out.println("Suc chua: " + sanhCuoi.getSucChua());
-            System.out.println("------------------------------------");
-        }
-    }
+    public void hienThiDS(List<SanhCuoi> dsSanhCuoi) {
+        List<SanhCuoi> dsSC = sapXep(dsSanhCuoi);
 
-    @Override
-    public void hienThi(List<SanhCuoi> dsSanhCuoi) {
-        if (dsSanhCuoi.isEmpty()) {
-            System.out.println("************************************");
-            System.out.println("Sanh cuoi hien khong co!");
-            System.out.println("************************************");
-
-            return;
-        }
-
-        sapXep(dsSanhCuoi);
-
-        for (SanhCuoi sanhCuoi : dsSanhCuoi) {
-            System.out.println("Ten: " + sanhCuoi.getTenSC());
-            System.out.println("So lan thue: " + sanhCuoi.getSoLanThue());
-            System.out.println("------------------------------------");
+        for (SanhCuoi sanhCuoi : dsSC) {
+            sanhCuoi.hienThi();
         }
     }
 
@@ -110,9 +110,9 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
                     sanhCuoi.setViTri(scanner.nextInt());
                     sanhCuoi.setSoLanThue(scanner.nextInt());
                     sanhCuoi.setSucChua(scanner.nextInt());
-                    sanhCuoi.setDsGiaThue(QuanLyGiaThue.getDSGiaThue());
+                    sanhCuoi.setDsGiaThue(quanLyGiaThue.getDSGiaThue());
 
-                    QuanLySanhCuoi.dsSanhCuoi.add(sanhCuoi);
+                    this.dsSanhCuoi.add(sanhCuoi);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -150,46 +150,5 @@ public class QuanLySanhCuoi implements IDocGhi<SanhCuoi>, IBaseQuanLy<SanhCuoi> 
         }
 
         return false;
-    }
-
-    public static SanhCuoi traCuuBangMaSC(String maSC) {
-        return QuanLySanhCuoi.dsSanhCuoi.stream()
-                .filter(p -> p.getMaSC().equalsIgnoreCase(maSC))
-                .findFirst().orElse(null);
-    }
-
-    public List<SanhCuoi> traCuuBangTuKhoa(String tuKhoa) {
-        return QuanLySanhCuoi.dsSanhCuoi.stream()
-                .filter(p -> p.getTenSC().contains(tuKhoa) ||
-                        Integer.toString(p.getViTri()).contains(tuKhoa) ||
-                        Integer.toString(p.getSucChua()).contains(tuKhoa))
-                .collect(Collectors.toList());
-    }
-
-    public List<SanhCuoi> traCuuTatCa() {
-        return QuanLySanhCuoi.dsSanhCuoi;
-    }
-
-    public SanhCuoi traCuuBangTen(String tenSC) {
-        return QuanLySanhCuoi.dsSanhCuoi.stream()
-                .filter(p -> p.getTenSC().equalsIgnoreCase(tenSC))
-                .findFirst().orElse(null);
-    }
-
-    public void tangSoLanThue(SanhCuoi sanhCuoi) {
-        sanhCuoi.tangSoLanThue();
-
-        ghi(Path.SANH_CUOI.getPath(), QuanLySanhCuoi.dsSanhCuoi);
-    }
-
-    private void sapXep(List<SanhCuoi> dsSanhCuoi) {
-        dsSanhCuoi.sort((sc1, sc2) -> sc1.compareTo(sc2));
-    }
-
-    private int getMaxDem() {
-        int maxCount = QuanLySanhCuoi.dsSanhCuoi.size() - 1;
-        String maxCountString = QuanLySanhCuoi.dsSanhCuoi.get(maxCount).getMaSC().substring(1);
-
-        return Integer.parseInt(maxCountString);
     }
 }

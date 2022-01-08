@@ -12,22 +12,6 @@ public class ThueCaSi extends DichVu {
         this.ten = "Thue Ca Si";
     }
 
-    public String getTenCaSi() {
-        return this.tenCaSi;
-    }
-
-    public void setTenCaSi(String tenCaSi) {
-        this.tenCaSi = tenCaSi;
-    }
-
-    public int getSoLuongBai() {
-        return this.soLuongBai;
-    }
-
-    public void setSoLuongBai(int soLuongBai) {
-        this.soLuongBai = soLuongBai;
-    }
-
     @Override
     public void ghi(PrintWriter printWriter) {
         super.ghi(printWriter);
@@ -72,7 +56,22 @@ public class ThueCaSi extends DichVu {
             }
         }
 
-        System.out.println("Gia dich vu:" + this.getGia());
+        System.out.println("Gia dich vu: " + this.getGia());
     }
 
+    public String getTenCaSi() {
+        return this.tenCaSi;
+    }
+
+    public void setTenCaSi(String tenCaSi) {
+        this.tenCaSi = tenCaSi;
+    }
+
+    public int getSoLuongBai() {
+        return this.soLuongBai;
+    }
+
+    public void setSoLuongBai(int soLuongBai) {
+        this.soLuongBai = soLuongBai;
+    }
 }

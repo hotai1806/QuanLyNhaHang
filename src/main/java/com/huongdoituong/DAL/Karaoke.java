@@ -13,14 +13,6 @@ public class Karaoke extends DichVu {
         this.ten = NAME;
     }
 
-    public double getThoiGianThue() {
-        return this.thoiGianThue;
-    }
-
-    public void setThoiGianThue(double thoiGianThue) {
-        this.thoiGianThue = thoiGianThue;
-    }
-
     @Override
     public void capNhat(Scanner scanner) {
 
@@ -58,6 +50,14 @@ public class Karaoke extends DichVu {
             }
         }
 
-        System.out.println("Gia dich vu:" + this.getGia());
+        System.out.println("Gia dich vu: " + this.getGia());
+    }
+
+    public double getThoiGianThue() {
+        return this.thoiGianThue;
+    }
+
+    public void setThoiGianThue(double thoiGianThue) {
+        this.thoiGianThue = thoiGianThue;
     }
 }

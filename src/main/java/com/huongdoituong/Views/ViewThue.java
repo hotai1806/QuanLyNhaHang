@@ -49,10 +49,10 @@ public class ViewThue {
             thongTinThue.xuatHoaDon();
 
             // Tang so lan thue sanh --------------------------------------------------
-            quanLySanhCuoi.tangSoLanThue(sanhCuoi);
+            quanLySanhCuoi.capNhatDS();
         } catch (Exception e) {
             System.out.println("====================================");
-            System.out.println("Ngay thue khong phu hop!");
+            System.out.println("Loi nhap!");
             System.out.println("====================================");
         }
     }
@@ -66,10 +66,11 @@ public class ViewThue {
 
             switch (scanner.nextLine()) {
                 case "1": {
-                    quanLyDichVu.hienThi();
+                    quanLyDichVu.hienThiDS(quanLyDichVu.getDSDichVu());
 
                     System.out.print("Nhap ma dich vu: ");
                     DichVu dichVu = quanLyDichVu.timById(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("------------------------------------");
 
                     if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
                         thongTinThue.getDichVu().add(dichVu);
@@ -127,10 +128,10 @@ public class ViewThue {
             switch (scanner.nextLine()) {
                 case "1": {
                     System.out.println("------------------------------------");
-                    quanLyThucAn.hienThi();
+                    quanLyThucAn.hienThiDS(quanLyThucAn.getDSThucAn());
 
                     System.out.print("Nhap ten thuc an: ");
-                    menu.themThucAn(QuanLyThucAn.timByTen(scanner.nextLine()).get(0));
+                    menu.themThucAn(quanLyThucAn.timByTen(scanner.nextLine()));
 
                     System.out.println("------------------------------------");
                     continue;
@@ -168,10 +169,10 @@ public class ViewThue {
             switch (scanner.nextLine()) {
                 case "1": {
                     System.out.println("------------------------------------");
-                    quanLyThucUong.hienThi();
+                    quanLyThucUong.hienThiDS(quanLyThucUong.getDSThucUong());
 
                     System.out.print("Nhap ten thuc uong: ");
-                    menu.themThucUong(QuanLyThucUong.timTheoTen(scanner.nextLine()));
+                    menu.themThucUong(quanLyThucUong.timByTen(scanner.nextLine()));
 
                     System.out.println("------------------------------------");
                     continue;
@@ -210,15 +211,24 @@ public class ViewThue {
 
             switch (scanner.nextLine()) {
                 case "1":
-                    quanLySanhCuoi.hienThi(quanLySanhCuoi.traCuuTatCa());
+                    quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
                     chooseCheck = true;
 
                     break;
                 case "2":
                     System.out.print("Nhap tu khoa can tim(ten, suc chua, vi tri...): ");
-                    List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
+                    List<SanhCuoi> dsSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
+                    System.out.println("------------------------------------");
 
-                    quanLySanhCuoi.hienThi(listSanhCuoi);
+                    if (dsSanhCuoi.size() == 0) {
+                        System.out.println("====================================");
+                        System.out.println("Sanh cuoi khong ton tai!");
+                        System.out.println("====================================");
+                        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
+                    } else {
+                        quanLySanhCuoi.hienThiDS(dsSanhCuoi);
+                    }
+                    
                     chooseCheck = true;
 
                     break;

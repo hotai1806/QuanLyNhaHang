@@ -143,19 +143,19 @@ public class ThongTinThue {
     public void setThoiDiemThue(String thoiDiem) throws Exception {
         switch (thoiDiem.toLowerCase().trim()) {
             case "sang":
-            this.setThoiDiemThue(ThoiDiemThue.SANG);
-            break;
+                this.setThoiDiemThue(ThoiDiemThue.SANG);
+                break;
             case "chieu":
-            this.setThoiDiemThue(ThoiDiemThue.CHIEU);
-            break;
+                this.setThoiDiemThue(ThoiDiemThue.CHIEU);
+                break;
             case "toi":
-            this.setThoiDiemThue(ThoiDiemThue.TOI);
-            break;
+                this.setThoiDiemThue(ThoiDiemThue.TOI);
+                break;
             default:
-            throw new Exception("Thoi diem thue hien khong co!!!");
+                throw new Exception("Thoi diem thue hien khong co!!!");
         }
     }
-    
+
     private void setThoiDiemThue(ThoiDiemThue thoiDiemThue) {
         this.thoiDiemThue = thoiDiemThue;
     }

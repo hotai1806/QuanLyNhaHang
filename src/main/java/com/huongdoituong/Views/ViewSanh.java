@@ -35,8 +35,7 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
 
     @Override
     public void xoaView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
-        System.out.println("====================================");
-        quanLySanhCuoi.hienThi();
+        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
 
         System.out.print("Nhap ma sanh cuoi: ");
         if (quanLySanhCuoi.xoa(scanner.nextLine())) {
@@ -52,16 +51,35 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
 
     @Override
     public void capNhatView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
-        System.out.println("====================================");
-        quanLySanhCuoi.hienThi();
+        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
 
         System.out.print("Nhap ma sanh cuoi: ");
-        if (quanLySanhCuoi.capNhat(scanner.nextLine(), scanner)) {
-            System.out.println("------------------------------------");
-            System.out.println("Cap nhat thanh cong!");
-        } else {
-            System.out.println("------------------------------------");
-            System.out.println("Cap nhat khong thanh cong!");
+        SanhCuoi sanhCuoi = quanLySanhCuoi.traCuuBangMaSC(scanner.nextLine());
+        System.out.println("------------------------------------");
+
+        if (sanhCuoi == null) {
+            System.out.println("====================================");
+            System.out.println("Sanh cuoi khong ton tai!");
+            System.out.println("====================================");
+
+            return;
+        }
+
+        try {
+            sanhCuoi.capNhat(scanner);
+
+            if (quanLySanhCuoi.capNhatDS()) {
+                System.out.println("------------------------------------");
+                System.out.println("Cap nhat thanh cong!");
+            } else {
+                System.out.println("------------------------------------");
+                System.out.println("Cap nhat khong thanh cong!");
+
+            }
+        } catch (Exception e) {
+            System.out.println("====================================");
+            System.out.println("**************Loi nhap**************");
+            System.out.println("====================================");
         }
 
         System.out.println("====================================");
@@ -69,10 +87,17 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
 
     @Override
     public void traCuuView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
-        System.out.println("====================================");
-
         System.out.print("Nhap tu khoa can tim: ");
-        List<SanhCuoi> listSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
-        quanLySanhCuoi.hienThi(listSanhCuoi);
+        List<SanhCuoi> dsSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
+        System.out.println("------------------------------------");
+
+        if (dsSanhCuoi.size() == 0) {
+            System.out.println("====================================");
+            System.out.println("Sanh cuoi khong ton tai!");
+            System.out.println("====================================");
+            quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
+        } else {
+            quanLySanhCuoi.hienThiDS(dsSanhCuoi);
+        }
     }
 }

@@ -24,8 +24,9 @@ public class App {
     private static QuanLyThucAn quanLyThucAn = new QuanLyThucAn();
     private static QuanLyThucUong quanLyThucUong = new QuanLyThucUong();
     private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
-    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
-    private static QuanLyThue quanLyThue = new QuanLyThue();
+    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi(quanLyGiaThue);
+    private static QuanLyThue quanLyThue = new QuanLyThue(quanLySanhCuoi, quanLyDichVu,
+            quanLyThucAn, quanLyThucUong);
 
     public static void main(String[] args) {
         while (true) {
@@ -135,10 +136,14 @@ public class App {
                     System.out.println("====================================");
                     return;
                 case "1":
+                    System.out.println("====================================");
                     viewDoanhThu.xemDoanhThuThangView(SCANNER, quanLyThue);
+
                     break;
                 case "2":
-                    viewDoanhThu.xemDoanhThuThangView(SCANNER, quanLyThue);
+                    System.out.println("====================================");
+                    viewDoanhThu.xemDoanhThuQuyView(SCANNER, quanLyThue);
+
                     break;
                 default:
                     System.out.println("====================================");
@@ -168,16 +173,24 @@ public class App {
                     System.out.println("====================================");
                     return;
                 case "1":
+                    System.out.println("====================================");
                     viewSanh.themView(SCANNER, quanLySanhCuoi);
+
                     break;
                 case "2":
+                    System.out.println("====================================");
                     viewSanh.capNhatView(SCANNER, quanLySanhCuoi);
+
                     break;
                 case "3":
+                    System.out.println("====================================");
                     viewSanh.xoaView(SCANNER, quanLySanhCuoi);
+
                     break;
                 case "4":
+                    System.out.println("====================================");
                     viewSanh.traCuuView(SCANNER, quanLySanhCuoi);
+
                     break;
                 default:
                     System.out.println("====================================");
@@ -207,16 +220,24 @@ public class App {
                     System.out.println("====================================");
                     return;
                 case "1":
+                    System.out.println("====================================");
                     view.themView(SCANNER, quanLyDichVu);
+
                     break;
                 case "2":
+                    System.out.println("====================================");
                     view.capNhatView(SCANNER, quanLyDichVu);
+
                     break;
                 case "3":
+                    System.out.println("====================================");
                     view.xoaView(SCANNER, quanLyDichVu);
+
                     break;
                 case "4":
+                    System.out.println("====================================");
                     view.traCuuView(SCANNER, quanLyDichVu);
+
                     break;
                 default:
                     System.out.println("====================================");
@@ -246,16 +267,24 @@ public class App {
                     System.out.println("====================================");
                     return;
                 case "1":
+                    System.out.println("====================================");
                     view.themView(SCANNER, quanLyThucAn);
+
                     break;
                 case "2":
+                    System.out.println("====================================");
                     view.capNhatView(SCANNER, quanLyThucAn);
+
                     break;
                 case "3":
+                    System.out.println("====================================");
                     view.xoaView(SCANNER, quanLyThucAn);
+
                     break;
                 case "4":
+                    System.out.println("====================================");
                     view.traCuuView(SCANNER, quanLyThucAn);
+
                     break;
                 default:
                     System.out.println("====================================");
@@ -285,16 +314,24 @@ public class App {
                     System.out.println("====================================");
                     return;
                 case "1":
+                    System.out.println("====================================");
                     view.themView(SCANNER, quanLyThucUong);
+
                     break;
                 case "2":
+                    System.out.println("====================================");
                     view.capNhatView(SCANNER, quanLyThucUong);
+
                     break;
                 case "3":
+                    System.out.println("====================================");
                     view.xoaView(SCANNER, quanLyThucUong);
+
                     break;
                 case "4":
+                    System.out.println("====================================");
                     view.traCuuView(SCANNER, quanLyThucUong);
+
                     break;
                 default:
                     System.out.println("====================================");
@@ -321,6 +358,7 @@ public class App {
                     System.out.println("====================================");
                     return;
                 case "1":
+                    System.out.println("====================================");
                     view.themView(SCANNER, quanLyGiaThue);
                     break;
                 default:

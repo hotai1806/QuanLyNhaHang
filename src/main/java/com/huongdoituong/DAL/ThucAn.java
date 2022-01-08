@@ -1,10 +1,11 @@
 package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class ThucAn extends Mon {
+    // private static int autoIncrement;
     private static int maThucAn = 0;
-    private static int autoIncrement;
 
     private boolean monChay;
 
@@ -16,13 +17,24 @@ public class ThucAn extends Mon {
         super(ten, gia);
         this.monChay = monChay;
     }
-    
+
     public ThucAn() {
-        
+
     }
-    
+
     protected int nextId() {
         return ++maThucAn;
+    }
+
+    public void capNhat(Scanner scanner) {
+        System.out.print("Ten: ");
+        this.setTen(scanner.nextLine());
+
+        System.out.println("Mon co chay khong(1 co, 0 khong):");
+        this.setMonChay(Integer.parseInt(scanner.nextLine()) == 0 ? false : true);
+
+        System.out.print("Gia: ");
+        this.setGia(new BigDecimal(scanner.nextLine()));
     }
 
     public void hienThi() {
@@ -32,6 +44,7 @@ public class ThucAn extends Mon {
             System.out.println("Mon chay");
         }
         System.out.println("Gia: " + this.gia);
+        System.out.println("------------------------------------");
     }
 
     public boolean isMonChay() {

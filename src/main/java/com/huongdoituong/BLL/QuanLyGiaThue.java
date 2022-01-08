@@ -20,77 +20,20 @@ public class QuanLyGiaThue implements IDocGhi<GiaThue> {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM");
     private final Calendar CALENDAR = new GregorianCalendar();
 
-    private static List<GiaThue> dsGiaThue = new ArrayList<>();
+    private List<GiaThue> dsGiaThue = new ArrayList<>();
 
     {
         doc(Path.GIA_THUE.getPath());
     }
 
-    @Override
-    public void doc(String path) {
-        File file = new File(path);
-
-        if (file.exists() && file.length() > 0) {
-            try {
-                Scanner scanner = new Scanner(file);
-
-                while (scanner.hasNext()) {
-                    GiaThue giaThue = new GiaThue();
-
-                    giaThue.setMaGiaThue(scanner.nextInt());
-                    scanner.nextLine();
-
-                    giaThue.setTen(scanner.nextLine());
-                    giaThue.setNgayThue(scanner.nextLine());
-                    giaThue.setGiaThue(scanner.nextBigDecimal());
-
-                    QuanLyGiaThue.dsGiaThue.add(giaThue);
-
-                    if (scanner.hasNext()) {
-                        scanner.nextLine();
-                    }
-                }
-
-                // Lay so cuoi tu ma thue lam bien dem
-                GiaThue.dem = QuanLyGiaThue.dsGiaThue.get(QuanLyGiaThue.dsGiaThue.size() - 1).getMaGiaThue();
-
-                scanner.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public boolean ghi(String path, List<GiaThue> items) {
-        if (!items.isEmpty()) {
-            File file = new File(path);
-
-            try (PrintWriter printWriter = new PrintWriter(file)) {
-                for (GiaThue giaThue : items) {
-                    printWriter.println(giaThue.getMaGiaThue());
-                    printWriter.println(giaThue.getTen());
-                    printWriter.println(giaThue.getNgayThue());
-                    printWriter.println(giaThue.getGiaThue());
-                }
-
-                return true;
-            } catch (FileNotFoundException ex) {
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    public static List<GiaThue> getDSGiaThue() {
-        return dsGiaThue;
+    public List<GiaThue> getDSGiaThue() {
+        return this.dsGiaThue;
     }
 
     public boolean them(GiaThue item) {
-        QuanLyGiaThue.dsGiaThue.add(item);
+        this.dsGiaThue.add(item);
 
-        return ghi(Path.GIA_THUE.getPath(), QuanLyGiaThue.dsGiaThue);
+        return ghi(Path.GIA_THUE.getPath(), this.dsGiaThue);
     }
 
     public GiaThue getGiaThue(String ngayThue) throws ParseException {
@@ -127,5 +70,62 @@ public class QuanLyGiaThue implements IDocGhi<GiaThue> {
 
     private String getNgayVaThangThue(String ngayThue) {
         return ngayThue.substring(0, 5);
+    }
+
+    @Override
+    public void doc(String path) {
+        File file = new File(path);
+
+        if (file.exists() && file.length() > 0) {
+            try {
+                Scanner scanner = new Scanner(file);
+
+                while (scanner.hasNext()) {
+                    GiaThue giaThue = new GiaThue();
+
+                    giaThue.setMaGiaThue(scanner.nextInt());
+                    scanner.nextLine();
+
+                    giaThue.setTen(scanner.nextLine());
+                    giaThue.setNgayThue(scanner.nextLine());
+                    giaThue.setGiaThue(scanner.nextBigDecimal());
+
+                    this.dsGiaThue.add(giaThue);
+
+                    if (scanner.hasNext()) {
+                        scanner.nextLine();
+                    }
+                }
+
+                // Lay so cuoi tu ma thue lam bien dem
+                GiaThue.setDem(this.dsGiaThue.get(this.dsGiaThue.size() - 1).getMaGiaThue());
+
+                scanner.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public boolean ghi(String path, List<GiaThue> items) {
+        if (!items.isEmpty()) {
+            File file = new File(path);
+
+            try (PrintWriter printWriter = new PrintWriter(file)) {
+                for (GiaThue giaThue : items) {
+                    printWriter.println(giaThue.getMaGiaThue());
+                    printWriter.println(giaThue.getTen());
+                    printWriter.println(giaThue.getNgayThue());
+                    printWriter.println(giaThue.getGiaThue());
+                }
+
+                return true;
+            } catch (FileNotFoundException ex) {
+                return false;
+            }
+        }
+
+        return false;
     }
 }

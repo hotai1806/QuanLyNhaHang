@@ -12,16 +12,18 @@ public abstract class Mon {
         // this.setMa(++autoIncrement);
     }
 
-    abstract protected int nextId();
-
     public Mon() {
-
+        
     }
-
+    
     public Mon(String ten, BigDecimal gia) {
         this.ten = ten;
         this.gia = gia;
     }
+    
+    public abstract void hienThi();
+    
+    protected abstract int nextId();
 
     public int getMa() {
         return this.ma;
@@ -46,6 +48,4 @@ public abstract class Mon {
     public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
-
-    public abstract void hienThi();
 }
