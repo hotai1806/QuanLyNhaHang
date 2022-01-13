@@ -26,18 +26,8 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     private final Calendar CALENDAR = new GregorianCalendar();
 
     private List<ThongTinThue> dsThongTinThue = new ArrayList<>();
-    private QuanLySanhCuoi quanLySanhCuoi;
-    private QuanLyDichVu quanLyDichVu;
-    private QuanLyThucAn quanLyThucAn;
-    private QuanLyThucUong quanLyThucUong;
 
-    public QuanLyThue(QuanLySanhCuoi quanLySanhCuoi, QuanLyDichVu quanLyDichVu,
-            QuanLyThucAn quanLyThucAn, QuanLyThucUong quanLyThucUong) {
-        this.quanLySanhCuoi = quanLySanhCuoi;
-        this.quanLyDichVu = quanLyDichVu;
-        this.quanLyThucAn = quanLyThucAn;
-        this.quanLyThucUong = quanLyThucUong;
-
+    {
         doc(Path.THONG_TIN_THUE.getPath());
     }
 
@@ -47,7 +37,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
         return ghi(Path.THONG_TIN_THUE.getPath(), this.dsThongTinThue);
     }
 
-    public void xemDoanhThuThang(String nam) {
+    public void getDoanhThuThang(String nam) {
         try {
             CALENDAR.setTime(DATE_FORMATER.parse(nam));
             List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
@@ -70,7 +60,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
         }
     }
 
-    public void xemDoanhThuQuy(String nam) {
+    public void getDoanhThuQuy(String nam) {
         try {
             CALENDAR.setTime(DATE_FORMATER.parse(nam));
             List<ThongTinThue> dsThongTinThue = getThongTinThueTheoNam(CALENDAR.get(Calendar.YEAR));
@@ -136,13 +126,13 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                 while (scanner.hasNext()) {
                     ThongTinThue thongTinThue = new ThongTinThue();
 
-                    thongTinThue.setMaThue(scanner.nextInt());
+                    thongTinThue.setMa(scanner.nextInt());
                     scanner.nextLine();
 
-                    thongTinThue.setTenTiec(scanner.nextLine());
+                    thongTinThue.setTen(scanner.nextLine());
                     thongTinThue.setNgayThue(scanner.nextLine());
                     thongTinThue.setThoiDiemThue(scanner.nextLine());
-                    thongTinThue.setSanhCuoi(quanLySanhCuoi.traCuuBangMaSC(scanner.nextLine()));
+                    thongTinThue.setSanhCuoi(QuanLySanhCuoi.timByMa(scanner.nextLine()));
 
                     thongTinThue.setDonGiaThueSanh(scanner.nextBigDecimal());
                     scanner.nextLine();
@@ -156,7 +146,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         String thucAnStringCheck = scanner.nextLine();
                         while (!thucAnStringCheck.equals(".")) {
                             if (!thucAnStringCheck.equals("Thuc an")) {
-                                menu.themThucAn(quanLyThucAn.timById(Integer.parseInt(thucAnStringCheck)));
+                                menu.themThucAn(QuanLyThucAn.timByMa(Integer.parseInt(thucAnStringCheck)));
                             }
 
                             thucAnStringCheck = scanner.nextLine();
@@ -166,8 +156,8 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                         String thucUongStringCheck = scanner.nextLine();
                         while (!thucUongStringCheck.equals(".")) {
                             if (!thucUongStringCheck.equals("Thuc uong")) {
-                                menu.themThucUong(quanLyThucUong
-                                        .timById(Integer.parseInt(thucUongStringCheck)));
+                                menu.themThucUong(QuanLyThucUong
+                                        .timByMa(Integer.parseInt(thucUongStringCheck)));
                             }
 
                             thucUongStringCheck = scanner.nextLine();
@@ -183,7 +173,7 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                     while (!dichVuStringCheck.equals(".")) {
                         if (!dichVuStringCheck.equals("Dich vu")) {
                             thongTinThue.getDichVu()
-                                    .add(quanLyDichVu.timById(Integer.parseInt(dichVuStringCheck)));
+                                    .add(QuanLyDichVu.timByMa(Integer.parseInt(dichVuStringCheck)));
                         }
 
                         dichVuStringCheck = scanner.nextLine();
@@ -204,26 +194,26 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
     }
 
     @Override
-    public boolean ghi(String path, List<ThongTinThue> items) {
-        if (!items.isEmpty()) {
+    public boolean ghi(String path, List<ThongTinThue> dsThongTinThue) {
+        if (!dsThongTinThue.isEmpty()) {
             try {
                 File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
-                    for (ThongTinThue thongTinThue : items) {
-                        printWriter.println(thongTinThue.getMaThue());
-                        printWriter.println(thongTinThue.getTenTiec());
+                    for (ThongTinThue thongTinThue : dsThongTinThue) {
+                        printWriter.println(thongTinThue.getMa());
+                        printWriter.println(thongTinThue.getTen());
                         printWriter.println(thongTinThue.getNgayThueString());
                         printWriter.println(thongTinThue.getThoiDiemThue());
-                        printWriter.println(thongTinThue.getSanhCuoi().getMaSC());
+                        printWriter.println(thongTinThue.getSanhCuoi().getMa());
                         printWriter.println(thongTinThue.getDonGiaThueSanh());
 
                         for (Menu menu : thongTinThue.getDSMenu()) {
                             printWriter.println("Menu");
 
                             printWriter.println("Thuc an");
-                            if (!menu.getListThucAn().isEmpty()) {
-                                for (ThucAn thucAn : menu.getListThucAn()) {
+                            if (!menu.getDSThucAn().isEmpty()) {
+                                for (ThucAn thucAn : menu.getDSThucAn()) {
                                     printWriter.println(thucAn.getMa());
                                 }
                             }
@@ -231,8 +221,8 @@ public class QuanLyThue implements IDocGhi<ThongTinThue> {
                             printWriter.println(".");
 
                             printWriter.println("Thuc uong");
-                            if (!menu.getListThucUong().isEmpty()) {
-                                for (ThucUong thucUong : menu.getListThucUong()) {
+                            if (!menu.getDSThucUong().isEmpty()) {
+                                for (ThucUong thucUong : menu.getDSThucUong()) {
                                     printWriter.println(thucUong.getMa());
                                 }
                             }

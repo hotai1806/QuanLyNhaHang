@@ -8,18 +8,18 @@ public class ThucUong extends Mon {
 
     private String hangSanXuat;
 
-    public ThucUong(String ten, BigDecimal gia, String hangSX) {
-        super(ten, gia);
+    // public ThucUong(String ten, BigDecimal gia, String hangSX) {
+    // super(ten, gia);
 
-        this.hangSanXuat = hangSX;
-    }
+    // this.hangSanXuat = hangSX;
+    // }
 
-    public ThucUong(String ten, BigDecimal gia) {
-        super(ten, gia);
-    }
+    // public ThucUong(String ten, BigDecimal gia) {
+    // super(ten, gia);
+    // }
 
     public ThucUong() {
-        
+
     }
 
     protected int nextId() {
@@ -45,15 +45,15 @@ public class ThucUong extends Mon {
         System.out.println("------------------------------------");
     }
 
+    public static void setMaThucUong(int maTU) {
+        maThucUong = maTU;
+    }
+
     public String getHangSanXuat() {
         return this.hangSanXuat;
     }
 
     public void setHangSanXuat(String hangSanXuat) {
         this.hangSanXuat = hangSanXuat;
-    }
-
-    public static void setMaThucUong(int maTU) {
-        maThucUong = maTU;
     }
 }

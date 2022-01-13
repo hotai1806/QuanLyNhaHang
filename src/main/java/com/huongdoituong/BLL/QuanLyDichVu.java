@@ -15,30 +15,30 @@ import com.huongdoituong.DAL.ThueCaSi;
 import com.huongdoituong.Utils.*;
 
 public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
-    private List<DichVu> dsDichVu = new ArrayList<>();
+    private static List<DichVu> dsDichVu = new ArrayList<>();
 
     {
         doc(Path.DICH_VU.getPath());
     }
 
     public List<DichVu> getDSDichVu() {
-        return this.dsDichVu;
+        return QuanLyDichVu.dsDichVu;
     }
 
-    public DichVu timById(int ma) {
-        return this.dsDichVu.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
+    public static DichVu timByMa(int ma) {
+        return QuanLyDichVu.dsDichVu.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public List<DichVu> traCuuByTen(String ten) {
-        return this.dsDichVu.stream()
-                .filter(p -> p.getTen().equalsIgnoreCase(ten)).collect(Collectors.toList());
+        return QuanLyDichVu.dsDichVu.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten))
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean them(DichVu dichVu) {
-        this.dsDichVu.add(dichVu);
-
-        return ghi(Path.DICH_VU.getPath(), this.dsDichVu);
+        QuanLyDichVu.dsDichVu.add(dichVu);
+        return ghi(Path.DICH_VU.getPath(), QuanLyDichVu.dsDichVu);
     }
 
     @Override
@@ -48,20 +48,19 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
 
     @Override
     public boolean xoa(String ma) {
-        DichVu dichVu = timById(Integer.parseInt(ma));
+        DichVu dichVu = timByMa(Integer.parseInt(ma));
         if (dichVu != null) {
-            this.dsDichVu.remove(dichVu);
-            return ghi(Path.DICH_VU.getPath(), this.dsDichVu);
+            QuanLyDichVu.dsDichVu.remove(dichVu);
+            return ghi(Path.DICH_VU.getPath(), QuanLyDichVu.dsDichVu);
         }
 
         return false;
     }
 
     @Override
-    public void hienThiDS(List<DichVu> listDichVu) {
-
-        if (listDichVu.size() != 0) {
-            for (DichVu dichVu : listDichVu) {
+    public void hienThiDS(List<DichVu> dsDichVu) {
+        if (dsDichVu.size() != 0) {
+            for (DichVu dichVu : dsDichVu) {
                 dichVu.hienThi();
                 System.out.println("------------------------------------");
             }
@@ -78,6 +77,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
 
                 while (scanner.hasNext()) {
                     int maDichVu = Integer.parseInt(scanner.nextLine());
+
                     String tenDichVu = scanner.nextLine();
                     switch (tenDichVu) {
                         case "Karaoke":
@@ -85,7 +85,7 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
                             karaoke.setMa(maDichVu);
                             karaoke.setGia(new BigDecimal(scanner.nextLine()));
                             karaoke.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
-                            this.dsDichVu.add(karaoke);
+                            QuanLyDichVu.dsDichVu.add(karaoke);
 
                             break;
                         case "Thue Ca Si":
@@ -94,26 +94,28 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
                             thueCaSi.setGia(new BigDecimal(scanner.nextLine()));
                             thueCaSi.setTenCaSi(scanner.nextLine());
                             thueCaSi.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
-                            this.dsDichVu.add(thueCaSi);
+                            QuanLyDichVu.dsDichVu.add(thueCaSi);
 
                             break;
                         default:
                             DichVu dichVu = new DichVu();
                             dichVu.setTen(tenDichVu);
                             dichVu.setMa(maDichVu);
+
                             int lenghtKey = Integer.parseInt(scanner.nextLine());
                             for (int i = 0; i < lenghtKey; i++) {
                                 dichVu.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
                             }
+                            
                             dichVu.setGia(new BigDecimal(scanner.nextLine()));
 
-                            this.dsDichVu.add(dichVu);
+                            QuanLyDichVu.dsDichVu.add(dichVu);
                             continue;
                     }
                 }
 
                 // Lay so cuoi tu ma dich vu lam bien dem
-                DichVu.setAutoIncreament(this.dsDichVu.get(this.dsDichVu.size() - 1).getMa());
+                DichVu.setAutoIncreament(QuanLyDichVu.dsDichVu.get(QuanLyDichVu.dsDichVu.size() - 1).getMa());
 
                 scanner.close();
             } catch (Exception e) {
@@ -123,13 +125,13 @@ public class QuanLyDichVu implements IDocGhi<DichVu>, IBaseQuanLy<DichVu> {
     }
 
     @Override
-    public boolean ghi(String path, List<DichVu> items) {
-        if (!items.isEmpty()) {
+    public boolean ghi(String path, List<DichVu> dsDichVu) {
+        if (!dsDichVu.isEmpty()) {
             try {
                 File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
-                    for (DichVu dv : items) {
+                    for (DichVu dv : dsDichVu) {
                         dv.ghi(printWriter);
                     }
 

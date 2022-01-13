@@ -9,14 +9,14 @@ public class ThucAn extends Mon {
 
     private boolean monChay;
 
-    public ThucAn(String ten, BigDecimal gia) {
-        super(ten, gia);
-    }
+    // public ThucAn(String ten, BigDecimal gia) {
+    //     super(ten, gia);
+    // }
 
-    public ThucAn(String ten, BigDecimal gia, boolean monChay) {
-        super(ten, gia);
-        this.monChay = monChay;
-    }
+    // public ThucAn(String ten, BigDecimal gia, boolean monChay) {
+    //     super(ten, gia);
+    //     this.monChay = monChay;
+    // }
 
     public ThucAn() {
 
@@ -40,15 +40,17 @@ public class ThucAn extends Mon {
     public void hienThi() {
         System.out.println("Ma: " + this.ma);
         System.out.println("Ten: " + this.ten);
-        if (this.isMonChay()) {
+
+        if (this.getMonChay()) {
             System.out.println("Mon chay");
         }
+        
         System.out.println("Gia: " + this.gia);
         System.out.println("------------------------------------");
     }
 
-    public boolean isMonChay() {
-        return this.monChay;
+    public static void setMaThucAn(int maTA) {
+        maThucAn = maTA;
     }
 
     public boolean getMonChay() {
@@ -57,9 +59,5 @@ public class ThucAn extends Mon {
 
     public void setMonChay(boolean monChay) {
         this.monChay = monChay;
-    }
-
-    public static void setMaThucAn(int maTA) {
-        maThucAn = maTA;
     }
 }

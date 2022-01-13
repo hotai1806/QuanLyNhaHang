@@ -11,29 +11,31 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
 
     private static int dem = 0;
 
-    private String maSC;
-    private String tenSC;
+    private String ma;
+    private String ten;
     private int viTri;
     private int soLanThue;
     private int sucChua;
     private List<GiaThue> dsGiaThue;
 
     {
-        this.setMaSC(String.format(ID_FORMAT, ++dem));
+        this.setMa(String.format(ID_FORMAT, ++dem));
     }
 
     public void capNhat(Scanner scanner) throws Exception {
         System.out.print("Ten: ");
-        this.setTenSC(scanner.nextLine());
+        this.setTen(scanner.nextLine());
+
         System.out.print("Vi tri(tang 1, tang 2): ");
         this.setViTri(Integer.parseInt(scanner.nextLine()));
+
         System.out.print("Suc chua: ");
         this.setSucChua(Integer.parseInt(scanner.nextLine()));
     }
 
     public void hienThi() {
-        System.out.println("Ma: " + this.getMaSC());
-        System.out.println("Ten: " + this.getTenSC());
+        System.out.println("Ma: " + this.getMa());
+        System.out.println("Ten: " + this.getTen());
         System.out.println("Vi tri: " + this.getViTri());
         System.out.println("Suc chua: " + this.getSucChua());
         System.out.println("So lan thue: " + this.getSoLanThue());
@@ -42,32 +44,35 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
 
     @Override
     public int compareTo(SanhCuoi sc) {
-        if (this.getSoLanThue() == sc.getSoLanThue())
+        if (this.getSoLanThue() == sc.getSoLanThue()) {
             return 0;
-        else if (this.getSoLanThue() < sc.getSoLanThue())
+        }
+
+        if (this.getSoLanThue() < sc.getSoLanThue()) {
             return 1;
-        else
-            return -1;
+        }
+
+        return -1;
     }
 
     public static void setDem(int dem) {
         SanhCuoi.dem = dem;
     }
 
-    public String getMaSC() {
-        return maSC;
+    public String getMa() {
+        return ma;
     }
 
-    public void setMaSC(String maSC) {
-        this.maSC = maSC;
+    public void setMa(String ma) {
+        this.ma = ma;
     }
 
-    public String getTenSC() {
-        return tenSC;
+    public String getTen() {
+        return ten;
     }
 
-    public void setTenSC(String tenSC) {
-        this.tenSC = tenSC;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public int getViTri() {
@@ -80,10 +85,6 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
         } else {
             throw new Exception("Chi cho phep 1 hoac 2");
         }
-    }
-
-    public void tangSoLanThue() {
-        this.setSoLanThue(this.getSoLanThue() + 1);
     }
 
     public int getSoLanThue() {
@@ -103,11 +104,7 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
     }
 
     public GiaThue getGiaThue(String ngayThue, QuanLyGiaThue quanLyGiaThue) throws ParseException {
-        return quanLyGiaThue.getGiaThue(ngayThue);
-    }
-
-    public List<GiaThue> getDsGiaThue() {
-        return dsGiaThue;
+        return quanLyGiaThue.getGiaTheoNgay(ngayThue);
     }
 
     public void setDsGiaThue(List<GiaThue> dsGiaThue) {

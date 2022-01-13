@@ -15,9 +15,9 @@ public class ThongTinThue {
 
     public static int dem = 0;
 
-    private int maThue;
-    private String tenTiec;
-    private Date ngayThue;
+    private int ma;
+    private String ten;
+    private Date ngay;
     private ThoiDiemThue thoiDiemThue;
     private SanhCuoi sanhCuoi;
     private BigDecimal donGiaThueSanh;
@@ -27,7 +27,7 @@ public class ThongTinThue {
     private BigDecimal donGiaDichVu;
 
     {
-        this.setMaThue(++dem);
+        this.setMa(++dem);
 
         this.donGiaThueSanh = new BigDecimal(0);
         this.tongDonGiaMenu = new BigDecimal(0);
@@ -38,11 +38,11 @@ public class ThongTinThue {
     }
 
     public void xuatHoaDon() {
-        System.out.println("Ma thue: " + this.getMaThue());
-        System.out.println("Tiec: " + this.getTenTiec());
+        System.out.println("Ma thue: " + this.getMa());
+        System.out.println("Tiec: " + this.getTen());
         System.out.println("Ngay thue: " + this.getNgayThueString());
         System.out.println("Thoi diem thue: " + this.getThoiDiemThue().toString());
-        System.out.println("Sanh cuoi: " + this.getSanhCuoi().getTenSC());
+        System.out.println("Sanh cuoi: " + this.getSanhCuoi().getTen());
         System.out.println("Don gia thue sanh: " + this.getDonGiaThueSanh());
         System.out.println("------------------------------");
 
@@ -50,12 +50,12 @@ public class ThongTinThue {
             System.out.println("Menu ban: " + i);
 
             System.out.print("Thuc an: ");
-            for (ThucAn thucAn : this.getDSMenu().get(i).getListThucAn()) {
+            for (ThucAn thucAn : this.getDSMenu().get(i).getDSThucAn()) {
                 System.out.print(thucAn.getTen() + " ");
             }
 
             System.out.print("\nThuc uong: ");
-            for (ThucUong thucUong : this.getDSMenu().get(i).getListThucUong()) {
+            for (ThucUong thucUong : this.getDSMenu().get(i).getDSThucUong()) {
                 System.out.print(thucUong.getTen() + " ");
             }
 
@@ -86,7 +86,7 @@ public class ThongTinThue {
         return tongGia;
     }
 
-    public boolean kiemTraDichVuTrungLap(DichVu dvCheck) {
+    public boolean checkDichVuTrungLap(DichVu dvCheck) {
         for (DichVu dv : dichVu) {
             if (dvCheck.ten.equals(dv.ten)) {
                 return true;
@@ -108,32 +108,32 @@ public class ThongTinThue {
         return CALENDAR.get(Calendar.YEAR);
     }
 
-    public int getMaThue() {
-        return maThue;
+    public int getMa() {
+        return ma;
     }
 
-    public void setMaThue(int maThue) {
-        this.maThue = maThue;
+    public void setMa(int ma) {
+        this.ma = ma;
     }
 
-    public String getTenTiec() {
-        return tenTiec;
+    public String getTen() {
+        return ten;
     }
 
-    public void setTenTiec(String tenTiec) {
-        this.tenTiec = tenTiec;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public Date getNgayThue() {
-        return ngayThue;
+        return ngay;
     }
 
     public String getNgayThueString() {
-        return DATE_FORMATER.format(ngayThue);
+        return DATE_FORMATER.format(ngay);
     }
 
     public void setNgayThue(String ngayThue) throws ParseException {
-        this.ngayThue = DATE_FORMATER.parse(ngayThue);
+        this.ngay = DATE_FORMATER.parse(ngayThue);
     }
 
     public ThoiDiemThue getThoiDiemThue() {

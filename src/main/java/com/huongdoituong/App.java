@@ -24,9 +24,8 @@ public class App {
     private static QuanLyThucAn quanLyThucAn = new QuanLyThucAn();
     private static QuanLyThucUong quanLyThucUong = new QuanLyThucUong();
     private static QuanLyDichVu quanLyDichVu = new QuanLyDichVu();
-    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi(quanLyGiaThue);
-    private static QuanLyThue quanLyThue = new QuanLyThue(quanLySanhCuoi, quanLyDichVu,
-            quanLyThucAn, quanLyThucUong);
+    private static QuanLySanhCuoi quanLySanhCuoi = new QuanLySanhCuoi();
+    private static QuanLyThue quanLyThue = new QuanLyThue();
 
     public static void main(String[] args) {
         while (true) {

@@ -12,55 +12,54 @@ import com.huongdoituong.DAL.ThucUong;
 import com.huongdoituong.Utils.*;
 
 public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> {
-    private List<ThucUong> dsThucUong = new ArrayList<>();
+    private static List<ThucUong> dsThucUong = new ArrayList<>();
 
     {
         doc(Path.THUC_UONG.getPath());
     }
 
     public List<ThucUong> getDSThucUong() {
-        return this.dsThucUong;
+        return QuanLyThucUong.dsThucUong;
     }
 
-    public ThucUong timById(int ma) {
-        return this.dsThucUong.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
+    public static ThucUong timByMa(int ma) {
+        return QuanLyThucUong.dsThucUong.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public ThucUong timByTen(String ten) {
-        return this.dsThucUong.stream()
+        return QuanLyThucUong.dsThucUong.stream()
                 .filter(p -> p.getTen().equalsIgnoreCase(ten))
                 .findFirst().orElse(null);
     }
 
     @Override
     public boolean them(ThucUong thucUong) {
-        this.dsThucUong.add(thucUong);
-
-        return ghi(Path.THUC_UONG.getPath(), this.dsThucUong);
+        QuanLyThucUong.dsThucUong.add(thucUong);
+        return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.dsThucUong);
     }
 
     @Override
     public boolean capNhatDS() {
-        return ghi(Path.THUC_UONG.getPath(), this.dsThucUong);
+        return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.dsThucUong);
     }
 
     @Override
     public boolean xoa(String ma) {
-        ThucUong thucUong = timById(Integer.parseInt(ma));
-        
+        ThucUong thucUong = timByMa(Integer.parseInt(ma));
+
         if (thucUong != null) {
-            this.dsThucUong.remove(thucUong);
-            return ghi(Path.THUC_UONG.getPath(), this.dsThucUong);
+            QuanLyThucUong.dsThucUong.remove(thucUong);
+            return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.dsThucUong);
         }
 
         return false;
     }
 
     @Override
-    public void hienThiDS(List<ThucUong> listThucUong) {
+    public void hienThiDS(List<ThucUong> dsThucUong) {
 
-        if (listThucUong.size() != 0) {
-            for (ThucUong thucUong : listThucUong) {
+        if (dsThucUong.size() != 0) {
+            for (ThucUong thucUong : dsThucUong) {
                 thucUong.hienThi();
                 System.out.println("------------------------------------");
             }
@@ -86,11 +85,12 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> 
                     scanner.nextLine();
                     thucUong.setHangSanXuat(scanner.nextLine());
 
-                    this.dsThucUong.add(thucUong);
+                    QuanLyThucUong.dsThucUong.add(thucUong);
                 }
 
                 // Lay so cuoi tu ma thuc uong lam bien dem
-                ThucUong.setMaThucUong(this.dsThucUong.get(this.dsThucUong.size() - 1).getMa());
+                ThucUong.setMaThucUong(QuanLyThucUong.dsThucUong.get(
+                        QuanLyThucUong.dsThucUong.size() - 1).getMa());
 
                 scanner.close();
             } catch (Exception e) {
@@ -100,13 +100,13 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> 
     }
 
     @Override
-    public boolean ghi(String path, List<ThucUong> items) {
-        if (!items.isEmpty()) {
+    public boolean ghi(String path, List<ThucUong> dsThucUong) {
+        if (!dsThucUong.isEmpty()) {
             try {
                 File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
-                    for (ThucUong mon : items) {
+                    for (ThucUong mon : dsThucUong) {
                         printWriter.println(mon.getMa());
                         printWriter.println(mon.getTen());
                         printWriter.println(mon.getGia());

@@ -20,30 +20,29 @@ public class QuanLyGiaThue implements IDocGhi<GiaThue> {
     private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM");
     private final Calendar CALENDAR = new GregorianCalendar();
 
-    private List<GiaThue> dsGiaThue = new ArrayList<>();
+    private static List<GiaThue> dsGiaThue = new ArrayList<>();
 
     {
         doc(Path.GIA_THUE.getPath());
     }
 
-    public List<GiaThue> getDSGiaThue() {
-        return this.dsGiaThue;
+    public static List<GiaThue> getDSGiaThue() {
+        return QuanLyGiaThue.dsGiaThue;
     }
 
-    public boolean them(GiaThue item) {
-        this.dsGiaThue.add(item);
-
-        return ghi(Path.GIA_THUE.getPath(), this.dsGiaThue);
+    public boolean them(GiaThue giaThue) {
+        QuanLyGiaThue.dsGiaThue.add(giaThue);
+        return ghi(Path.GIA_THUE.getPath(), QuanLyGiaThue.dsGiaThue);
     }
 
-    public GiaThue getGiaThue(String ngayThue) throws ParseException {
+    public GiaThue getGiaTheoNgay(String ngayThue) throws ParseException {
         String ngayThangThue = getNgayVaThangThue(ngayThue);
-        GiaThue giaThue = traCuuTheoNgayThue(ngayThangThue);
+        GiaThue giaThue = traCuuTheoNgay(ngayThangThue);
 
         return giaThue == null ? getGiaNgayThuong(ngayThangThue) : giaThue;
     }
 
-    private GiaThue traCuuTheoNgayThue(String ngayThangThue) {
+    private GiaThue traCuuTheoNgay(String ngayThangThue) {
         return dsGiaThue.stream()
                 .filter(p -> p.getNgayThue().equals(ngayThangThue))
                 .findFirst().orElse(null);
@@ -83,14 +82,14 @@ public class QuanLyGiaThue implements IDocGhi<GiaThue> {
                 while (scanner.hasNext()) {
                     GiaThue giaThue = new GiaThue();
 
-                    giaThue.setMaGiaThue(scanner.nextInt());
+                    giaThue.setMa(scanner.nextInt());
                     scanner.nextLine();
 
                     giaThue.setTen(scanner.nextLine());
                     giaThue.setNgayThue(scanner.nextLine());
-                    giaThue.setGiaThue(scanner.nextBigDecimal());
+                    giaThue.setGia(scanner.nextBigDecimal());
 
-                    this.dsGiaThue.add(giaThue);
+                    QuanLyGiaThue.dsGiaThue.add(giaThue);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -98,7 +97,7 @@ public class QuanLyGiaThue implements IDocGhi<GiaThue> {
                 }
 
                 // Lay so cuoi tu ma thue lam bien dem
-                GiaThue.setDem(this.dsGiaThue.get(this.dsGiaThue.size() - 1).getMaGiaThue());
+                GiaThue.setDem(QuanLyGiaThue.dsGiaThue.get(QuanLyGiaThue.dsGiaThue.size() - 1).getMa());
 
                 scanner.close();
             } catch (Exception e) {
@@ -108,16 +107,16 @@ public class QuanLyGiaThue implements IDocGhi<GiaThue> {
     }
 
     @Override
-    public boolean ghi(String path, List<GiaThue> items) {
-        if (!items.isEmpty()) {
+    public boolean ghi(String path, List<GiaThue> dsGiaThue) {
+        if (!dsGiaThue.isEmpty()) {
             File file = new File(path);
 
             try (PrintWriter printWriter = new PrintWriter(file)) {
-                for (GiaThue giaThue : items) {
-                    printWriter.println(giaThue.getMaGiaThue());
+                for (GiaThue giaThue : dsGiaThue) {
+                    printWriter.println(giaThue.getMa());
                     printWriter.println(giaThue.getTen());
                     printWriter.println(giaThue.getNgayThue());
-                    printWriter.println(giaThue.getGiaThue());
+                    printWriter.println(giaThue.getGia());
                 }
 
                 return true;

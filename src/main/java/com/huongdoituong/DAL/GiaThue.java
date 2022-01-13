@@ -10,18 +10,26 @@ public class GiaThue {
 
     private static int dem = 0;
 
-    private int maGiaThue;
+    private int ma;
     private String ten;
     private Date ngayThue;
-    private BigDecimal giaThue;
+    private BigDecimal gia;
 
     {
-        this.setMaGiaThue(++dem);
-        this.giaThue = new BigDecimal(0);
+        this.setMa(++dem);
+        this.gia = new BigDecimal(0);
     }
 
     public static void setDem(int dem) {
         GiaThue.dem = dem;
+    }
+
+    public int getMa() {
+        return ma;
+    }
+
+    public void setMa(int ma) {
+        this.ma = ma;
     }
 
     public String getTen() {
@@ -30,22 +38,6 @@ public class GiaThue {
 
     public void setTen(String ten) {
         this.ten = ten;
-    }
-
-    public int getMaGiaThue() {
-        return maGiaThue;
-    }
-
-    public void setMaGiaThue(int maGiaThue) {
-        this.maGiaThue = maGiaThue;
-    }
-
-    public BigDecimal getGiaThue() {
-        return giaThue;
-    }
-
-    public void setGiaThue(BigDecimal giaThue) {
-        this.giaThue = giaThue;
     }
 
     public String getNgayThue() {
@@ -58,5 +50,13 @@ public class GiaThue {
         } else {
             this.ngayThue = DATE_FORMATER.parse(ngayThue);
         }
+    }
+
+    public BigDecimal getGia() {
+        return gia;
+    }
+
+    public void setGia(BigDecimal gia) {
+        this.gia = gia;
     }
 }

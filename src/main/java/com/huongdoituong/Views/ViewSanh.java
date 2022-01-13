@@ -14,9 +14,11 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
             SanhCuoi sanhCuoi = new SanhCuoi();
 
             System.out.print("Ten: ");
-            sanhCuoi.setTenSC(scanner.nextLine());
+            sanhCuoi.setTen(scanner.nextLine());
+
             System.out.print("Vi tri(tang 1, tang 2): ");
             sanhCuoi.setViTri(Integer.parseInt(scanner.nextLine()));
+
             System.out.print("Suc chua: ");
             sanhCuoi.setSucChua(Integer.parseInt(scanner.nextLine()));
 
@@ -34,27 +36,11 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
     }
 
     @Override
-    public void xoaView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
-        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
-
-        System.out.print("Nhap ma sanh cuoi: ");
-        if (quanLySanhCuoi.xoa(scanner.nextLine())) {
-            System.out.println("------------------------------------");
-            System.out.println("Xoa thanh cong!");
-        } else {
-            System.out.println("------------------------------------");
-            System.out.println("Xoa khong thanh cong!");
-        }
-
-        System.out.println("====================================");
-    }
-
-    @Override
     public void capNhatView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
         quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
 
         System.out.print("Nhap ma sanh cuoi: ");
-        SanhCuoi sanhCuoi = quanLySanhCuoi.traCuuBangMaSC(scanner.nextLine());
+        SanhCuoi sanhCuoi = QuanLySanhCuoi.timByMa(scanner.nextLine());
         System.out.println("------------------------------------");
 
         if (sanhCuoi == null) {
@@ -86,6 +72,22 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
     }
 
     @Override
+    public void xoaView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
+        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
+
+        System.out.print("Nhap ma sanh cuoi: ");
+        if (quanLySanhCuoi.xoa(scanner.nextLine())) {
+            System.out.println("------------------------------------");
+            System.out.println("Xoa thanh cong!");
+        } else {
+            System.out.println("------------------------------------");
+            System.out.println("Xoa khong thanh cong!");
+        }
+
+        System.out.println("====================================");
+    }
+
+    @Override
     public void traCuuView(Scanner scanner, QuanLySanhCuoi quanLySanhCuoi) {
         System.out.print("Nhap tu khoa can tim: ");
         List<SanhCuoi> dsSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
@@ -95,6 +97,7 @@ public class ViewSanh implements ViewBase<QuanLySanhCuoi> {
             System.out.println("====================================");
             System.out.println("Sanh cuoi khong ton tai!");
             System.out.println("====================================");
+
             quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
         } else {
             quanLySanhCuoi.hienThiDS(dsSanhCuoi);

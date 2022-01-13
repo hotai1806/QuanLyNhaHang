@@ -13,10 +13,12 @@ public class ViewGiaThue {
 
             System.out.print("Ten: ");
             giaThue.setTen(scanner.nextLine());
+
             System.out.print("Ngay thue: ");
             giaThue.setNgayThue(scanner.nextLine());
+            
             System.out.print("Gia thue: ");
-            giaThue.setGiaThue(new BigDecimal(scanner.nextLine()));
+            giaThue.setGia(new BigDecimal(scanner.nextLine()));
 
             if (quanLyGiaThue.them(giaThue)) {
                 System.out.println("------------------------------------");

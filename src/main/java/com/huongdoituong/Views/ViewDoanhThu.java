@@ -16,7 +16,7 @@ public class ViewDoanhThu {
             System.out.println("------------------------------------");
         }
 
-        quanLyThue.xemDoanhThuThang(nam);
+        quanLyThue.getDoanhThuThang(nam);
         System.out.println("====================================");
     }
 
@@ -29,7 +29,7 @@ public class ViewDoanhThu {
             System.out.println("------------------------------------");
         }
 
-        quanLyThue.xemDoanhThuQuy(nam);
+        quanLyThue.getDoanhThuQuy(nam);
         System.out.println("====================================");
     }
 }

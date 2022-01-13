@@ -12,6 +12,7 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
     public void themView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
         try {
             ThucAn thucAn = new ThucAn();
+
             System.out.print("Ten mon: ");
             thucAn.setTen(scanner.nextLine());
 
@@ -20,6 +21,7 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
 
             System.out.print("Gia: ");
             thucAn.setGia(new BigDecimal(scanner.nextLine()));
+
             if (quanLyThucAn.them(thucAn)) {
                 System.out.println("------------------------------------");
                 System.out.println("Them thanh cong");
@@ -42,7 +44,7 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
         quanLyThucAn.hienThiDS(quanLyThucAn.getDSThucAn());
 
         System.out.print("Nhap ma thuc an: ");
-        ThucAn thucAn = quanLyThucAn.timById(Integer.parseInt(scanner.nextLine()));
+        ThucAn thucAn = QuanLyThucAn.timByMa(Integer.parseInt(scanner.nextLine()));
         System.out.println("------------------------------------");
 
         if (thucAn == null) {
@@ -69,6 +71,7 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
     @Override
     public void xoaView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
         quanLyThucAn.hienThiDS(quanLyThucAn.getDSThucAn());
+
         System.out.print("Nhap ma thuc an: ");
         if (quanLyThucAn.xoa(scanner.nextLine())) {
             System.out.println("------------------------------------");
@@ -84,6 +87,7 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
     @Override
     public void traCuuView(Scanner scanner, QuanLyThucAn quanLyThucAn) {
         System.out.print("Nhap tu khoa can tim: ");
+
         ThucAn thucAn = quanLyThucAn.timByTen(scanner.nextLine());
         System.out.println("------------------------------------");
 
@@ -91,6 +95,7 @@ public class ViewThucAn implements ViewBase<QuanLyThucAn> {
             System.out.println("====================================");
             System.out.println("Thuc an khong ton tai!");
             System.out.println("====================================");
+            
             quanLyThucAn.hienThiDS(quanLyThucAn.getDSThucAn());
         } else {
             thucAn.hienThi();

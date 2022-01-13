@@ -20,20 +20,22 @@ public class DichVu {
         this.setMa(++autoIncrement);
     }
 
-    public DichVu(String ten, BigDecimal gia) {
-        this.ten = ten;
-        this.gia = gia;
-    }
+    // public DichVu(String ten, BigDecimal gia) {
+    //     this.ten = ten;
+    //     this.gia = gia;
+    // }
 
-    public DichVu() {
+    // public DichVu() {
 
-    }
+    // }
 
     public void capNhat(Scanner scanner) {
         System.out.print("Ten: ");
         this.setTen(scanner.nextLine());
+
         System.out.print("Gia: ");
         this.setGia(new BigDecimal(scanner.nextLine()));
+
         int lenghtKey = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < lenghtKey; i++) {
             this.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
@@ -43,16 +45,28 @@ public class DichVu {
     public void hienThi() {
         System.out.println("Ma dich vu: " + String.format("%s", this.getMa()));
         System.out.println("Ten dich vu: " + this.getTen());
+
         if (this.getStoreKey().isEmpty()) {
             for (String key : this.getStoreKey()) {
                 if (key != null) {
                     System.out.println(key + ": " + this.getLuaChonDieuKien().get(key));
-
                 }
             }
         }
 
         System.out.println("Gia dich vu: " + this.getGia());
+    }
+
+    public void doc(Scanner scanner, int ma, String ten) {
+        this.setTen(ten);
+        this.setMa(ma);
+
+        int lenghtKey = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < lenghtKey; i++) {
+            this.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
+        }
+
+        this.setGia(new BigDecimal(scanner.nextLine()));
     }
 
     public void ghi(PrintWriter printWriter) {
@@ -66,27 +80,13 @@ public class DichVu {
                 printWriter.println(this.luaChonDieuKien.get(key));
             }
         }
+
         printWriter.println(this.getGia());
     }
 
-    public void doc(Scanner scanner, int maDichVu, String tenDichVu) {
-        this.setTen(tenDichVu);
-        this.setMa(maDichVu);
-        int lenghtKey = Integer.parseInt(scanner.nextLine());
-        for (int i = 0; i < lenghtKey; i++) {
-            this.setLuaChonDieuKien(scanner.nextLine(), scanner.nextLine());
-        }
-        this.setGia(new BigDecimal(scanner.nextLine()));
-
+    public static void setAutoIncreament(int count) {
+        autoIncrement = count;
     }
-
-    public List<String> getStoreKey() {
-        return this.storeKey;
-    }
-
-    // public void setStoreKey(List<String> storeKey) {
-    // this.storeKey = storeKey;
-    // }
 
     public int getMa() {
         return this.ma;
@@ -94,15 +94,6 @@ public class DichVu {
 
     public void setMa(int ma) {
         this.ma = ma;
-    }
-
-    public Hashtable<String, String> getLuaChonDieuKien() {
-        return this.luaChonDieuKien;
-    }
-
-    public void setLuaChonDieuKien(String key, String value) {
-        this.storeKey.add(key);
-        this.luaChonDieuKien.put(key, value);
     }
 
     public String getTen() {
@@ -121,7 +112,20 @@ public class DichVu {
         this.gia = gia;
     }
 
-    public static void setAutoIncreament(int count) {
-        autoIncrement = count;
+    public Hashtable<String, String> getLuaChonDieuKien() {
+        return this.luaChonDieuKien;
     }
+
+    public void setLuaChonDieuKien(String key, String value) {
+        this.storeKey.add(key);
+        this.luaChonDieuKien.put(key, value);
+    }
+
+    public List<String> getStoreKey() {
+        return this.storeKey;
+    }
+
+    // public void setStoreKey(List<String> storeKey) {
+    //     this.storeKey = storeKey;
+    // }
 }

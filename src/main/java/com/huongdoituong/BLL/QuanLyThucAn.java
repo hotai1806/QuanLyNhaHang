@@ -11,29 +11,29 @@ import com.huongdoituong.DAL.ThucAn;
 import com.huongdoituong.Utils.*;
 
 public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
-    private List<ThucAn> dsThucAn = new ArrayList<>();
+    private static List<ThucAn> dsThucAn = new ArrayList<>();
 
     {
         doc(Path.THUC_AN.getPath());
     }
 
     public List<ThucAn> getDSThucAn() {
-        return this.dsThucAn;
+        return QuanLyThucAn.dsThucAn;
     }
 
-    public ThucAn timById(int ma) {
-        return this.dsThucAn.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
+    public static ThucAn timByMa(int ma) {
+        return QuanLyThucAn.dsThucAn.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
     public ThucAn timByTen(String ten) {
-        return this.dsThucAn.stream()
-                .filter(p -> p.getTen().equalsIgnoreCase(ten)).findFirst().orElse(null);
+        return QuanLyThucAn.dsThucAn.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten))
+                .findFirst().orElse(null);
     }
 
     @Override
-    public boolean them(ThucAn mon) {
-        this.dsThucAn.add(mon);
-
+    public boolean them(ThucAn thucAn) {
+        QuanLyThucAn.dsThucAn.add(thucAn);
         return ghi(Path.THUC_AN.getPath(), dsThucAn);
     }
 
@@ -44,20 +44,20 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
 
     @Override
     public boolean xoa(String ma) {
-        ThucAn thucAn = timById(Integer.parseInt(ma));
+        ThucAn thucAn = timByMa(Integer.parseInt(ma));
         
         if (thucAn != null) {
-            this.dsThucAn.remove(thucAn);
-            return ghi(Path.THUC_AN.getPath(), this.dsThucAn);
+            QuanLyThucAn.dsThucAn.remove(thucAn);
+            return ghi(Path.THUC_AN.getPath(), QuanLyThucAn.dsThucAn);
         }
 
         return false;
     }
 
     @Override
-    public void hienThiDS(List<ThucAn> listThucAn) {
-        if (listThucAn.size() != 0) {
-            for (ThucAn thucAn : listThucAn) {
+    public void hienThiDS(List<ThucAn> dsThucAn) {
+        if (dsThucAn.size() != 0) {
+            for (ThucAn thucAn : dsThucAn) {
                 thucAn.hienThi();
                 System.out.println("------------------------------------");
             }
@@ -83,7 +83,7 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
                     scanner.nextLine();
                     thucAn.setMonChay(scanner.nextBoolean());
 
-                    this.dsThucAn.add(thucAn);
+                    QuanLyThucAn.dsThucAn.add(thucAn);
 
                     if (scanner.hasNext()) {
                         scanner.nextLine();
@@ -91,7 +91,7 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
                 }
 
                 // Lay so cuoi tu ma thuc an lam bien dem
-                ThucAn.setMaThucAn(this.dsThucAn.get(this.dsThucAn.size() - 1).getMa());
+                ThucAn.setMaThucAn(QuanLyThucAn.dsThucAn.get(QuanLyThucAn.dsThucAn.size() - 1).getMa());
 
                 scanner.close();
             } catch (Exception e) {
@@ -101,13 +101,13 @@ public class QuanLyThucAn implements IDocGhi<ThucAn>, IBaseQuanLy<ThucAn> {
     }
 
     @Override
-    public boolean ghi(String path, List<ThucAn> items) {
-        if (!items.isEmpty()) {
+    public boolean ghi(String path, List<ThucAn> dsThucAn) {
+        if (!dsThucAn.isEmpty()) {
             try {
                 File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
-                    for (ThucAn mon : items) {
+                    for (ThucAn mon : dsThucAn) {
                         printWriter.println(mon.getMa());
                         printWriter.println(mon.getTen());
                         printWriter.println(mon.getGia());

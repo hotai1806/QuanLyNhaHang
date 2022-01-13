@@ -5,34 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private List<ThucAn> listThucAn = new ArrayList<ThucAn>();
-    private List<ThucUong> listThucUong = new ArrayList<ThucUong>();
+    private List<ThucAn> dsThucAn = new ArrayList<ThucAn>();
+    private List<ThucUong> dsThucUong = new ArrayList<ThucUong>();
 
     public void themThucAn(ThucAn mon) {
-        this.listThucAn.add(mon);
+        this.dsThucAn.add(mon);
     }
 
     public void themThucUong(ThucUong mon) {
-        this.listThucUong.add(mon);
+        this.dsThucUong.add(mon);
     }
 
     public BigDecimal getTongGia() {
-        BigDecimal tongGiaThucAn = listThucAn.stream()
+        BigDecimal tongGiaThucAn = dsThucAn.stream()
                 .map(p -> p.getGia())
                 .reduce(BigDecimal.ZERO, (x, y) -> x.add(y));
 
-        BigDecimal tongGiaThucUong = listThucUong.stream()
+        BigDecimal tongGiaThucUong = dsThucUong.stream()
                 .map(p -> p.getGia())
                 .reduce(BigDecimal.ZERO, (x, y) -> x.add(y));
 
         return tongGiaThucAn.add(tongGiaThucUong);
     }
 
-    public List<ThucAn> getListThucAn() {
-        return this.listThucAn;
+    public List<ThucAn> getDSThucAn() {
+        return this.dsThucAn;
     }
 
-    public List<ThucUong> getListThucUong() {
-        return this.listThucUong;
+    public List<ThucUong> getDSThucUong() {
+        return this.dsThucUong;
     }
 }

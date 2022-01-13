@@ -24,18 +24,6 @@ public class Karaoke extends DichVu {
     }
 
     @Override
-    public void ghi(PrintWriter printWriter) {
-        super.ghi(printWriter);
-        printWriter.println(this.getThoiGianThue());
-    }
-
-    public void doc(Scanner scanner, int maDichVu) {
-        this.setMa(maDichVu);
-        this.setGia(new BigDecimal(scanner.nextLine()));
-        this.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
-    }
-
-    @Override
     public void hienThi() {
         System.out.println("Ma dich vu: " + String.format("%s", this.getMa()));
         System.out.println("Ten dich vu: " + this.getTen());
@@ -45,12 +33,23 @@ public class Karaoke extends DichVu {
             for (String key : this.getStoreKey()) {
                 if (key != null) {
                     System.out.println(key + ": " + this.getLuaChonDieuKien().get(key));
-
                 }
             }
         }
 
         System.out.println("Gia dich vu: " + this.getGia());
+    }
+
+    public void doc(Scanner scanner, int ma) {
+        this.setMa(ma);
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        this.setThoiGianThue(Double.parseDouble(scanner.nextLine()));
+    }
+
+    @Override
+    public void ghi(PrintWriter printWriter) {
+        super.ghi(printWriter);
+        printWriter.println(this.getThoiGianThue());
     }
 
     public double getThoiGianThue() {

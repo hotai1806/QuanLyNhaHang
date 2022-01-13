@@ -11,8 +11,8 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
     @Override
     public void themView(Scanner scanner, QuanLyThucUong quanLyThucUong) {
         try {
-
             ThucUong thucUong = new ThucUong();
+
             System.out.print("Ten mon: ");
             thucUong.setTen(scanner.nextLine());
 
@@ -43,7 +43,7 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
         quanLyThucUong.hienThiDS(quanLyThucUong.getDSThucUong());
 
         System.out.print("Nhap ma thuc uong: ");
-        ThucUong thucUong = quanLyThucUong.timById(Integer.parseInt(scanner.nextLine()));
+        ThucUong thucUong = QuanLyThucUong.timByMa(Integer.parseInt(scanner.nextLine()));
         System.out.println("------------------------------------");
 
         if (thucUong == null) {
@@ -93,6 +93,7 @@ public class ViewThucUong implements ViewBase<QuanLyThucUong> {
             System.out.println("====================================");
             System.out.println("Thuc uong khong ton tai!");
             System.out.println("====================================");
+            
             quanLyThucUong.hienThiDS(quanLyThucUong.getDSThucUong());
         } else {
             thucUong.hienThi();

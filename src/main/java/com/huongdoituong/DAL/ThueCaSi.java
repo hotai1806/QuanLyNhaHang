@@ -13,22 +13,7 @@ public class ThueCaSi extends DichVu {
     }
 
     @Override
-    public void ghi(PrintWriter printWriter) {
-        super.ghi(printWriter);
-        printWriter.println(this.getTenCaSi());
-        printWriter.println(this.getSoLuongBai());
-    }
-
-    public void doc(Scanner scanner, int maDichVu) {
-        this.setMa(maDichVu);
-        this.setGia(new BigDecimal(scanner.nextLine()));
-        this.setTenCaSi(scanner.nextLine());
-        this.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
-    }
-
-    @Override
     public void capNhat(Scanner scanner) {
-
         System.out.print("Ten Ca Si: ");
         this.setTenCaSi(scanner.nextLine());
 
@@ -51,12 +36,26 @@ public class ThueCaSi extends DichVu {
             for (String key : this.getStoreKey()) {
                 if (key != null) {
                     System.out.println(key + ": " + this.getLuaChonDieuKien().get(key));
-
                 }
             }
         }
 
         System.out.println("Gia dich vu: " + this.getGia());
+    }
+
+    public void doc(Scanner scanner, int maDichVu) {
+        this.setMa(maDichVu);
+        this.setGia(new BigDecimal(scanner.nextLine()));
+        this.setTenCaSi(scanner.nextLine());
+        this.setSoLuongBai(Integer.parseInt(scanner.nextLine()));
+    }
+
+    @Override
+    public void ghi(PrintWriter printWriter) {
+        super.ghi(printWriter);
+        
+        printWriter.println(this.getTenCaSi());
+        printWriter.println(this.getSoLuongBai());
     }
 
     public String getTenCaSi() {

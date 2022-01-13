@@ -41,7 +41,7 @@ public class ViewThue {
             themNgayThue(scanner, thongTinThue);
             themThoiDiemThue(scanner, thongTinThue);
 
-            SanhCuoi sanhCuoi = themSanhCuoiDuocThue(scanner, thongTinThue);
+            SanhCuoi sanhCuoi = themSanh(scanner, thongTinThue);
             themMenuMoiBan(scanner, thongTinThue, sanhCuoi);
             themDichVu(scanner, thongTinThue);
 
@@ -49,6 +49,8 @@ public class ViewThue {
             thongTinThue.xuatHoaDon();
 
             // Tang so lan thue sanh --------------------------------------------------
+            sanhCuoi.setSoLanThue(sanhCuoi.getSoLanThue() + 1);
+
             quanLySanhCuoi.capNhatDS();
         } catch (Exception e) {
             System.out.println("====================================");
@@ -57,34 +59,63 @@ public class ViewThue {
         }
     }
 
-    private void themDichVu(Scanner scanner, ThongTinThue thongTinThue) {
-        while (true) {
-            System.out.println("1. Them dich vu");
-            System.out.println("2. Tiep tuc");
+    private void themTenTiec(Scanner scanner, ThongTinThue thongTinThue) {
+        System.out.print("Ten tiec: ");
+        thongTinThue.setTen(scanner.nextLine());
+        System.out.println("====================================");
+    }
+
+    private void themNgayThue(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
+        System.out.print("Ngay thue: ");
+        thongTinThue.setNgayThue(scanner.nextLine());
+        System.out.println("====================================");
+    }
+
+    private void themThoiDiemThue(Scanner scanner, ThongTinThue thongTinThue) throws Exception {
+        System.out.println("Thoi diem thue: ");
+        System.out.println("Sang");
+        System.out.println("Chieu");
+        System.out.println("Toi");
+        System.out.println("------------------------------------");
+        System.out.print("Nhap thoi diem muon thue: ");
+        thongTinThue.setThoiDiemThue(scanner.nextLine());
+        System.out.println("====================================");
+    }
+
+    private SanhCuoi themSanh(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
+        SanhCuoi sanhCuoi;
+        boolean chooseCheck = false;
+
+        while (!chooseCheck) {
+            System.out.println("1. Danh sach sanh");
+            System.out.println("2. Tim kiem sanh");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (scanner.nextLine()) {
-                case "1": {
-                    quanLyDichVu.hienThiDS(quanLyDichVu.getDSDichVu());
+                case "1":
+                    quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
+                    chooseCheck = true;
 
-                    System.out.print("Nhap ma dich vu: ");
-                    DichVu dichVu = quanLyDichVu.timById(Integer.parseInt(scanner.nextLine()));
+                    break;
+                case "2":
+                    System.out.print("Nhap tu khoa can tim(ten, suc chua, vi tri...): ");
+                    List<SanhCuoi> dsSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
                     System.out.println("------------------------------------");
 
-                    if (!thongTinThue.kiemTraDichVuTrungLap(dichVu)) {
-                        thongTinThue.getDichVu().add(dichVu);
+                    if (dsSanhCuoi.size() == 0) {
+                        System.out.println("====================================");
+                        System.out.println("Sanh cuoi khong ton tai!");
+                        System.out.println("====================================");
+                        
+                        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
                     } else {
-                        System.out.println("Dich vu bi trung!");
+                        quanLySanhCuoi.hienThiDS(dsSanhCuoi);
                     }
+                    
+                    chooseCheck = true;
 
-                    System.out.println("------------------------------------");
-                    continue;
-                }
-                case "2": {
-                    System.out.println("====================================");
-                    return;
-                }
+                    break;
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -93,6 +124,17 @@ public class ViewThue {
                     continue;
             }
         }
+
+        System.out.print("Nhap ten sanh cuoi muon chon: ");
+        sanhCuoi = quanLySanhCuoi.timByTen(scanner.nextLine());
+        thongTinThue.setSanhCuoi(sanhCuoi);
+        System.out.println("====================================");
+
+        // Them don gia thue sanh -------------------------------------------------
+        BigDecimal giaThue = sanhCuoi.getGiaThue(thongTinThue.getNgayThueString(), quanLyGiaThue).getGia();
+        thongTinThue.setDonGiaThueSanh(giaThue);
+
+        return sanhCuoi;
     }
 
     private void themMenuMoiBan(Scanner scanner, ThongTinThue thongTinThue, SanhCuoi sanhCuoi) {
@@ -137,7 +179,7 @@ public class ViewThue {
                     continue;
                 }
                 case "2": {
-                    if (menu.getListThucAn().isEmpty()) {
+                    if (menu.getDSThucAn().isEmpty()) {
                         System.out.println("------------------------------------");
                         System.out.println("*** Danh sach thuc an trong ***");
                         System.out.println("------------------------------------");
@@ -178,7 +220,7 @@ public class ViewThue {
                     continue;
                 }
                 case "2": {
-                    if (menu.getListThucUong().isEmpty()) {
+                    if (menu.getDSThucUong().isEmpty()) {
                         System.out.println("------------------------------------");
                         System.out.println("*** Danh sach thuc uong trong ***");
                         System.out.println("------------------------------------");
@@ -199,39 +241,34 @@ public class ViewThue {
         }
     }
 
-    private SanhCuoi themSanhCuoiDuocThue(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
-        SanhCuoi sanhCuoi;
-        boolean chooseCheck = false;
-
-        while (!chooseCheck) {
-            System.out.println("1. Danh sach sanh");
-            System.out.println("2. Tim kiem sanh");
+    private void themDichVu(Scanner scanner, ThongTinThue thongTinThue) {
+        while (true) {
+            System.out.println("1. Them dich vu");
+            System.out.println("2. Tiep tuc");
             System.out.println("------------------------------------");
             System.out.print("Lua chon: ");
 
             switch (scanner.nextLine()) {
-                case "1":
-                    quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
-                    chooseCheck = true;
+                case "1": {
+                    quanLyDichVu.hienThiDS(quanLyDichVu.getDSDichVu());
 
-                    break;
-                case "2":
-                    System.out.print("Nhap tu khoa can tim(ten, suc chua, vi tri...): ");
-                    List<SanhCuoi> dsSanhCuoi = quanLySanhCuoi.traCuuBangTuKhoa(scanner.nextLine());
+                    System.out.print("Nhap ma dich vu: ");
+                    DichVu dichVu = QuanLyDichVu.timByMa(Integer.parseInt(scanner.nextLine()));
                     System.out.println("------------------------------------");
 
-                    if (dsSanhCuoi.size() == 0) {
-                        System.out.println("====================================");
-                        System.out.println("Sanh cuoi khong ton tai!");
-                        System.out.println("====================================");
-                        quanLySanhCuoi.hienThiDS(quanLySanhCuoi.getDSSanhCuoi());
+                    if (!thongTinThue.checkDichVuTrungLap(dichVu)) {
+                        thongTinThue.getDichVu().add(dichVu);
                     } else {
-                        quanLySanhCuoi.hienThiDS(dsSanhCuoi);
+                        System.out.println("Dich vu bi trung!");
                     }
-                    
-                    chooseCheck = true;
 
-                    break;
+                    System.out.println("------------------------------------");
+                    continue;
+                }
+                case "2": {
+                    System.out.println("====================================");
+                    return;
+                }
                 default:
                     System.out.println("====================================");
                     System.out.println("*** Lua chong khong kha dung ***");
@@ -240,39 +277,5 @@ public class ViewThue {
                     continue;
             }
         }
-
-        System.out.print("Nhap ten sanh cuoi muon chon: ");
-        sanhCuoi = quanLySanhCuoi.traCuuBangTen(scanner.nextLine());
-        thongTinThue.setSanhCuoi(sanhCuoi);
-        System.out.println("====================================");
-
-        // Them don gia thue sanh -------------------------------------------------
-        BigDecimal giaThue = sanhCuoi.getGiaThue(thongTinThue.getNgayThueString(), quanLyGiaThue).getGiaThue();
-        thongTinThue.setDonGiaThueSanh(giaThue);
-
-        return sanhCuoi;
-    }
-
-    private void themThoiDiemThue(Scanner scanner, ThongTinThue thongTinThue) throws Exception {
-        System.out.println("Thoi diem thue: ");
-        System.out.println("Sang");
-        System.out.println("Chieu");
-        System.out.println("Toi");
-        System.out.println("------------------------------------");
-        System.out.print("Nhap thoi diem muon thue: ");
-        thongTinThue.setThoiDiemThue(scanner.nextLine());
-        System.out.println("====================================");
-    }
-
-    private void themNgayThue(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
-        System.out.print("Ngay thue: ");
-        thongTinThue.setNgayThue(scanner.nextLine());
-        System.out.println("====================================");
-    }
-
-    private void themTenTiec(Scanner scanner, ThongTinThue thongTinThue) {
-        System.out.print("Ten tiec: ");
-        thongTinThue.setTenTiec(scanner.nextLine());
-        System.out.println("====================================");
     }
 }
