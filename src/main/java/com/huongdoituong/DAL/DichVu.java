@@ -20,15 +20,6 @@ public class DichVu {
         this.setMa(++autoIncrement);
     }
 
-    // public DichVu(String ten, BigDecimal gia) {
-    //     this.ten = ten;
-    //     this.gia = gia;
-    // }
-
-    // public DichVu() {
-
-    // }
-
     public void capNhat(Scanner scanner) {
         System.out.print("Ten: ");
         this.setTen(scanner.nextLine());

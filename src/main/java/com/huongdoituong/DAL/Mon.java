@@ -11,15 +11,6 @@ public abstract class Mon {
         ma = nextId();
         // this.setMa(++autoIncrement);
     }
-
-    // public Mon() {
-        
-    // }
-    
-    // public Mon(String ten, BigDecimal gia) {
-    //     this.ten = ten;
-    //     this.gia = gia;
-    // }
     
     public abstract void hienThi();
     

@@ -4,19 +4,11 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ThucAn extends Mon {
-    // private static int autoIncrement;
+
     private static int maThucAn = 0;
 
     private boolean monChay;
 
-    // public ThucAn(String ten, BigDecimal gia) {
-    //     super(ten, gia);
-    // }
-
-    // public ThucAn(String ten, BigDecimal gia, boolean monChay) {
-    //     super(ten, gia);
-    //     this.monChay = monChay;
-    // }
 
     public ThucAn() {
 

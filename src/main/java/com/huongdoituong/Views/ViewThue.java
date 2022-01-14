@@ -66,7 +66,7 @@ public class ViewThue {
     }
 
     private void themNgayThue(Scanner scanner, ThongTinThue thongTinThue) throws ParseException {
-        System.out.print("Ngay thue: ");
+        System.out.print("Ngay thue( DD/MM/YYYY): ");
         thongTinThue.setNgayThue(scanner.nextLine());
         System.out.println("====================================");
     }

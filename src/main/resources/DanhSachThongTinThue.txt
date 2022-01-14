@@ -15,3 +15,11 @@ Thuc uong
 Dich vu
 .
 0
+4
+Tai
+20/10/2000
+chieu
+S001
+2000000
+Menu
+Thuc an
