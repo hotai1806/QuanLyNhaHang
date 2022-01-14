@@ -1,0 +1,12 @@
+1
+Ga
+50000
+false
+2
+Bo
+100000
+false
+3
+Ca
+80000
+false

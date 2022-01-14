@@ -3,90 +3,110 @@ package com.huongdoituong.BLL;
 import java.io.File;
 import java.io.PrintWriter;
 
-// import com.huongdoituong.Utils.IDocGhi;
-// import com.huongdoituong.Utils.Path;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import com.huongdoituong.DAL.ThucUong;
-import com.huongdoituong.Utils.IDocGhi;
-import com.huongdoituong.Utils.Path;
 
-public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<ThucUong>{
-    private static List<ThucUong> listThucUong = new ArrayList<>();
-    
-    public QuanLyThucUong(){
-    }
-    public ThucUong tim(int ma){
-        return QuanLyThucUong.listThucUong.stream().filter(p->p.getMa()==ma).findFirst().get();
+import com.huongdoituong.Utils.*;
 
+public class QuanLyThucUong implements IDocGhi<ThucUong>, IBaseQuanLy<ThucUong> {
+    private static List<ThucUong> dsThucUong = new ArrayList<>();
+
+    {
+        doc(Path.THUC_UONG.getPath());
     }
 
-    public static ThucUong timTheoTen(String ten){
-        return QuanLyThucUong.listThucUong.stream().filter(p->p.getTen()==ten).findFirst().get();
-
+    public List<ThucUong> getDSThucUong() {
+        return QuanLyThucUong.dsThucUong;
     }
 
-    public boolean them(ThucUong thucUong){
-        return QuanLyThucUong.listThucUong.add(thucUong);
+    public static ThucUong timByMa(int ma) {
+        return QuanLyThucUong.dsThucUong.stream().filter(p -> p.getMa() == ma).findFirst().orElse(null);
     }
 
-    public static ThucUong timById(int ma) {
-        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getMa() == ma).findFirst().get();
+    public ThucUong timByTen(String ten) {
+        return QuanLyThucUong.dsThucUong.stream()
+                .filter(p -> p.getTen().equalsIgnoreCase(ten))
+                .findFirst().orElse(null);
     }
 
-    public static List<ThucUong> timByTen(String ten) {
-        return QuanLyThucUong.listThucUong.stream().filter(p -> p.getTen() == ten).collect(Collectors.toList());
-
-
+    @Override
+    public boolean them(ThucUong thucUong) {
+        QuanLyThucUong.dsThucUong.add(thucUong);
+        return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.dsThucUong);
     }
-    // public boolean xoa(int ma){
-        
-    //   return  QuanLyThucUong.listThucUong.removeIf(mon-> mon.getMa()==ma);
 
-    // }
+    @Override
+    public boolean capNhatDS() {
+        return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.dsThucUong);
+    }
+
+    @Override
+    public boolean xoa(String ma) {
+        ThucUong thucUong = timByMa(Integer.parseInt(ma));
+
+        if (thucUong != null) {
+            QuanLyThucUong.dsThucUong.remove(thucUong);
+            return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.dsThucUong);
+        }
+
+        return false;
+    }
+
+    @Override
+    public void hienThiDS(List<ThucUong> dsThucUong) {
+
+        if (dsThucUong.size() != 0) {
+            for (ThucUong thucUong : dsThucUong) {
+                thucUong.hienThi();
+                System.out.println("------------------------------------");
+            }
+        }
+    }
 
     @Override
     public void doc(String path) {
-        File file = new File(Path.THUC_UONG.getPath());
+        File file = new File(path);
 
         if (file.exists() && file.length() > 0) {
             try {
                 Scanner scanner = new Scanner(file);
 
                 while (scanner.hasNext()) {
-                    ThucUong mon = new ThucUong();
+                    ThucUong thucUong = new ThucUong();
 
-                    mon.setMa(scanner.nextInt());
+                    thucUong.setMa(scanner.nextInt());
                     scanner.nextLine();
 
-                    mon.setTen(scanner.nextLine());
+                    thucUong.setTen(scanner.nextLine());
+                    thucUong.setGia(scanner.nextBigDecimal());
                     scanner.nextLine();
-                    mon.setGia(scanner.nextBigDecimal());
-                    scanner.nextLine();
-                    mon.setHangSanXuat(scanner.nextLine());
+                    thucUong.setHangSanXuat(scanner.nextLine());
 
-                    scanner.nextLine();
-                    QuanLyThucUong.listThucUong.add(mon);
-
+                    QuanLyThucUong.dsThucUong.add(thucUong);
                 }
+
+                // Lay so cuoi tu ma thuc uong lam bien dem
+                ThucUong.setMaThucUong(QuanLyThucUong.dsThucUong.get(
+                        QuanLyThucUong.dsThucUong.size() - 1).getMa());
+
                 scanner.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
     @Override
-    public boolean ghi(String paths, List<ThucUong> items) {
-        if (!items.isEmpty()) {
+    public boolean ghi(String path, List<ThucUong> dsThucUong) {
+        if (!dsThucUong.isEmpty()) {
             try {
-                File file = new File(Path.THUC_AN.getPath());
+                File file = new File(path);
 
                 try (PrintWriter printWriter = new PrintWriter(file)) {
-                    for (ThucUong mon : items) {
+                    for (ThucUong mon : dsThucUong) {
                         printWriter.println(mon.getMa());
                         printWriter.println(mon.getTen());
                         printWriter.println(mon.getGia());
@@ -102,67 +122,4 @@ public class QuanLyThucUong implements IDocGhi<ThucUong>,BaseInterfaceQuanLy<Thu
 
         return false;
     }
-
-    @Override
-    public void hienThi() {
-        if (QuanLyThucUong.listThucUong.size() != 0) {
-            for (ThucUong thucAn : QuanLyThucUong.listThucUong) {
-                System.out.println("-------------- Dich Vu ----------------");
-                thucAn.hienThi();
-               
-            }
-        }
-
-    }
-
-    @Override
-    public void hienThi(List<ThucUong> listThucUong) {
-
-        if (listThucUong.size() != 0) {
-            System.out.println("-------------- Dich Vu ----------------");
-            for (ThucUong thucUong : listThucUong) {
-                thucUong.hienThi();
-
-
-            }
-        }
-
-    }
-
-    @Override
-    public boolean capNhat(int maThucUong, Scanner scanner) {
-        ThucUong thucAn = timById(maThucUong);
-        if (thucAn != null) {
-            try {
-                System.out.print("Ten: ");
-                thucAn.setTen(scanner.nextLine());
-
-                System.out.println("Hang san xuat:");
-                thucAn.setHangSanXuat(scanner.nextLine());
-
-
-                System.out.print("Gia: ");
-                thucAn.setGia(scanner.nextBigDecimal());
-               
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean xoa(int ma) {
-        ThucUong thucUong = timById(ma);
-        if (thucUong != null) {
-            QuanLyThucUong.listThucUong.remove(thucUong);
-            return ghi(Path.THUC_UONG.getPath(), QuanLyThucUong.listThucUong);
-        }
-        return false;
-    }
-
 }

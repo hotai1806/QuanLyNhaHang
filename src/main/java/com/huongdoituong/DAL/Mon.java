@@ -2,23 +2,20 @@ package com.huongdoituong.DAL;
 
 import java.math.BigDecimal;
 
-public class Mon {
+public abstract class Mon {
     protected int ma = 0;
     protected String ten;
     protected BigDecimal gia;
-    protected static int autoIncrement = 0;
 
     {
-        this.setMa(++autoIncrement);
+        ma = nextId();
+        // this.setMa(++autoIncrement);
     }
+    
+    public abstract void hienThi();
+    
+    protected abstract int nextId();
 
-    public Mon(){
-    }
-
-    public Mon(String ten,BigDecimal gia){
-        this.ten = ten;
-        this.gia = gia;
-    }
     public int getMa() {
         return this.ma;
     }
@@ -42,5 +39,4 @@ public class Mon {
     public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
-
 }

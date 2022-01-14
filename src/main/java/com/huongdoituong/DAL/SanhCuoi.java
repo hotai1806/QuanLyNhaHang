@@ -1,55 +1,78 @@
 package com.huongdoituong.DAL;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Scanner;
+
+import com.huongdoituong.BLL.QuanLyGiaThue;
 
 public class SanhCuoi implements Comparable<SanhCuoi> {
-    private final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
-    private final Calendar CALENDAR = new GregorianCalendar();
-
     private final String ID_FORMAT = "S%03d";
 
-    public static int dem = 0;
+    private static int dem = 0;
 
-    private String maSC;
-    private String tenSC;
+    private String ma;
+    private String ten;
     private int viTri;
     private int soLanThue;
     private int sucChua;
-    private BigDecimal gia;
+    private List<GiaThue> dsGiaThue;
 
     {
-        this.setMaSC(String.format(ID_FORMAT, ++dem));
-        this.setGia(new BigDecimal(0));
+        this.setMa(String.format(ID_FORMAT, ++dem));
+    }
+
+    public void capNhat(Scanner scanner) throws Exception {
+        System.out.print("Ten: ");
+        this.setTen(scanner.nextLine());
+
+        System.out.print("Vi tri(tang 1, tang 2): ");
+        this.setViTri(Integer.parseInt(scanner.nextLine()));
+
+        System.out.print("Suc chua: ");
+        this.setSucChua(Integer.parseInt(scanner.nextLine()));
+    }
+
+    public void hienThi() {
+        System.out.println("Ma: " + this.getMa());
+        System.out.println("Ten: " + this.getTen());
+        System.out.println("Vi tri: " + this.getViTri());
+        System.out.println("Suc chua: " + this.getSucChua());
+        System.out.println("So lan thue: " + this.getSoLanThue());
+        System.out.println("------------------------------------");
     }
 
     @Override
     public int compareTo(SanhCuoi sc) {
-        if (this.getSoLanThue() == sc.getSoLanThue())
+        if (this.getSoLanThue() == sc.getSoLanThue()) {
             return 0;
-        else if (this.getSoLanThue() < sc.getSoLanThue())
+        }
+
+        if (this.getSoLanThue() < sc.getSoLanThue()) {
             return 1;
-        else
-            return -1;
+        }
+
+        return -1;
     }
 
-    public String getMaSC() {
-        return maSC;
+    public static void setDem(int dem) {
+        SanhCuoi.dem = dem;
     }
 
-    public void setMaSC(String maSC) {
-        this.maSC = maSC;
+    public String getMa() {
+        return ma;
     }
 
-    public String getTenSC() {
-        return tenSC;
+    public void setMa(String ma) {
+        this.ma = ma;
     }
 
-    public void setTenSC(String tenSC) {
-        this.tenSC = tenSC;
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public int getViTri() {
@@ -80,29 +103,11 @@ public class SanhCuoi implements Comparable<SanhCuoi> {
         this.sucChua = sucChua;
     }
 
-    public BigDecimal getGia() {
-        return gia;
+    public GiaThue getGiaThue(String ngayThue, QuanLyGiaThue quanLyGiaThue) throws ParseException {
+        return quanLyGiaThue.getGiaTheoNgay(ngayThue);
     }
 
-    public void setGia(BigDecimal gia) {
-        this.gia = gia;
-    }
-
-    public void setGia(String ngayThue) throws ParseException {
-        CALENDAR.setTime(DATE_FORMATER.parse(ngayThue));
-
-        int day = CALENDAR.get(Calendar.DAY_OF_WEEK);
-
-        switch (day) {
-            case Calendar.SATURDAY:
-            case Calendar.SUNDAY:
-                this.gia = GiaThue.CUOI_TUAN.getGiaThue();
-
-                break;
-            default:
-                this.gia = GiaThue.NGAY_THUONG.getGiaThue();
-
-                break;
-        }
+    public void setDsGiaThue(List<GiaThue> dsGiaThue) {
+        this.dsGiaThue = dsGiaThue;
     }
 }

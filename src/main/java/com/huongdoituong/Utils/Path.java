@@ -6,12 +6,17 @@ public enum Path {
         public String getPath() {
             return "src/main/resources/DanhSachSanhCuoi.txt";
         }
-
     },
     THONG_TIN_THUE {
         @Override
         public String getPath() {
             return "src/main/resources/DanhSachThongTinThue.txt";
+        }
+    },
+    GIA_THUE {
+        @Override
+        public String getPath() {
+            return "src/main/resources/DanhSachGiaThue.txt";
         }
     },
     THUC_AN {
@@ -24,12 +29,6 @@ public enum Path {
         @Override
         public String getPath() {
             return "src/main/resources/DanhSachThucUong.txt";
-        }
-    },
-    MENU {
-        @Override
-        public String getPath() {
-            return "src/main/resources/DanhSachMenu.txt";
         }
     },
     DICH_VU {

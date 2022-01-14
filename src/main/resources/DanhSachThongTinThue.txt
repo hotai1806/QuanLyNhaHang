@@ -1,0 +1,25 @@
+1
+A
+02/02/1999
+sang
+S002
+2000000
+Menu
+Thuc an
+1
+.
+Thuc uong
+1
+.
+60000
+Dich vu
+.
+0
+4
+Tai
+20/10/2000
+chieu
+S001
+2000000
+Menu
+Thuc an
